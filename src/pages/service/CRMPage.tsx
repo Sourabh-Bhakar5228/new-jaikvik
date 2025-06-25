@@ -918,7 +918,7 @@ const CRMPage: React.FC = () => {
         {/* Hero Section with Parallax */}
         <motion.section
           ref={heroRef}
-          className="relative bg-cover bg-center h-[75vh] flex items-center justify-center text-center z-10"
+          className="relative bg-cover bg-center h-[60vh] flex items-center justify-center text-center z-10"
           style={{
             backgroundImage: `url('https://img.freepik.com/free-photo/arrange-white-letters-as-crm_1384-19.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740')`,
           }}

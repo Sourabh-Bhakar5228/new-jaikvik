@@ -567,7 +567,7 @@ const ErpPage: React.FC = () => {
         {/* Hero Section */}
         <motion.section
           ref={heroRef}
-          className="relative bg-cover bg-center h-[80vh] flex items-center justify-center text-center"
+          className="relative bg-cover bg-center h-[60vh] flex items-center justify-center text-center"
           style={{
             backgroundImage: `url('https://img.freepik.com/free-vector/hand-drawn-flat-design-erp-illustration_23-2149379505.jpg?uid=R186472209&ga=GA1.2.455755995.1738953&semt=ais_hybrid&w=740')`,
           }}

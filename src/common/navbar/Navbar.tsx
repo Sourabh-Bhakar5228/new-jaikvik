@@ -134,12 +134,26 @@ const Navbar: React.FC = () => {
     setIsOffCanvasOpen(!isOffCanvasOpen);
     document.body.classList.toggle("overflow-hidden");
   };
-
   const toggleSubmenu = (menuKey: string) => {
-    setExpandedMenus((prev) => ({
-      ...prev,
-      [menuKey]: !prev[menuKey],
-    }));
+    if (menuKey === "services") {
+      setExpandedMenus((prev) => ({
+        services: !prev.services,
+        software: false,
+        website: false,
+        digital: false,
+        seo: false,
+        film: false,
+      }));
+    } else {
+      setExpandedMenus((prev) => ({
+        ...prev,
+        software: menuKey === "software" ? !prev.software : false,
+        website: menuKey === "website" ? !prev.website : false,
+        digital: menuKey === "digital" ? !prev.digital : false,
+        seo: menuKey === "seo" ? !prev.seo : false,
+        film: menuKey === "film" ? !prev.film : false,
+      }));
+    }
   };
 
   return (
@@ -341,7 +355,7 @@ const Navbar: React.FC = () => {
               className="text-white hover:text-red-500 transition-colors p-1"
               aria-label="Select language"
             >
-              <svg
+              {/* <svg
                 className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
@@ -354,7 +368,7 @@ const Navbar: React.FC = () => {
                   strokeWidth={2}
                   d="M3 5h12M9 3v2m1.5 10l3-3m0 0l-3-3m3 3H3m12 4h6m-3-2v4"
                 />
-              </svg>
+              </svg> */}
             </button>
             <button
               onClick={toggleOffCanvas}
@@ -708,16 +722,6 @@ const Navbar: React.FC = () => {
                   Admin
                 </Link>
               </li>
-
-              {/* Language Menu */}
-              <li className="language-menu">
-                <button
-                  onClick={toggleTranslateDropdown}
-                  className="w-full text-left px-4 py-3 text-red-500 text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-white transition-all duration-200"
-                >
-                  Language
-                </button>
-              </li>
             </ul>
           </div>
 
@@ -789,7 +793,7 @@ const Navbar: React.FC = () => {
               <p className="text-red-400 text-sm mt-2">{translateError}</p>
             ) : (
               <select
-                className="w-full p-2 border border-gray-600 rounded-md bg-gray-900 text-gray-200 text-sm font-medium focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-400/30"
+                className="w-full p-2 border  border-gray-600 rounded-md bg-gray-900 text-gray-200 text-sm font-medium focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-400/30"
                 defaultValue="en"
                 onChange={(e) => {
                   const select = document.querySelector(

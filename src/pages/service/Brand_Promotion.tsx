@@ -428,7 +428,7 @@ const Brand_Promotion = () => {
 
       <motion.section
         ref={heroRef}
-        className="relative bg-cover bg-center h-[75vh] flex items-center justify-center text-center z-10"
+        className="relative bg-cover bg-center h-[60vh] flex items-center justify-center text-center z-10"
         style={{
           backgroundImage: `url('https://img.freepik.com/free-photo/diverse-people-thinking-planning-marketing-brand-concept_53876-64952.jpg')`,
         }}

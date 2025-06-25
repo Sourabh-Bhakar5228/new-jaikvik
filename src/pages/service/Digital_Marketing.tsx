@@ -633,7 +633,7 @@ const DigitalMarketing: React.FC = () => {
         {/* Hero Section */}
         <motion.section
           ref={heroRef}
-          className="relative bg-cover bg-center h-[80vh] flex items-center justify-center text-center"
+          className="relative bg-cover bg-center h-[60vh] flex items-center justify-center text-center"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?ixlib=rb-4.0.3&auto=format&fit=crop&w=740&q=80')`,
           }}

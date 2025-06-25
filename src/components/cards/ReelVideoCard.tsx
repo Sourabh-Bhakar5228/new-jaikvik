@@ -13,8 +13,20 @@ const ReelVideoCard: React.FC<{
   aspectRatio = "9/16",
   scale = "hover:scale-110",
   poster = "https://img.freepik.com/free-vector/silhouette-crowd-people-with-flags-banners-manifestation_23-2148009667.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740",
+  classname = "",
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const isMobile = useRef(false);
+
+  // Detect mobile device based on window width
+  useEffect(() => {
+    const checkMobile = () => {
+      isMobile.current = window.innerWidth <= 768; // Aligns with Swiper breakpoint
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Adjust video height based on aspect ratio
   useEffect(() => {
@@ -30,6 +42,24 @@ const ReelVideoCard: React.FC<{
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
   }, [aspectRatio]);
+
+  // Handle click to play/pause on mobile
+  const handleVideoClick = () => {
+    if (isMobile.current && videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.muted = false; // Unmute for playback
+        videoRef.current.play().catch((error) => {
+          console.error("Error playing video:", error);
+          videoRef.current!.controls = true; // Fallback to controls if play fails
+          videoRef.current!.muted = true;
+        });
+      } else {
+        videoRef.current.pause();
+        videoRef.current.controls = false;
+        videoRef.current.muted = true;
+      }
+    }
+  };
 
   const handleMouseEnter = async () => {
     if (videoRef.current) {
@@ -56,9 +86,10 @@ const ReelVideoCard: React.FC<{
 
   return (
     <div
-      className={`hover:-translate-y-5 hover:z-[1000] transition-all rounded-md overflow-hidden duration-300 relative w-full ${scale}`}
+      className={`hover:-translate-y-5 hover:z-[1000] transition-all rounded-md overflow-hidden duration-300 relative w-full ${scale} ${classname}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleVideoClick}
     >
       <video
         ref={videoRef}

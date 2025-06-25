@@ -9,18 +9,6 @@ import {
 import AppLayout from "../layouts/AppLayout";
 
 // pages
-const JavaScript = lazy(() => import("../pages/language_page/JavaScript"));
-const Java = lazy(() => import("../pages/language_page/Java"));
-const JQuery = lazy(() => import("../pages/language_page/jQuery"));
-const Laravel = lazy(() => import("../pages/language_page/Laravel"));
-const MongoDB = lazy(() => import("../pages/language_page/MongoDB"));
-const NodeJS = lazy(() => import("../pages/language_page/NodeJS"));
-const Python = lazy(() => import("../pages/language_page/Python"));
-const ReactJS = lazy(() => import("../pages/language_page/ReactJS"));
-const SQL = lazy(() => import("../pages/language_page/SQL"));
-const Wordpress = lazy(() => import("../pages/language_page/Wordpress"));
-const PrivacyPolicy = lazy(() => import("../pages/service/PrivacyPolicy"));
-const Portfolio = lazy(() => import("../pages/service/Portfolio"));
 
 const Home = lazy(() => import("../pages/home/Home"));
 const About = lazy(() => import("../pages/about/About"));
@@ -44,6 +32,18 @@ const YoutubeMetaAds = lazy(() => import("../pages/service/Youtube_Meta_Ads"));
 const Branding = lazy(() => import("../pages/service/Brand_Promotion"));
 const SeoServices = lazy(() => import("../pages/service/Seo_Services"));
 const FilmProduction = lazy(() => import("../pages/service/Film_Production"));
+const JavaScript = lazy(() => import("../pages/language_page/JavaScript"));
+const Java = lazy(() => import("../pages/language_page/Java"));
+const JQuery = lazy(() => import("../pages/language_page/jQuery"));
+const Laravel = lazy(() => import("../pages/language_page/Laravel"));
+const MongoDB = lazy(() => import("../pages/language_page/MongoDB"));
+const NodeJS = lazy(() => import("../pages/language_page/NodeJS"));
+const Python = lazy(() => import("../pages/language_page/Python"));
+const ReactJS = lazy(() => import("../pages/language_page/ReactJS"));
+const SQL = lazy(() => import("../pages/language_page/SQL"));
+const Wordpress = lazy(() => import("../pages/language_page/Wordpress"));
+const PrivacyPolicy = lazy(() => import("../pages/service/PrivacyPolicy"));
+const Portfolio = lazy(() => import("../pages/service/Portfolio"));
 
 const router = createBrowserRouter([
   {
