@@ -36,40 +36,38 @@ const WebDevelopment = () => {
   const [expandedSections, setExpandedSections] = useState<ExpandedSections>(
     {}
   );
-
   const sections: Section[] = [
     {
       id: 0,
-      title: "What Are Web Solutions?",
-      subtitle: "Comprehensive Digital Platforms for Your Business",
+      title: "Introduction to Website Development",
+      subtitle: "The Foundation of Your Online Presence",
       content: (
         <>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Web solutions encompass a range of platforms and tools designed to
-            establish and enhance a business's online presence. These include
-            e-commerce websites, corporate websites, WooCommerce stores, and
-            online portals, each tailored to meet specific business needs.
+            The craft of generating, constructing, and maintaining online
+            websites is known as website development. It encompasses web design,
+            coding, content creation, and focuses on ensuring an optimal user
+            experience. The creation of a website is vital for businesses,
+            organizations, and individuals in this digital age, providing a
+            significant online presence to showcase products and services to a
+            targeted audience.
             <br />
             <br />
-            <strong className="text-blue-300">E-commerce websites</strong>{" "}
-            enable businesses to sell products and services online, offering
-            features like product catalogues, secure payment gateways, and
-            customer management systems.
-            <strong className="text-blue-300"> Corporate websites</strong> serve
-            as digital storefronts for businesses, showcasing their brand,
-            services, and values to build trust and credibility.
-            <strong className="text-blue-300"> WooCommerce</strong>, a powerful
-            WordPress plugin, transforms websites into fully functional online
-            stores with customizable features.
-            <strong className="text-blue-300"> Online portals</strong> act as
-            centralized platforms for users to access information, services, or
-            collaborate, such as customer portals or employee intranet.
+            <strong className="text-blue-300">
+              Relevance in Today’s Climate
+            </strong>
             <br />
+            <strong className="text-blue-300">Digital Presence:</strong> A
+            website acts as a virtual storefront, available 24/7, allowing
+            businesses to secure brand presence and showcase offerings globally.
             <br />
-            At Jaikvik Technology, we offer web solutions that are designed to
-            be scalable, secure, and user-friendly, ensuring seamless
-            integration with existing systems and delivering exceptional user
-            experiences.
+            <strong className="text-blue-300">User Interaction:</strong>{" "}
+            Engaging and interactive websites build trust and credibility by
+            attracting users and fostering meaningful connections.
+            <br />
+            <strong className="text-blue-300">Business Growth:</strong>{" "}
+            Increased website traffic drives sales, enhances visibility, and
+            attracts more customers.
           </p>
           {expandedSections[0] && (
             <motion.span
@@ -78,52 +76,75 @@ const WebDevelopment = () => {
               transition={{ duration: 0.5 }}
               className="block mt-4"
             >
-              Our solutions empower businesses to reach global audiences,
-              streamline operations, and drive growth. For instance, an
-              e-commerce platform can reduce cart abandonment by 20% with
-              personalized recommendations, while a corporate website can
-              increase lead generation by 30% through optimized design and SEO.
+              <strong className="text-blue-300">
+                Features in Web Development
+              </strong>
+              <br />
+              <strong className="text-blue-300">Design:</strong> A
+              well-thought-out layout creates a user-friendly interface that
+              entices visitors.
+              <br />
+              <strong className="text-blue-300">Coding:</strong> Involves script
+              writing and integration using technologies like HTML, CSS,
+              JavaScript, PHP, and SQL to power website functionalities.
+              <br />
+              <strong className="text-blue-300">Content:</strong> Persuasive,
+              up-to-date, and informative texts, images, and multimedia engage
+              the audience.
+              <br />
+              <strong className="text-blue-300">
+                User Experience (UX):
+              </strong>{" "}
+              Easy navigation, fast loading times, and responsive design across
+              all devices ensure seamless communication.
               <br />
               <br />
-              In today's digital era, a robust online presence is critical for
-              business success. Our web solutions combine cutting-edge
-              technology, responsive design, and strategic insights to help
-              businesses stand out in competitive markets. From startups to
-              global enterprises, we deliver tailored solutions that enhance
-              brand visibility and customer engagement.
+              Website development is essential to connect with today’s digitally
+              savvy audiences, whether starting from scratch or enhancing an
+              existing site. It forms the backbone of a successful online
+              presence, driving personal or professional goals.
             </motion.span>
           )}
         </>
       ),
       image:
         "https://img.freepik.com/free-photo/website-development-links-seo-webinar-cyberspace-concept_53876-120953.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740",
-      alt: "Web Solutions",
-      sectionId: "web-solutions",
+      alt: "Website Development",
+      sectionId: "website-development",
     },
     {
       id: 1,
-      title: "What Do Web Solutions Offer?",
-      subtitle: "Powerful Features for Digital Success",
+      title: "Why Use the Right Type of Website?",
+      subtitle: "Aligning Your Website with Business Goals",
       content: (
         <>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Web solutions provide businesses with the tools to create, manage,
-            and optimize their digital presence. Here's an overview of key
-            functionalities:
+            Using the right website type ensures your online presence supports
+            your business objectives, whether it’s increasing sales, creating
+            brand awareness, or engaging communities. A custom-built website
+            tailored to your needs effectively communicates with your audience
+            and aligns with your goals.
             <br />
             <br />
-            <strong className="text-blue-300">E-commerce Functionality</strong>
+            <strong className="text-blue-300">
+              Importance of Matching Website Type to Business Goals
+            </strong>
             <br />
-            E-commerce websites and WooCommerce stores offer product management,
-            secure checkout processes, payment processors, inventory tracking,
-            and customer account management, ensuring efficient business
-            operations.
+            <strong className="text-blue-300">
+              Efficient Communication:
+            </strong>{" "}
+            A well-chosen website type meets audience demands, enhancing user
+            experience.
             <br />
-            <strong className="text-blue-300">Corporate Branding</strong>
+            <strong className="text-blue-300">Optimization:</strong> Aligning
+            your site with desired outcomes increases traffic, conversions, or
+            user satisfaction.
             <br />
-            Corporate websites focus on branding, showcasing company values,
-            services, and achievements to build credibility and attract clients
-            or partners.
+            <strong className="text-blue-300">
+              Cost and Resource Optimization:
+            </strong>{" "}
+            Focus resources on essential features, avoiding unnecessary
+            expenses.
           </p>
           {expandedSections[1] && (
             <motion.span
@@ -132,41 +153,68 @@ const WebDevelopment = () => {
               transition={{ duration: 0.5 }}
               className="block mt-4"
             >
-              <strong className="text-blue-300">Online Portals</strong>
+              <strong className="text-blue-300">
+                General Site Types and Description
+              </strong>
               <br />
-              Portals provide users with centralized access to information or
-              services, such as e-commerce portals, support portals, or employee
-              intranet, improving collaboration and enhancing user engagement.
+              <strong className="text-blue-300">
+                Corporate Websites:
+              </strong>{" "}
+              Establish business professionalism and showcase services offered.
+              <br />
+              <strong className="text-blue-300">
+                E-commerce Websites:
+              </strong>{" "}
+              Facilitate online sales with user-friendly shopping experiences.
+              <br />
+              <strong className="text-blue-300">
+                Portfolio Websites:
+              </strong>{" "}
+              Display creative works for designers, photographers, or artists.
+              <br />
+              <strong className="text-blue-300">Blog Sites:</strong> Share
+              insights, skills, or updates with formatted content.
+              <br />
+              <strong className="text-blue-300">
+                Educational Websites:
+              </strong>{" "}
+              Provide learning resources, courses, or certifications.
+              <br />
+              <strong className="text-blue-300">
+                Media and News Sites:
+              </strong>{" "}
+              Offer news, features, and multimedia reporting.
+              <br />
+              <strong className="text-blue-300">
+                Non-Profit Websites:
+              </strong>{" "}
+              Promote causes and encourage contributions or volunteering.
+              <br />
+              <strong className="text-blue-300">
+                Entertainment Websites:
+              </strong>{" "}
+              Enable music streaming, video watching, or gaming.
+              <br />
+              <strong className="text-blue-300">Landing Pages:</strong> Designed
+              for specific call-to-actions like subscriptions or purchases.
+              <br />
+              <strong className="text-blue-300">
+                Community & Forum Websites:
+              </strong>{" "}
+              Support discussions and community building.
               <br />
               <br />
-              <strong className="text-blue-300">SEO and Analytics Tools</strong>
-              <br />
-              Built-in SEO tools and analytics dashboards provide businesses the
-              ability to optimize content, track visitor behavior, and improve
-              search engine rankings.
-              <br />
-              <br />
-              <strong className="text-blue-300">Responsive Web Design</strong>
-              <br />
-              All our solutions are mobile-friendly, ensuring seamless
-              performance across devices, which is critical as 60% of web
-              traffic comes from mobile users.
-              <br />
-              <br />
-              Jaikvik Technology's solutions include integrations with platforms
-              like payment gateways (e.g., PayPal, Stripe), CRM systems, and
-              marketing automation tools like MailChimp. Features like AI-driven
-              personalization, live chat support, and automated workflows
-              enhance user experience and operational efficiency.
+              Choosing the right website type aligns with your mission, supports
+              your audience, and sets you up for digital success.
             </motion.span>
           )}
         </>
       ),
       image:
         "https://img.freepik.com/premium-photo/website-design-software-provide-snugly-template-online-retail-business_31965-514820.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid",
-      alt: "Web Features",
+      alt: "Website Types",
       reverse: true,
-      sectionId: "web-features",
+      sectionId: "website-types",
     },
     {
       id: 2,
@@ -234,7 +282,7 @@ const WebDevelopment = () => {
               operations.
               <br />
               <br />
-              Jaikvik Technology's web solutions offer robust security, 24/7
+              Jaikvik Technology’s web solutions offer robust security, 24/7
               support, and regular updates to keep your platform competitive.
               Businesses using our e-commerce solutions have seen up to a 40%
               sales growth, while corporate websites have boosted lead
@@ -306,7 +354,7 @@ const WebDevelopment = () => {
               preferences, and loyalty programs, enhancing customer experiences.
               <br />
               <br />
-              Jaikvik Technology's web solutions are customized to meet
+              Jaikvik Technology’s web solutions are customized to meet
               industry-specific requirements. For example, a retail e-commerce
               store reduced cart abandonment by 25% with our automated email
               campaigns, while a healthcare portal cut appointment no-shows by
@@ -324,25 +372,31 @@ const WebDevelopment = () => {
     {
       id: 4,
       title: "E-commerce Websites",
-      subtitle: "Powerful Online Selling Platforms",
+      subtitle: "Empowering Online Sales",
       content: (
         <>
           <p className="text-gray-300 leading-relaxed mb-4">
-            E-commerce websites are robust platforms that enable businesses to
-            sell products and services online, reaching customers worldwide.
-            These websites come equipped with essential tools to streamline
-            online selling:
+            E-commerce websites are essential platforms for businesses to sell
+            products or services online, reaching global audiences. They
+            integrate key features to streamline transactions and enhance
+            customer experiences.
             <br />
             <br />
-            <strong className="text-blue-300">Key Features:</strong>
-            <br />● <strong>Product Management:</strong> Easily manage product
-            listings, categories, and variations.
-            <br />● <strong>Secure Payments:</strong> Integration with trusted
-            payment gateways like Stripe and PayPal ensures secure transactions.
-            <br />● <strong>Customer Accounts:</strong> Enable customers to
-            create accounts, track orders, and save preferences.
-            <br />● <strong>Cart and Checkout:</strong> Optimized checkout
-            processes minimize cart abandonment.
+            <strong className="text-blue-300">Purpose</strong>
+            <br />
+            <strong className="text-blue-300">Showcase Offerings:</strong>{" "}
+            Display products or services attractively and systematically.
+            <br />
+            <strong className="text-blue-300">
+              Simplify Transactions:
+            </strong>{" "}
+            Enable easy purchasing processes for customers.
+            <br />
+            <strong className="text-blue-300">Global Reach:</strong> Cater to
+            local and international markets.
+            <br />
+            <strong className="text-blue-300">Customer Data:</strong> Analyze
+            user behavior through analytics to improve marketing strategies.
           </p>
           {expandedSections[4] && (
             <motion.span
@@ -351,21 +405,31 @@ const WebDevelopment = () => {
               transition={{ duration: 0.5 }}
               className="block mt-4"
             >
-              <strong className="text-blue-300">Benefits:</strong>
-              <br />● <strong>Global Reach:</strong> Sell to customers worldwide
-              without the limitations of physical stores.
-              <br />● <strong>Personalization:</strong> AI-driven
-              recommendations boost sales by up to 15%.
-              <br />● <strong>Scalability:</strong> Easily handle growing
-              product catalogs and traffic.
-              <br />● <strong>Analytics:</strong> Track sales, customer
-              behavior, and inventory in real-time.
+              <strong className="text-blue-300">Features</strong>
+              <br />
+              <strong className="text-blue-300">Product Catalogue:</strong>{" "}
+              Detailed listings with descriptions, prices, specifications, and
+              high-quality images/videos.
+              <br />
+              <strong className="text-blue-300">Shopping Cart:</strong>{" "}
+              User-friendly interface to add, modify, or delete products, with
+              cost and tax details.
+              <br />
+              <strong className="text-blue-300">
+                Secure Payment Gateway:
+              </strong>{" "}
+              Integration with trusted platforms like PayPal and Razorpay,
+              compliant with PCI-DSS standards.
+              <br />
+              <strong className="text-blue-300">User Accounts:</strong> Allow
+              customers to create accounts, track order history, and save
+              preferences.
               <br />
               <br />
-              Jaikvik Technology builds e-commerce websites with responsive
-              designs, SEO optimization, and integrations with marketing tools
-              like Mailchimp. Our clients have reported a 30% increase in online
-              sales within six months of launching their e-commerce platforms.
+              Jaikvik Technology’s e-commerce solutions include responsive
+              designs, SEO optimization, and integrations with tools like
+              Mailchimp, driving up to a 30% increase in online sales for our
+              clients within six months.
             </motion.span>
           )}
         </>
@@ -377,25 +441,29 @@ const WebDevelopment = () => {
     },
     {
       id: 5,
-      title: "WooCommerce Stores",
+      title: "WooCommerce Websites",
       subtitle: "Flexible E-commerce on WordPress",
       content: (
         <>
           <p className="text-gray-300 leading-relaxed mb-4">
             WooCommerce, a powerful WordPress plugin, transforms websites into
-            fully functional online stores. It's ideal for small to medium-sized
-            businesses seeking flexibility and affordability.
+            fully functional online stores, offering flexibility and control for
+            businesses. It’s an ideal solution for small to medium-sized
+            enterprises seeking cost-effective e-commerce capabilities.
             <br />
             <br />
-            <strong className="text-blue-300">Key Features:</strong>
-            <br />● <strong>Customizable Stores:</strong> Tailor your store's
-            design and functionality with thousands of themes and plugins.
-            <br />● <strong>Inventory Management:</strong> Track stock levels
-            and automate restocking alerts.
-            <br />● <strong>Payment Flexibility:</strong> Support for multiple
-            payment methods, including digital wallets.
-            <br />● <strong>WordPress Integration:</strong> Seamlessly manage
-            content and sales within one platform.
+            <strong className="text-blue-300">Purpose</strong>
+            <br />
+            <strong className="text-blue-300">
+              Seamless Integration:
+            </strong>{" "}
+            Adds e-commerce functionality to any WordPress site.
+            <br />
+            <strong className="text-blue-300">Customization:</strong> Allows
+            developers to tailor user experiences through coding.
+            <br />
+            <strong className="text-blue-300">Cost-Effective:</strong> Provides
+            access to premium features without expensive software.
           </p>
           {expandedSections[5] && (
             <motion.span
@@ -404,54 +472,99 @@ const WebDevelopment = () => {
               transition={{ duration: 0.5 }}
               className="block mt-4"
             >
-              <strong className="text-blue-300">Benefits:</strong>
-              <br />● <strong>Cost-Effective:</strong> Lower setup costs
-              compared to custom e-commerce platforms.
-              <br />● <strong>SEO-Friendly:</strong> Leverage WordPress's SEO
-              tools to improve search engine rankings.
-              <br />● <strong>Scalability:</strong> Easily grow from a small
-              store to a large enterprise.
-              <br />● <strong>Community Support:</strong> Access a vast
-              ecosystem of plugins and developer community support.
+              <strong className="text-blue-300">Features</strong>
+              <br />
+              <strong className="text-blue-300">Theme Integration:</strong>{" "}
+              Supports a wide range of free and premium WordPress themes for a
+              unique look.
+              <br />
+              <strong className="text-blue-300">
+                Flexible Customization:
+              </strong>{" "}
+              Access to source code and plugins for enhanced functionality and
+              API support for external integrations.
+              <br />
+              <strong className="text-blue-300">
+                Advanced Store Management:
+              </strong>{" "}
+              Manage inventory, shipping, and taxes via a centralized dashboard,
+              with support for unlimited products and trusted payment gateways
+              like PayPal and Stripe.
               <br />
               <br />
-              Jaikvik Technology's WooCommerce solutions include
-              mobile-responsive designs and integrations with platforms like
-              Google Analytics and Facebook Ads for enhanced marketing. Our
-              clients have achieved a 25% boost in conversions after optimizing
-              their WooCommerce stores.
+              <strong className="text-blue-300">Best Practices</strong>
+              <br />
+              <strong className="text-blue-300">Regular Updates:</strong> Keep
+              WordPress, WooCommerce, and extensions updated to improve
+              performance and security.
+              <br />
+              <strong className="text-blue-300">SSL Certificate:</strong> Ensure
+              secure connections with HTTPS for customer trust and SEO benefits.
+              <br />
+              <strong className="text-blue-300">Speed Optimization:</strong> Use
+              image compression and caching plugins with reliable hosting.
+              <br />
+              <strong className="text-blue-300">
+                Mobile-First Design:
+              </strong>{" "}
+              Ensure responsiveness and test checkout processes on mobile
+              devices.
+              <br />
+              <strong className="text-blue-300">SEO Optimization:</strong>{" "}
+              Utilize plugins like Yoast SEO for optimized product pages and
+              keyword-rich descriptions.
+              <br />
+              <strong className="text-blue-300">
+                Secure Payment Gateways:
+              </strong>{" "}
+              Offer trusted payment options for customer convenience and
+              security.
+              <br />
+              <br />
+              Jaikvik Technology’s WooCommerce solutions deliver
+              mobile-responsive designs and integrations with Google Analytics
+              and Facebook Ads, helping clients achieve a 25% boost in
+              conversions.
             </motion.span>
           )}
         </>
       ),
       image:
         "https://img.freepik.com/free-photo/close-up-man-shopping-with-laptop_23-2149241375.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_items_boosted&w=740",
-      alt: "WooCommerce Stores",
+      alt: "WooCommerce Websites",
       reverse: true,
-      sectionId: "woocommerce-stores",
+      sectionId: "woocommerce-websites",
     },
     {
       id: 6,
       title: "Corporate Websites",
-      subtitle: "Professional Digital Presence for Businesses",
+      subtitle: "Building a Professional Digital Presence",
       content: (
         <>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Corporate websites serve as the digital face of a business,
-            showcasing its brand, services, and achievements to build trust and
-            credibility. They are designed to attract clients and generate leads
-            effectively.
+            The primary aim of a corporate website is to establish an online
+            presence for companies. It serves as a central platform to showcase
+            a business’s brand, values, services, and achievements while
+            building credibility and trust among potential clients and partners.
             <br />
             <br />
-            <strong className="text-blue-300">Key Features:</strong>
-            <br />● <strong>Brand Storytelling:</strong> Highlight your
-            company's mission, vision, and achievements.
-            <br />● <strong>Lead Generation:</strong> Contact forms, CTAs, and
-            live chat features to drive customer inquiries.
-            <br />● <strong>Portfolio Showcase:</strong> Display case studies,
-            projects, or client testimonials.
-            <br />● <strong>SEO Optimization:</strong> Enhance visibility on
-            search engines.
+            <strong className="text-blue-300">Features</strong>
+            <br />
+            <strong className="text-blue-300">About Us:</strong> Highlights the
+            company’s background, mission, and vision.
+            <br />
+            <strong className="text-blue-300">Services:</strong> Details the
+            products and services offered.
+            <br />
+            <strong className="text-blue-300">Contact Page:</strong> Provides
+            user-friendly contact forms and information.
+            <br />
+            <strong className="text-blue-300">Testimonials:</strong> Showcases
+            customer reviews and success stories.
+            <br />
+            <strong className="text-blue-300">Branding Elements:</strong>{" "}
+            Incorporates logos, colors, and fonts reflecting the firm’s
+            identity.
           </p>
           {expandedSections[6] && (
             <motion.span
@@ -460,22 +573,23 @@ const WebDevelopment = () => {
               transition={{ duration: 0.5 }}
               className="block mt-4"
             >
-              <strong className="text-blue-300">Benefits:</strong>
-              <br />● <strong>Credibility:</strong> A professional website
-              builds trust among clients and partners.
-              <br />● <strong>Lead Growth:</strong> Optimized designs can boost
-              leads by up to 30%.
-              <br />● <strong>Global Presence:</strong> Reach stakeholders
-              globally with a polished online presence.
-              <br />● <strong>Analytics Tools:</strong> Monitor visitor behavior
-              to refine marketing strategies.
+              <strong className="text-blue-300">Best Practices</strong>
               <br />
+              <strong className="text-blue-300">
+                Clean, Professional Design:
+              </strong>{" "}
+              A visually appealing and easy-to-navigate layout.
               <br />
-              Jaikvik Technology creates corporate websites with responsive
-              layouts, fast load times, and seamless integrations with platforms
-              like Salesforce for enhanced CRM. Our corporate clients have
-              reported a 20% increase in client inquiries within months after
-              launching their websites.
+              <strong className="text-blue-300">Responsive Design:</strong>{" "}
+              Ensures compatibility and performance across all devices with
+              optimized images and code for fast loading.
+              <br />
+              <br />A corporate website is a powerful tool to connect with your
+              target audience, enhance your business’s reputation, and achieve
+              organizational goals in the digital space. Jaikvik Technology’s
+              corporate websites are built with responsive layouts, fast load
+              times, and integrations with tools like Salesforce for enhanced
+              CRM, helping clients achieve up to a 20% increase in inquiries.
             </motion.span>
           )}
         </>
@@ -498,7 +612,13 @@ const WebDevelopment = () => {
             seeking efficiency.
             <br />
             <br />
-            <strong className="text-blue-300">Key Features:</strong>
+            <strong
+              className="
+
+text-blue-300"
+            >
+              Key Features:
+            </strong>
             <br />● <strong>User Management:</strong> Role-based access for
             admins, employees, or customers.
             <br />● <strong>Collaboration Tools:</strong> Features like forums,
@@ -527,7 +647,7 @@ const WebDevelopment = () => {
               sectors.
               <br />
               <br />
-              Jaikvik Technology's online portals are built with user-friendly
+              Jaikvik Technology’s online portals are built with user-friendly
               interfaces and seamless integrations with platforms like Google
               Workspace for enhanced productivity. Our portal solutions have
               helped organizations reduce operational costs by 15% through

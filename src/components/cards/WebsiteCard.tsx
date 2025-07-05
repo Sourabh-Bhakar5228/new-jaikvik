@@ -108,7 +108,7 @@ const WebsiteCard = ({
           className="max-w-full h-auto absolute inset-x-0 bottom-0 m-auto p-0 z-0 object-cover w-full"
           ref={imageRef}
           draggable={false}
-          loading="lazy"
+          // loading="lazy"
         />
       </a>
     </div>

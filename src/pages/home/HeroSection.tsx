@@ -16,7 +16,7 @@ const HeroSection: React.FC = () => {
     const initializeVideo = async () => {
       try {
         video.muted = true;
-        await video.play();
+        await video.play().catch(() => {});
         isInitialized.current = true;
         showTemporaryMuteButton();
       } catch (err) {
@@ -38,17 +38,28 @@ const HeroSection: React.FC = () => {
 
   // Handle hover changes
   useEffect(() => {
-    if (!videoRef.current || !isInitialized.current) return;
+    const video = videoRef.current;
+    if (!video || !isInitialized.current) return;
 
-    try {
-      videoRef.current.muted = !isHovering;
-      setIsMuted(!isHovering);
-      if (isHovering) {
-        showTemporaryMuteButton();
+    const handleHover = async () => {
+      try {
+        if (isHovering) {
+          if (video.muted) {
+            video.muted = false;
+            setIsMuted(false);
+          }
+          await video.play().catch(() => {}); // Avoid AbortError
+          showTemporaryMuteButton();
+        } else {
+          video.muted = true;
+          setIsMuted(true);
+        }
+      } catch (err) {
+        console.error("Hover state change error:", err);
       }
-    } catch (err) {
-      console.log("Hover state change error:", err);
-    }
+    };
+
+    handleHover();
   }, [isHovering]);
 
   const showTemporaryMuteButton = () => {
@@ -70,20 +81,24 @@ const HeroSection: React.FC = () => {
     setShowMuteButton(false);
   };
 
-  const toggleMute = (e: React.MouseEvent) => {
+  const toggleMute = async (e: React.MouseEvent) => {
     e.stopPropagation();
     const video = videoRef.current;
     if (!video) return;
 
     video.muted = !video.muted;
     setIsMuted(video.muted);
+
+    if (!video.muted) {
+      await video.play().catch(() => {});
+    }
+
     showTemporaryMuteButton();
   };
 
   return (
     <section className="overflow-hidden w-full px-2.5">
       <div className="flex flex-wrap w-full justify-center">
-        {/* Show decorative images only on desktop/lg screens */}
         <div className="hidden lg:block w-full lg:w-1/4 px-4">
           <div className="flex justify-center items-center relative h-full">
             <img
@@ -101,7 +116,6 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Show video on all screens */}
         <div className="w-full lg:w-3/4 px-4">
           <div
             className="w-full relative group"
@@ -109,7 +123,6 @@ const HeroSection: React.FC = () => {
             onMouseLeave={handleMouseLeave}
             onClick={toggleMute}
           >
-            {/* Mute/Unmute Button */}
             <button
               aria-label={isMuted ? "Unmute video" : "Mute video"}
               className={`absolute top-4 right-4 z-50 transition-all duration-300 rounded-md bg-purple-600/80 hover:bg-purple-600 text-white py-2 px-4 ${

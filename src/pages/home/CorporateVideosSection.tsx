@@ -107,7 +107,7 @@ const VideoItem: React.FC<VideoItemProps> = ({
     <>
       {/* Original desktop video item with mobile enhancements */}
       <div
-        className="relative w-full h-[clamp(200px,40vw,400px)] rounded-lg overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)] shadow-[0_8px_25px_rgba(0,0,0,0.2)] bg-black group"
+        className="relative w-full h-[50vh]  flex text-center items-center rounded-lg overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)] shadow-[0_8px_25px_rgba(0,0,0,0.2)] bg-black group"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={isMobile ? toggleMobilePlayPause : undefined}

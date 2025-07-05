@@ -337,7 +337,7 @@ const MobileAppSection: React.FC = () => {
                             loading="lazy"
                             onError={(e) => {
                               e.currentTarget.src =
-                                "https://via.placeholder.com/300x500?text=Image+Not+Found";
+                                "https://placehold.co/300x500?text=Image+Not+Found";
                             }}
                           />
                         </div>

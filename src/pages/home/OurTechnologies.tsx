@@ -89,19 +89,19 @@ const TechnologyCard: React.FC<TechnologyCardProps> = ({ tech }) => {
     if (!containerRef.current || !hoverImageRef.current) return 0;
     const imageHeight: number = hoverImageRef.current.offsetHeight;
     const containerHeight: number = containerRef.current.offsetHeight;
-    console.log(
-      "Image height:",
-      imageHeight,
-      "Container height:",
-      containerHeight
-    );
+    // console.log(
+    //   "Image height:",
+    //   imageHeight,
+    //   "Container height:",
+    //   containerHeight
+    // );
     return containerHeight - imageHeight;
   };
 
   const handleHoverStart = (): void => {
-    console.log("Hover start on:", tech.name);
+    // console.log("Hover start on:", tech.name);
     if (!hoverImageRef.current || getImageScrollHeight() >= 0) {
-      console.log("No scroll needed, image fits");
+      // console.log("No scroll needed, image fits");
       return;
     }
     const duration: number = 5000;
@@ -112,7 +112,7 @@ const TechnologyCard: React.FC<TechnologyCardProps> = ({ tech }) => {
   };
 
   const handleHoverEnd = (): void => {
-    console.log("Hover end on:", tech.name);
+    // console.log("Hover end on:", tech.name);
     if (!hoverImageRef.current) return;
     $(hoverImageRef.current)
       .stop()
@@ -217,13 +217,13 @@ const TechnologySlider: React.FC = () => {
             1024: { slidesPerView: 4, spaceBetween: 20 },
           }}
           onMouseEnter={() => {
-            console.log("Swiper hover start");
+            // console.log("Swiper hover start");
             if (swiperRef.current?.swiper?.autoplay) {
               swiperRef.current.swiper.autoplay.stop();
             }
           }}
           onMouseLeave={() => {
-            console.log("Swiper hover end");
+            // console.log("Swiper hover end");
             if (swiperRef.current?.swiper?.autoplay) {
               swiperRef.current.swiper.autoplay.start();
             }

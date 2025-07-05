@@ -17,21 +17,30 @@ const Navbar: React.FC = () => {
   // State for popups and off-canvas menu
   const [isTranslatePopupOpen, setIsTranslatePopupOpen] = useState(false);
   const [isOffCanvasOpen, setIsOffCanvasOpen] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
+  // const [isSticky, setIsSticky] = useState(false);
+  const [isSticky, setIsSticky] = useState<boolean>(false);
+
   const [expandedMenus, setExpandedMenus] = useState<{
     [key: string]: boolean;
   }>({});
-  const [translateError, setTranslateError] = useState<string | null>(null);
 
   // Handle scroll for sticky navbar
   useEffect(() => {
     const handleScroll = () => {
-      const windowTop = window.scrollY + 1;
+      const windowTop = window.scrollY;
       const threshold = window.innerWidth < 768 ? 0 : 250;
+
       setIsSticky(windowTop > threshold);
     };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // Trigger once on mount in case user is already scrolled
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   // Handle click outside for translate popup
@@ -63,72 +72,6 @@ const Navbar: React.FC = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [isOffCanvasOpen]);
-
-  // Initialize Google Translate
-  useEffect(() => {
-    const addGoogleTranslateScript = () => {
-      if (!window.google?.translate) {
-        const script = document.createElement("script");
-        script.src =
-          "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-        script.async = true;
-        script.onerror = () => {
-          setTranslateError("Failed to load Google Translate script");
-          console.error("Google Translate script failed to load");
-        };
-        document.body.appendChild(script);
-      } else {
-        window.googleTranslateElementInit?.();
-      }
-    };
-
-    window.googleTranslateElementInit = () => {
-      try {
-        if (window.google?.translate?.TranslateElement) {
-          new window.google.translate.TranslateElement(
-            {
-              pageLanguage: "en",
-              layout: 0, // SIMPLE layout
-              autoDisplay: false,
-              multilanguagePage: true,
-            } as any, // Type assertion to bypass TS2353
-            "google_translate_element_popup"
-          );
-        } else {
-          throw new Error("Google TranslateElement not available");
-        }
-      } catch (error) {
-        setTranslateError("Failed to initialize Google Translate");
-        console.error("Google Translate initialization error:", error);
-      }
-    };
-
-    addGoogleTranslateScript();
-
-    return () => {
-      const script = document.querySelector(
-        'script[src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"]'
-      );
-      if (script) {
-        script.remove();
-      }
-      delete window.googleTranslateElementInit;
-    };
-  }, []);
-
-  const toggleTranslateDropdown = () => {
-    setIsTranslatePopupOpen(!isTranslatePopupOpen);
-    if (!isTranslatePopupOpen) {
-      setTimeout(() => {
-        const select = document.querySelector(
-          "#google_translate_element_popup select"
-        ) as HTMLSelectElement;
-        if (select) {
-          select.focus();
-        }
-      }, 100);
-    }
-  };
 
   const toggleOffCanvas = () => {
     setIsOffCanvasOpen(!isOffCanvasOpen);
@@ -350,26 +293,6 @@ const Navbar: React.FC = () => {
             />
           </Link>
           <div className="flex items-center space-x-3">
-            <button
-              onClick={toggleTranslateDropdown}
-              className="text-white hover:text-red-500 transition-colors p-1"
-              aria-label="Select language"
-            >
-              {/* <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 5h12M9 3v2m1.5 10l3-3m0 0l-3-3m3 3H3m12 4h6m-3-2v4"
-                />
-              </svg> */}
-            </button>
             <button
               onClick={toggleOffCanvas}
               className="text-white hover:text-red-500 transition-colors p-1"
@@ -764,122 +687,6 @@ const Navbar: React.FC = () => {
                 </li>
               </ul>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Language Translate Popup */}
-      <div
-        id="translate_popup"
-        className={`translate-popup fixed top-20 right-5 z-[1000] ${
-          isTranslatePopupOpen ? "block" : "hidden"
-        }`}
-      >
-        <div className="translate-popup-content bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-lg p-4 shadow-2xl animate-[slideInRight_0.3s_ease]">
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-lg font-semibold text-white">
-              Select Language
-            </h3>
-            <button
-              onClick={toggleTranslateDropdown}
-              className="text-xl text-gray-200 hover:text-red-400 transition-all duration-200"
-              aria-label="Close language selector"
-            >
-              ×
-            </button>
-          </div>
-          <div id="google_translate_element_popup" className="my-2 p-2 px-2">
-            {translateError ? (
-              <p className="text-red-400 text-sm mt-2">{translateError}</p>
-            ) : (
-              <select
-                className="w-full p-2 border  border-gray-600 rounded-md bg-gray-900 text-gray-200 text-sm font-medium focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-400/30"
-                defaultValue="en"
-                onChange={(e) => {
-                  const select = document.querySelector(
-                    "#google_translate_element_popup select"
-                  ) as HTMLSelectElement;
-                  if (select) {
-                    select.value = e.target.value;
-                    select.dispatchEvent(new Event("change"));
-                  }
-                }}
-              >
-                <option value="en">English</option>
-                <option value="es">Spanish</option>
-                <option value="fr">French</option>
-                <option value="de">German</option>
-                <option value="zh-CN">Chinese</option>
-                <option value="zh-TW">Chinese (Traditional)</option>
-                <option value="ja">Japanese</option>
-                <option value="ko">Korean</option>
-                <option value="ar">Arabic</option>
-                <option value="hi">Hindi</option>
-                <option value="ta">Tamil</option>
-                <option value="te">Telugu</option>
-                <option value="ml">Malayalam</option>
-                <option value="kn">Kannada</option>
-                <option value="gu">Gujarati</option>
-                <option value="pa">Punjabi</option>
-                <option value="bn">Bengali</option>
-                <option value="ru">Russian</option>
-                <option value="pt">Portuguese</option>
-                <option value="it">Italian</option>
-                <option value="nl">Dutch</option>
-                <option value="sv">Swedish</option>
-                <option value="da">Danish</option>
-                <option value="fi">Finnish</option>
-                <option value="no">Norwegian</option>
-                <option value="pl">Polish</option>
-                <option value="th">Thai</option>
-                <option value="vi">Vietnamese</option>
-                <option value="id">Indonesian</option>
-                <option value="ms">Malay</option>
-                <option value="ur">Urdu</option>
-                <option value="fa">Persian</option>
-                <option value="he">Hebrew</option>
-                <option value="el">Greek</option>
-                <option value="uk">Ukrainian</option>
-                <option value="cs">Czech</option>
-                <option value="hu">Hungarian</option>
-                <option value="tr">Turkish</option>
-                <option value="ro">Romanian</option>
-                <option value="bg">Bulgarian</option>
-                <option value="hr">Croatian</option>
-                <option value="sr">Serbian</option>
-                <option value="sk">Slovak</option>
-                <option value="sl">Slovenian</option>
-                <option value="lt">Lithuanian</option>
-                <option value="lv">Latvian</option>
-                <option value="et">Estonian</option>
-                <option value="fil">Filipino</option>
-                <option value="km">Khmer</option>
-                <option value="lo">Lao</option>
-                <option value="am">Amharic</option>
-                <option value="ka">Georgian</option>
-                <option value="hy">Armenian</option>
-                <option value="az">Azerbaijani</option>
-                <option value="si">Sinhala</option>
-                <option value="ne">Nepali</option>
-                <option value="bo">Tibetan</option>
-                <option value="dz">Dzongkha</option>
-                <option value="iu">Inuktitut</option>
-                <option value="kk">Kazakh</option>
-                <option value="ky">Kyrgyz</option>
-                <option value="mg">Malagasy</option>
-                <option value="mk">Macedonian</option>
-                <option value="mt">Maltese</option>
-                <option value="ps">Pashto</option>
-                <option value="so">Somali</option>
-                <option value="sw">Swahili</option>
-                <option value="tk">Turkmen</option>
-                <option value="ug">Uyghur</option>
-                <option value="uz">Uzbek</option>
-                <option value="yi">Yiddish</option>
-                <option value="yo">Yoruba</option>
-                <option value="zu">Zulu</option>
-              </select>
-            )}
           </div>
         </div>
       </div>

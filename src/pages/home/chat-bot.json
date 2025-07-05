@@ -1,0 +1,316 @@
+{
+  "inactivityMessages": [
+    "Need help with our services?",
+    "Any questions about Jaikvik Technology's offerings?",
+    "How can I assist you today?",
+    "Curious about our software or digital marketing solutions?",
+    "Interested in our corporate films or mobile apps?",
+    "Got a project in mind? Let's discuss!"
+  ],
+  "aiResponses": {
+    "greeting": {
+      "keywords": [
+        "hi",
+        "hello",
+        "hey",
+        "good morning",
+        "good afternoon",
+        "good evening"
+      ],
+      "priority": 1,
+      "responses": [
+        "Hello! Welcome to Jaikvik Technology. How can I assist you today?",
+        "Hey there! Excited to help with your tech needs!",
+        "Hi! Ready to explore our innovative solutions?",
+        "Greetings! How can I help you with Jaikvik Technology's services today?",
+        "Hello! What brings you to Jaikvik Technology today?"
+      ],
+      "followUp": "Interested in software development, mobile apps, or digital marketing?",
+      "followUpThreshold": 0.3,
+      "intent": "casual"
+    },
+    "help": {
+      "keywords": [
+        "help",
+        "support",
+        "issue",
+        "problem",
+        "maintenance & support",
+        "trouble",
+        "error",
+        "bug",
+        "fix",
+        "assistance"
+      ],
+      "priority": 2,
+      "responses": [
+        "I'm here to help! Please describe your issue or question.",
+        "Need support? Tell me more about what's going on.",
+        "Let's solve that! What's the problem you're facing?",
+        "I can help with that. Could you provide more details?",
+        "Support is my specialty. What do you need help with?"
+      ],
+      "followUp": "Can you provide more details so I can assist better?",
+      "followUpThreshold": 0.5,
+      "intent": "support"
+    },
+    "contact": {
+      "keywords": [
+        "contact",
+        "phone",
+        "email",
+        "address",
+        "reach",
+        "get in touch",
+        "call",
+        "message",
+        "connect",
+        "speak to",
+        "talk to"
+      ],
+      "priority": 3,
+      "responses": [
+        "For quick assistance, message us on <a href=\"https://wa.me/+918307802850\" target=\"_blank\">WhatsApp (+918307802850)</a> or email <a href=\"mailto:info@jaikviktechnology.com\">info@jaikviktechnology.com</a>. You can also call <a href=\"tel:+919310907227\">+91-9310907227</a>. Visit us at A-82, Sector 63, Noida, UP.",
+        "Reach us at <a href=\"mailto:info@jaikviktechnology.com\">info@jaikviktechnology.com</a> or <a href=\"tel:+919220826934\">+91-9220826934</a>. Our office is at A-82, Sector 63, Noida, UP.",
+        "Contact us via <a href=\"https://wa.me/+918307802850\" target=\"_blank\">WhatsApp (+918307802850)</a> or call <a href=\"tel:+911204200970\">+91-120-4200970</a>. We're here to help!",
+        "You can reach our team directly at <a href=\"tel:+919310907227\">+91-9310907227</a> or visit our office at A-82, Sector 63, Noida, UP.",
+        "For immediate assistance, please call <a href=\"tel:+919220826934\">+91-9220826934</a> or email <a href=\"mailto:info@jaikviktechnology.com\">info@jaikviktechnology.com</a>"
+      ],
+      "followUp": "Would you like to open our contact form for a detailed inquiry?",
+      "followUpThreshold": 0.4,
+      "intent": "contact"
+    },
+    "services": {
+      "keywords": [
+        "customised software development",
+        "erp systems",
+        "crm solutions",
+        "hrm systems",
+        "custom web development",
+        "api integration",
+        "mobile application development",
+        "ios & android apps",
+        "ui/ux design",
+        "app optimization",
+        "cross-platform development",
+        "search engine optimization",
+        "content marketing",
+        "social media campaigns",
+        "ppc advertising",
+        "analytics & reporting",
+        "promotional videos",
+        "corporate films",
+        "product demos",
+        "animation & motion graphics",
+        "event coverage",
+        "services",
+        "offerings",
+        "what do you offer",
+        "products",
+        "solutions",
+        "capabilities",
+        "expertise"
+      ],
+      "priority": 2,
+      "responses": [
+        "Our [SERVICE] solutions are designed to elevate your business. Want to learn how?",
+        "We specialize in [SERVICE]. Interested in a tailored solution?",
+        "Jaikvik Technology's [SERVICE] can transform your operations. Let's discuss!",
+        "With our [SERVICE], we help businesses achieve their goals. Would you like details?",
+        "[SERVICE] is one of our core strengths. How can we assist you with this?"
+      ],
+      "followUp": "Ready to discuss [SERVICE]? Open our contact form or reach out directly!",
+      "followUpThreshold": 0.5,
+      "intent": "informational",
+      "reachMessages": {
+        "customised software development": "For Customised Software Development, reach our experts via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit us at A-82, Sector 63, Noida, UP.",
+        "erp systems": "Interested in ERP Systems? Contact us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit our office at A-82, Sector 63, Noida, UP.",
+        "crm solutions": "For CRM Solutions, get in touch via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or stop by A-82, Sector 63, Noida, UP.",
+        "hrm systems": "Explore HRM Systems with us! Reach out on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+        "custom web development": "For Custom Web Development, contact our team via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "api integration": "Need API Integration? Reach us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+        "mobile application development": "For Mobile Application Development, connect via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "ios & android apps": "Interested in iOS & Android Apps? Contact us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+        "ui/ux design": "For UI/UX Design, reach out via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "app optimization": "Explore App Optimization with us! Contact <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+        "cross-platform development": "For Cross-Platform Development, reach us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "maintenance & support": "Need Maintenance & Support? Contact us via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "search engine optimization": "For Search Engine Optimization, reach our experts via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "content marketing": "Interested in Content Marketing? Contact us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+        "social media campaigns": "For Social Media Campaigns, get in touch via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or stop by A-82, Sector 63, Noida, UP.",
+        "ppc advertising": "Explore PPC Advertising with us! Reach out on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+        "analytics & reporting": "For Analytics & Reporting, contact our team via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "promotional videos": "For Promotional Videos, reach us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "corporate films": "Interested in Corporate Films? Contact us via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "product demos": "For Product Demos, reach out via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+        "animation & motion graphics": "Explore Animation & Motion Graphics with us! Contact <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+        "event coverage": "For Event Coverage, reach us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP."
+      }
+    },
+    "about": {
+      "keywords": [
+        "who are you",
+        "about",
+        "company",
+        "jaikvik",
+        "about us",
+        "what is jaikvik",
+        "tell me about",
+        "background",
+        "history"
+      ],
+      "priority": 2,
+      "responses": [
+        "Jaikvik Technology Pvt Ltd is a Noida-based leader in software, mobile apps, digital marketing, and corporate film production.",
+        "We're Jaikvik Technology, delivering innovative solutions from A-82, Sector 63, Noida, UP.",
+        "Jaikvik Technology transforms businesses with cutting-edge tech and creative services.",
+        "We are Jaikvik Technology - experts in software development, digital marketing, and media production since 2011.",
+        "Jaikvik Technology is your technology partner offering end-to-end digital solutions for businesses."
+      ],
+      "followUp": "Want to know more about our services or contact us?",
+      "followUpThreshold": 0.5,
+      "intent": "informational"
+    },
+    "pricing": {
+      "keywords": [
+        "price",
+        "cost",
+        "how much",
+        "quote",
+        "budget",
+        "affordable",
+        "expensive",
+        "pricing",
+        "rates"
+      ],
+      "priority": 2,
+      "responses": [
+        "Our pricing varies based on project requirements. Could you share more details about your needs?",
+        "We offer competitive pricing tailored to each project. Let's discuss your specific requirements.",
+        "Cost depends on the scope and complexity. Would you like a customized quote?",
+        "We provide value-based pricing for all our services. What exactly are you looking for?",
+        "Our solutions are competitively priced. Tell me more about your project for an accurate estimate."
+      ],
+      "followUp": "Would you like to discuss pricing for a specific service?",
+      "followUpThreshold": 0.6,
+      "intent": "commercial"
+    },
+    "thanks": {
+      "keywords": ["thank", "thanks", "appreciate", "grateful", "helpful"],
+      "priority": 1,
+      "responses": [
+        "You're welcome! Is there anything else I can help with?",
+        "Happy to help! Let me know if you have other questions.",
+        "My pleasure! Feel free to ask if you need more information.",
+        "Glad I could assist! What else can I do for you today?",
+        "You're very welcome! Don't hesitate to reach out for anything else."
+      ],
+      "followUp": "Would you like information about any other services?",
+      "followUpThreshold": 0.4,
+      "intent": "gratitude"
+    },
+    "goodbye": {
+      "keywords": ["bye", "goodbye", "see you", "later", "farewell"],
+      "priority": 1,
+      "responses": [
+        "Goodbye! Feel free to come back if you have more questions.",
+        "See you later! We're always here to help.",
+        "Have a great day! Don't hesitate to reach out again.",
+        "Bye for now! Remember we're just a message away.",
+        "Take care! Contact us anytime for assistance."
+      ],
+      "followUp": "",
+      "followUpThreshold": 0,
+      "intent": "farewell"
+    },
+    "default": {
+      "priority": 0,
+      "responses": [
+        "I'm not sure I understood that. Could you clarify?",
+        "Hmm, let's try again. What do you mean?",
+        "Could you rephrase? I'm here to help!",
+        "I want to make sure I understand. Could you explain differently?",
+        "Let me check - did you mean something about our services?"
+      ],
+      "followUp": "Anything else I can assist with?",
+      "followUpThreshold": 0.6,
+      "intent": "unknown"
+    }
+  },
+  "conversationPatterns": [
+    {
+      "name": "service inquiry",
+      "steps": [
+        { "type": "user", "intent": "services" },
+        { "type": "bot", "intent": "informational" },
+        { "type": "user", "intent": "commercial" },
+        { "type": "bot", "intent": "commercial" }
+      ],
+      "response": "Would you like me to connect you with a specialist for a detailed consultation?"
+    },
+    {
+      "name": "support request",
+      "steps": [
+        { "type": "user", "intent": "help" },
+        { "type": "bot", "intent": "support" },
+        { "type": "user", "intent": "support" }
+      ],
+      "response": "I can escalate this to our support team. Would you like me to do that?"
+    },
+    {
+      "name": "contact information",
+      "steps": [
+        { "type": "user", "intent": "contact" },
+        { "type": "bot", "intent": "contact" },
+        { "type": "user", "intent": "contact" }
+      ],
+      "response": "Would you like me to open the contact form for you?"
+    }
+  ],
+  "services": [
+    {
+      "group": "Software Development",
+      "options": [
+        "Customised Software Development",
+        "ERP Systems",
+        "CRM Solutions",
+        "HRM Systems"
+      ]
+    },
+    {
+      "group": "Web Development",
+      "options": ["Custom Web Development", "API Integration"]
+    },
+    {
+      "group": "Mobile Application Development",
+      "options": [
+        "Mobile Application Development",
+        "iOS & Android Apps",
+        "UI/UX Design",
+        "App Optimization",
+        "Cross-Platform Development",
+        "Maintenance & Support"
+      ]
+    },
+    {
+      "group": "SEO & Digital Marketing",
+      "options": [
+        "Search Engine Optimization",
+        "Content Marketing",
+        "Social Media Campaigns",
+        "PPC Advertising",
+        "Analytics & Reporting"
+      ]
+    },
+    {
+      "group": "Corporate Film Production",
+      "options": [
+        "Promotional Videos",
+        "Corporate Films",
+        "Product Demos",
+        "Animation & Motion Graphics",
+        "Event Coverage"
+      ]
+    }
+  ]
+}

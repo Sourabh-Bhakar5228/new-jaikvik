@@ -126,7 +126,7 @@ const JavaScript: React.FC = () => {
                 </p>
                 <pre className="bg-gray-900 p-4 rounded text-sm overflow-x-auto">
                   <code className="text-green-400">
-                    {`const name = 'Alice';\nconst greeting = \`Hello, \${name}!\nWelcome to our website.\`;\nconsole.log(greeting);`}
+                    {`const name = 'Alice';\nconst greeting = \`Hello, \${name}!\nWelcome to our website.\`;`}
                   </code>
                 </pre>
               </div>
@@ -178,7 +178,7 @@ const JavaScript: React.FC = () => {
                 </p>
                 <pre className="bg-gray-900 p-4 rounded text-sm overflow-x-auto">
                   <code className="text-green-400">
-                    {`async function fetchData() {\n  try {\n    const response = await fetch('api/data');\n    const data = await response.json();\n    console.log(data);\n  } catch (error) {\n    console.error('Error:', error);\n  }\n}`}
+                    {`async function fetchData() {\n  try {\n    const response = await fetch('api/data');\n    const data = await response.json();\n  } catch (error) {\n    console.error('Error:', error);\n  }\n}`}
                   </code>
                 </pre>
               </div>

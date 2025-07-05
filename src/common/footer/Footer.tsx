@@ -493,7 +493,7 @@ const Footer = () => {
           <p className="text-main-gray text-[15px]">
             © 2016 All Rights Reserved
             <a
-              href="index.php"
+              href="/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-main-red hover:underline ml-1"

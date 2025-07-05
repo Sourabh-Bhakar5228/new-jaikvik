@@ -371,7 +371,7 @@ async function run() {
     
     // Find documents
     const users = await collection.find({ age: { $gt: 25 } }).toArray();
-    console.log(users);
+    // console.log(users);
   } finally {
     await client.close();
   }
@@ -406,11 +406,11 @@ const User = mongoose.model('User', userSchema);
 // Create and save document
 const user = new User({ name: 'Alice', age: 25 });
 await user.save();
-console.log('User saved');
+// console.log('User saved');
 
 // Query documents
 const users = await User.find({ age: { $gt: 20 } });
-console.log(users);
+// console.log(users);
 `}
                   </code>
                 </pre>
@@ -471,12 +471,12 @@ changeStream.on('change', (change) => {
   
   // Full document for insert/replace/update
   if (change.operationType === 'insert') {
-    console.log('New document:', change.fullDocument);
+    // console.log('New document:', change.fullDocument);
   }
   
   // Update description
   if (change.operationType === 'update') {
-    console.log('Updated fields:', change.updateDescription.updatedFields);
+    // console.log('Updated fields:', change.updateDescription.updatedFields);
   }
 });
 `}

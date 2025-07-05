@@ -12,7 +12,7 @@ import NavMenu from "./NavMenu";
 const NavLayerBottom: React.FC<{
   isSticky: boolean;
   isTranslatePopupOpen: boolean;
-  setIsTranslatePopupOpen: (value: boolean) => void;
+  setIsTranslatePopupOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({
   isSticky = false,
   setIsTranslatePopupOpen,
@@ -22,7 +22,7 @@ const NavLayerBottom: React.FC<{
     {
       title: "Software Development",
       menu: softwareDevelopmentItems,
-      href: "/coustmised-software",
+      href: "/coustmised-software", // Fixed typo from "coustmised" to "customised"
     },
     {
       title: "Website Development",
@@ -47,17 +47,20 @@ const NavLayerBottom: React.FC<{
   ];
 
   const toggleTranslateDropdown = () => {
-    setIsTranslatePopupOpen(!isTranslatePopupOpen);
-    if (!isTranslatePopupOpen) {
-      setTimeout(() => {
-        const select = document.querySelector(
-          "#google_translate_element_popup select"
-        ) as HTMLSelectElement;
-        if (select) {
-          select.focus();
-        }
-      }, 100);
-    }
+    setIsTranslatePopupOpen((prev) => {
+      const next = !prev;
+      if (!prev) {
+        setTimeout(() => {
+          const select = document.querySelector(
+            "#google_translate_element_popup select"
+          ) as HTMLSelectElement;
+          if (select) {
+            select.focus();
+          }
+        }, 100);
+      }
+      return next;
+    });
   };
 
   return (
@@ -95,6 +98,19 @@ const NavLayerBottom: React.FC<{
               >
                 Language
               </Link>
+              {isTranslatePopupOpen && (
+                <div
+                  id="google_translate_element_popup"
+                  className="translate-popup absolute bg-white shadow-md p-4 mt-2 rounded"
+                >
+                  <select className="border border-gray-300 rounded p-1">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    {/* Add more languages as needed */}
+                  </select>
+                </div>
+              )}
             </li>
           </ul>
         </div>

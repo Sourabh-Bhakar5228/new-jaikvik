@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type EnquireFormInterface from "../../interfaces/EnquireFormInterface";
+import type { EnquireFormInterface } from "../../interfaces/EnquireFormInterface";
 import "../../styles/enquire-form.css";
 
 const EnquireSection = () => {
@@ -10,6 +10,7 @@ const EnquireSection = () => {
     phone: "",
     company: "",
     message: "",
+    city: "",
   });
 
   // Handle input changes
@@ -17,7 +18,7 @@ const EnquireSection = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev: EnquireFormInterface) => ({ ...prev, [name]: value }));
   };
 
   // Handle form submission
@@ -133,6 +134,8 @@ const EnquireSection = () => {
                       type="text"
                       id="city"
                       name="city"
+                      value={formData.city}
+                      onChange={handleChange}
                       placeholder=" "
                       required
                       autoComplete="off"
