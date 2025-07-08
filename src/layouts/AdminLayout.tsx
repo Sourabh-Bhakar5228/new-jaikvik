@@ -21,6 +21,8 @@ import {
   Film,
   Mail,
   List,
+  Plus,
+  HelpCircle,
 } from "lucide-react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 
@@ -280,6 +282,22 @@ const AdminLayout: React.FC = () => {
       time: "10 min ago",
       type: "info",
       unread: false,
+    },
+    {
+      id: "4",
+      title: "Maintenance Scheduled",
+      message: "System maintenance planned for tomorrow",
+      time: "1 hour ago",
+      type: "info",
+      unread: false,
+    },
+    {
+      id: "5",
+      title: "New Feature Added",
+      message: "Check out the new analytics dashboard",
+      time: "3 hours ago",
+      type: "success",
+      unread: true,
     },
   ];
 
@@ -570,6 +588,17 @@ const AdminLayout: React.FC = () => {
             </div>
 
             <div className="flex items-center space-x-4">
+              {/* Quick Action Button */}
+              <button className="hidden md:flex items-center space-x-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200">
+                <Plus size={16} />
+                <span>New Content</span>
+              </button>
+
+              {/* Help Button */}
+              <button className="p-2 text-gray-300 hover:text-red-400 hover:bg-red-900/30 rounded-lg transition-colors duration-200">
+                <HelpCircle size={20} />
+              </button>
+
               {/* Notifications */}
               <div className="relative">
                 <button
@@ -577,7 +606,7 @@ const AdminLayout: React.FC = () => {
                     e.stopPropagation();
                     setNotificationsOpen(!notificationsOpen);
                   }}
-                  className="relative p-2 text-gray-300 hover:text-red-400 hover:bg-red-900/30 rounded-lg transition-all duration-200"
+                  className="relative p-2 text-gray-300 hover:text-red-400 hover:bg-red-900/30 rounded-lg transition-colors duration-200"
                 >
                   <Bell size={20} />
                   {unreadCount > 0 && (
@@ -590,10 +619,13 @@ const AdminLayout: React.FC = () => {
                 {/* Notifications Dropdown */}
                 {notificationsOpen && (
                   <div className="absolute right-0 mt-2 w-80 bg-black rounded-lg shadow-xl border border-red-900 z-50">
-                    <div className="p-4 border-b border-red-900">
+                    <div className="p-4 border-b border-red-900 flex justify-between items-center">
                       <h3 className="text-lg font-semibold text-red-400">
                         Notifications
                       </h3>
+                      <button className="text-xs text-red-400 hover:text-red-300">
+                        Mark all as read
+                      </button>
                     </div>
                     <div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-red-900 scrollbar-track-black">
                       {notifications.map((notification) => (
@@ -627,9 +659,17 @@ const AdminLayout: React.FC = () => {
                         </div>
                       ))}
                     </div>
-                    <div className="p-4 text-center border-t border-red-900">
-                      <button className="text-red-400 hover:text-red-300 text-sm font-medium">
-                        View All Notifications
+                    <div className="p-4 border-t border-red-900">
+                      <button
+                        onClick={() => {
+                          // Navigate to full notifications page
+                          navigate("/admin/notifications");
+                          // setIsOpen(false); // Close dropdown
+                        }}
+                        className="w-full py-2 text-red-400 hover:text-red-300 text-sm font-medium flex items-center justify-center transition-colors duration-200"
+                      >
+                        <span>View All Notifications</span>
+                        <ChevronRight size={16} className="ml-1" />
                       </button>
                     </div>
                   </div>
@@ -648,23 +688,25 @@ const AdminLayout: React.FC = () => {
                   <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center border border-red-500">
                     <User size={16} className="text-white" />
                   </div>
-                  {sidebarOpen && (
-                    <>
-                      <span className="text-sm font-medium">Admin</span>
-                      <ChevronDown
-                        size={16}
-                        className={`transition-transform duration-200 ${
-                          profileOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </>
-                  )}
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform duration-200 ${
+                      profileOpen ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
 
                 {/* Profile Dropdown */}
                 {profileOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-black rounded-lg shadow-xl border border-red-900 z-50">
                     <div className="p-2">
+                      <div className="px-4 py-2 text-sm text-gray-300">
+                        <p className="font-medium">Admin User</p>
+                        <p className="text-xs text-gray-400 truncate">
+                          admin@example.com
+                        </p>
+                      </div>
+                      <hr className="my-1 border-red-900" />
                       <NavLink
                         to="/admin/profile"
                         className="block px-4 py-2 text-sm text-gray-300 hover:bg-red-900/20 hover:text-red-400 rounded"
@@ -677,7 +719,7 @@ const AdminLayout: React.FC = () => {
                       >
                         Settings
                       </NavLink>
-                      <hr className="my-2 border-red-900" />
+                      <hr className="my-1 border-red-900" />
                       <button
                         onClick={handleLogout}
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-red-900/20 hover:text-red-400 rounded"
@@ -697,28 +739,42 @@ const AdminLayout: React.FC = () => {
         <main className="flex-1 overflow-y-auto p-6 bg-black">
           <div className="max-w-7xl mx-auto">
             {/* Dynamic Page Title */}
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold text-red-400">
-                {location.pathname === "/admin"
-                  ? "Dashboard"
-                  : menuItems
-                      .flatMap((item) => [item, ...(item.children || [])])
-                      .flatMap((item) => [item, ...(item.children || [])])
-                      .find((item) => item.href === location.pathname)?.label ||
-                    "Dashboard"}
-              </h1>
-              <p className="text-gray-400 mt-1 capitalize">
-                {location.pathname === "/admin"
-                  ? "Overview of your admin dashboard"
-                  : `Manage your ${location.pathname
-                      .split("/")
-                      .pop()
-                      ?.replace(/-/g, " ")}`}
-              </p>
+            <div className="mb-6 flex justify-between items-center">
+              <div>
+                <h1 className="text-2xl font-bold text-red-400">
+                  {location.pathname === "/admin"
+                    ? "Dashboard"
+                    : menuItems
+                        .flatMap((item) => [item, ...(item.children || [])])
+                        .flatMap((item) => [item, ...(item.children || [])])
+                        .find((item) => item.href === location.pathname)
+                        ?.label || "Dashboard"}
+                </h1>
+                <p className="text-gray-400 mt-1 capitalize">
+                  {location.pathname === "/admin"
+                    ? "Overview of your admin dashboard"
+                    : `Manage your ${location.pathname
+                        .split("/")
+                        .pop()
+                        ?.replace(/-/g, " ")}`}
+                </p>
+              </div>
+              <div className="flex space-x-2">
+                <button className="px-4 py-2 bg-red-900/50 hover:bg-red-900/70 text-red-400 rounded-lg transition-colors duration-200 flex items-center">
+                  <HelpCircle size={16} className="mr-2" />
+                  <span>Help</span>
+                </button>
+                <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 flex items-center">
+                  <Plus size={16} className="mr-2" />
+                  <span>Add New</span>
+                </button>
+              </div>
             </div>
 
             {/* Page Content */}
-            <Outlet />
+            <div className="bg-black/50 border border-red-900/30 rounded-xl p-6">
+              <Outlet />
+            </div>
           </div>
         </main>
       </div>

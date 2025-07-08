@@ -53,6 +53,92 @@ const Dashboard = lazy(() => import("../Admin/Dashboard/Dashboard"));
 const NavbarDashboard = lazy(() => import("../Admin/Navbar/NavbarDashboard"));
 const FooterDashboard = lazy(() => import("../Admin/Footer/FooterDashboard"));
 
+// home page sections
+const HeroSectionDashboard = lazy(
+  () => import("../Admin/Home/herosection/AdminHeroSection")
+);
+const BannersDashboard = lazy(
+  () => import("../Admin/Home/Addbanners/BannerDashboard")
+);
+const CorporateVideoDashboard = lazy(
+  () => import("../Admin/Home/addcorporatevideo/CorporateVideoDashboard")
+);
+const ServicesSectionDashboard = lazy(
+  () => import("../Admin/Home/addourservices/OurServicesDashboard")
+);
+const EnquirySectionDashboard = lazy(
+  () => import("../Admin/Home/addenquirysection/EnquiryDashboard")
+);
+const ReelsDashboard = lazy(
+  () => import("../Admin/Home/addreels/ReelsDashboard")
+);
+const VideoDashboard = lazy(
+  () => import("../Admin/Home/addvideos/VideosDashboard")
+);
+const TestimonialVideoDashboard = lazy(
+  () => import("../Admin/Home/addtestimonialvideo/TestimonialDashboard")
+);
+const WebsiteDashboard = lazy(
+  () => import("../Admin/Home/addwebsiteimages/WebsiteDashboard")
+);
+const SocialMediaPostDashboard = lazy(
+  () => import("../Admin/Home/addsocialmediapost/SocialMediaDashboard")
+);
+const OurTeamDashboard = lazy(
+  () => import("../Admin/Home/addourteamvideo/TeamVideoDashboard")
+);
+const OurClientsDashboard = lazy(
+  () => import("../Admin/Home/addourclients/ClientDashboard")
+);
+
+const AboutUsDashboard = lazy(() => import("../Admin/About/aboutAdmin"));
+const BlogsDashboard = lazy(() => import("../Admin/Blogs/AdminBlogs"));
+const CareersDashboard = lazy(
+  () => import("../Admin/Careers/CareersDashboard")
+);
+const ContactUsDashboard = lazy(
+  () => import("../Admin/Contact/ContactDashboard")
+);
+
+// services pages
+const FilmProductionDashboard = lazy(
+  () => import("../Admin/Services/filmproduction/filmAdmin")
+);
+const GoogleSeoDashboard = lazy(
+  () => import("../Admin/Services/seoServices/SeoServicesDashboard")
+);
+const WebDevelopmentDashboard = lazy(
+  () => import("../Admin/Services/webDevelopment/WebDevDashboard")
+);
+const CrmSoftwareDashboard = lazy(
+  () => import("../Admin/Services/softwareDevpages/crmDashboard")
+);
+const MobileAppDashboard = lazy(
+  () => import("../Admin/Services/softwareDevpages/mobileAppDashboard")
+);
+const ErpSoftwareDashboard = lazy(
+  () => import("../Admin/Services/softwareDevpages/erpDashboard")
+);
+const CustomizationSoftwareDashboard = lazy(
+  () =>
+    import("../Admin/Services/softwareDevpages/customizationSoftwareDashboard")
+);
+const SocialMediaMarketingDashboard = lazy(
+  () => import("../Admin/Services/digitalMarketingpages/socialMediaDashboard")
+);
+const YoutubeMetaAdsDashboard = lazy(
+  () => import("../Admin/Services/digitalMarketingpages/youtubeMetaDashboard")
+);
+const BrandPromotionDashboard = lazy(
+  () =>
+    import("../Admin/Services/digitalMarketingpages/brandpromotionDashboard")
+);
+const AdminProfile = lazy(() => import("../Admin/profileadmin/AdminProfile"));
+const AdminSetting = lazy(() => import("../Admin/profileadmin/AdminSettings"));
+const AdminNotification = lazy(
+  () => import("../Admin/profileadmin/AdminNotification")
+);
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -110,8 +196,106 @@ const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           { path: "dashboard", element: <Dashboard /> },
+
+          // Website Sections
           { path: "website-sections/navbar", element: <NavbarDashboard /> },
           { path: "website-sections/footer", element: <FooterDashboard /> },
+
+          // Home Page Sections
+          { path: "home/hero-section", element: <HeroSectionDashboard /> },
+          { path: "home/banners", element: <BannersDashboard /> },
+          {
+            path: "home/corporate-video",
+            element: <CorporateVideoDashboard />,
+          },
+          {
+            path: "home/services-section",
+            element: <ServicesSectionDashboard />,
+          },
+          {
+            path: "home/enquiry-section",
+            element: <EnquirySectionDashboard />,
+          },
+          { path: "home/reels", element: <ReelsDashboard /> },
+          { path: "home/video", element: <VideoDashboard /> },
+          {
+            path: "home/testimonial-video",
+            element: <TestimonialVideoDashboard />,
+          },
+          { path: "home/website", element: <WebsiteDashboard /> },
+          {
+            path: "home/social-media-post",
+            element: <SocialMediaPostDashboard />,
+          },
+          { path: "home/our-team", element: <OurTeamDashboard /> },
+          { path: "home/our-clients", element: <OurClientsDashboard /> },
+
+          // About Us
+          { path: "about-us", element: <AboutUsDashboard /> },
+
+          // Blogs
+          { path: "blogs", element: <BlogsDashboard /> },
+
+          // Careers
+          { path: "careers", element: <CareersDashboard /> },
+
+          // Contact Us
+          { path: "contact-us", element: <ContactUsDashboard /> },
+
+          // Services
+          {
+            path: "services/software-development/crm-software",
+            element: <CrmSoftwareDashboard />,
+          },
+          {
+            path: "services/software-development/mobile-application",
+            element: <MobileAppDashboard />,
+          },
+          {
+            path: "services/software-development/erp-software",
+            element: <ErpSoftwareDashboard />,
+          },
+          {
+            path: "services/software-development/customization-software",
+            element: <CustomizationSoftwareDashboard />,
+          },
+          {
+            path: "services/web-development",
+            element: <WebDevelopmentDashboard />,
+          },
+          {
+            path: "services/digital-marketing/social-media-marketing",
+            element: <SocialMediaMarketingDashboard />,
+          },
+          {
+            path: "services/digital-marketing/youtube-meta-ads",
+            element: <YoutubeMetaAdsDashboard />,
+          },
+          {
+            path: "services/digital-marketing/brand-promotion",
+            element: <BrandPromotionDashboard />,
+          },
+          {
+            path: "services/google-seo-services",
+            element: <GoogleSeoDashboard />,
+          },
+          {
+            path: "services/film-production",
+            element: <FilmProductionDashboard />,
+          },
+          {
+            path: "profile",
+            element: <AdminProfile />,
+          },
+          {
+            path: "notifications",
+            element: <AdminNotification />,
+          },
+          {
+            path: "settings",
+            element: <AdminSetting />,
+          },
+
           { path: "*", element: <h2>Admin 404 Page!</h2> },
         ],
       },

@@ -6,12 +6,12 @@ const testimonials = [
   },
   {
     video:
-      "https://jaikvik.in/lab/new-post-video/video/testimonial-video/2-client-review.mp4",
+      "https://jaikvik.in/lab/new-post-video/video/testimonial-video/2-client.mp4",
     poster: "/images/testimonial_video/poster/celestail.png",
   },
   {
     video:
-      "https://jaikvik.in/lab/new-post-video/video/testimonial-video/client-review-3.mp4",
+      "https://jaikvik.in/lab/new-post-video/video/testimonial-video/3-client.mp4",
     poster: "/images/testimonial_video/poster/micro_industeries.png",
   },
   {

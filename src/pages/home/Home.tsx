@@ -17,7 +17,7 @@ const CorporateVideosSection = lazy(() => import("./CorporateVideosSection"));
 const OurTechnologies = lazy(() => import("./OurTechnologies"));
 const MobileAppSection = lazy(() => import("./MobileAppSection"));
 const TeamVideoSlider = lazy(() => import("./TeamVideoSlider"));
-// const ChatBot = lazy(() => import("./Chatbot"));
+const ChatBot = lazy(() => import("./Chatbot"));
 
 const VideoSkeletonLoader = () => {
   return (
@@ -439,7 +439,7 @@ const Home: React.FC = () => {
         <div className="section-spacer" />
         <EnquireSection />
         <div className="section-spacer" />
-        {/* <ChatBot /> */}
+        <ChatBot />
       </Suspense>
 
       <style>{`
