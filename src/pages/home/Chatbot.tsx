@@ -1,11 +1,13 @@
 import * as React from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
+// Define interfaces for type safety
 interface Message {
   sender: "user" | "bot";
   message: string;
   category: string;
   intent: string;
+  timestamp: string;
 }
 
 interface AIResponse {
@@ -43,6 +45,7 @@ interface Data {
   services: ServiceGroup[];
 }
 
+// Static data remains unchanged
 const data: Data = {
   inactivityMessages: [
     "Need help with our services?",
@@ -116,9 +119,9 @@ const data: Data = {
       ],
       priority: 3,
       responses: [
-        'For quick assistance, message us on <a href="https://wa.me/+918307802850" target="_blank">WhatsApp (+918307802850)</a> or email <a href="mailto:info@jaikviktechnology.com">info@jaikviktechnology.com</a>. You can also call <a href="tel:+919310907227">+91-9310907227</a>. Visit us at A-82, Sector 63, Noida, UP.',
+        'For quick assistance, message us on <a href="https://wa.me/+919220826934" target="_blank">WhatsApp (+919220826934)</a> or email <a href="mailto:info@jaikviktechnology.com">info@jaikviktechnology.com</a>. You can also call <a href="tel:+919310907227">+91-9310907227</a>. Visit us at A-82, Sector 63, Noida, UP.',
         'Reach us at <a href="mailto:info@jaikviktechnology.com">info@jaikviktechnology.com</a> or <a href="tel:+919220826934">+91-9220826934</a>. Our office is at A-82, Sector 63, Noida, UP.',
-        'Contact us via <a href="https://wa.me/+918307802850" target="_blank">WhatsApp (+918307802850)</a> or call <a href="tel:+911204200970">+91-120-4200970</a>. We\'re here to help!',
+        'Contact us via <a href="https://wa.me/+919220826934" target="_blank">WhatsApp (+919220826934)</a> or call <a href="tel:+911204200970">+91-120-4200970</a>. We\'re here to help!',
         'You can reach our team directly at <a href="tel:+919310907227">+91-9310907227</a> or visit our office at A-82, Sector 63, Noida, UP.',
         'For immediate assistance, please call <a href="tel:+919220826934">+91-9220826934</a> or email <a href="mailto:info@jaikviktechnology.com">info@jaikviktechnology.com</a>',
       ],
@@ -172,49 +175,49 @@ const data: Data = {
       intent: "informational",
       reachMessages: {
         "customised software development":
-          "For Customised Software Development, reach our experts via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit us at A-82, Sector 63, Noida, UP.",
+          "For Customised Software Development, reach our experts via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit us at A-82, Sector 63, Noida, UP.",
         "erp systems":
-          "Interested in ERP Systems? Contact us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href=','tel:+919310907227'>+91-9310907227</a>. Visit our office at A-82, Sector 63, Noida, UP.",
+          "Interested in ERP Systems? Contact us on <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit our office at A-82, Sector 63, Noida, UP.",
         "crm solutions":
-          "For CRM Solutions, get in touch via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or stop by A-82, Sector 63, Noida, UP.",
+          "For CRM Solutions, get in touch via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or stop by A-82, Sector 63, Noida, UP.",
         "hrm systems":
-          "Explore HRM Systems with us! Reach out on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+          "Explore HRM Systems with us! Reach out on <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
         "custom web development":
-          "For Custom Web Development, contact our team via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "For Custom Web Development, contact our team via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "api integration":
-          "Need API Integration? Reach us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+          "Need API Integration? Reach us on <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
         "mobile application development":
-          "For Mobile Application Development, connect via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "For Mobile Application Development, connect via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "ios & android apps":
-          "Interested in iOS & Android Apps? Contact us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+          "Interested in iOS & Android Apps? Contact us on <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
         "ui/ux design":
-          "For UI/UX Design, reach out via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "For UI/UX Design, reach out via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "app optimization":
-          "Explore App Optimization with us! Contact <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+          "Explore App Optimization with us! Contact <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
         "cross-platform development":
-          "For Cross-Platform Development, reach us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "For Cross-Platform Development, reach us on <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "maintenance & support":
-          "Need Maintenance & Support? Contact us via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "Need Maintenance & Support? Contact us via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "search engine optimization":
-          "For Search Engine Optimization, reach our experts via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "For Search Engine Optimization, reach our experts via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "content marketing":
-          "Interested in Content Marketing? Contact us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+          "Interested in Content Marketing? Contact us on <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
         "social media campaigns":
-          "For Social Media Campaigns, get in touch via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or stop by A-82, Sector 63, Noida, UP.",
+          "For Social Media Campaigns, get in touch via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or stop by A-82, Sector 63, Noida, UP.",
         "ppc advertising":
-          "Explore PPC Advertising with us! Reach out on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+          "Explore PPC Advertising with us! Reach out on <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
         "analytics & reporting":
-          "For Analytics & Reporting, contact our team via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "For Analytics & Reporting, contact our team via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "promotional videos":
-          "For Promotional Videos, reach us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "For Promotional Videos, reach us on <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "corporate films":
-          "Interested in Corporate Films? Contact us via <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "Interested in Corporate Films? Contact us via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "product demos":
-          "For Product Demos, reach out via Famil href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "For Product Demos, reach out via <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
         "animation & motion graphics":
-          "Explore Animation & Motion Graphics with us! Contact <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
+          "Explore Animation & Motion Graphics with us! Contact <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a>, email <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>, or call <a href='tel:+919310907227'>+91-9310907227</a>. Visit A-82, Sector 63, Noida, UP.",
         "event coverage":
-          "For Event Coverage, reach us on <a href='https://wa.me/+918307802850' target='_blank'>WhatsApp (+918307802850)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
+          "For Event Coverage, reach us on <a href='https://wa.me/+919220826934' target='_blank'>WhatsApp (+919220826934)</a> or <a href='mailto:info@jaikviktechnology.com'>info@jaikviktechnology.com</a>. Call <a href='tel:+919310907227'>+91-9310907227</a> or visit A-82, Sector 63, Noida, UP.",
       },
     },
     about: {
@@ -388,6 +391,7 @@ const data: Data = {
 };
 
 const Chatbot: React.FC = () => {
+  // Initialize chatbot as closed and toggle icon as visible on page load
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
   const [isToggleVisible, setIsToggleVisible] = useState<boolean>(true);
   const [messages, setMessages] = useState<Message[]>([
@@ -397,6 +401,7 @@ const Chatbot: React.FC = () => {
         "Welcome to Jaikvik Technology! How can I assist you today? Select a service or type a message below.",
       category: "greeting",
       intent: "casual",
+      timestamp: new Date().toISOString(),
     },
   ]);
   const [inputMessage, setInputMessage] = useState<string>("");
@@ -408,7 +413,6 @@ const Chatbot: React.FC = () => {
   }>({ message: "", type: "" });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [conversationContext, setConversationContext] = useState<Message[]>([]);
-  // Keep conversationHistory for analytics use
   const [conversationHistory, setConversationHistory] = useState<
     AnalyticsData[]
   >([]);
@@ -419,28 +423,17 @@ const Chatbot: React.FC = () => {
   const messageIndexRef = useRef<number>(0);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const getTimestamp = (): string => {
-    return new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  const log = (message: string, type: "info" | "error" = "info") => {
-    console[type](`[${new Date().toLocaleString()}] ${message}`);
-  };
-
   // Summarize conversation history for analytics
-  const summarizeConversationHistory = () => {
+  const summarizeConversationHistory = useCallback(() => {
     const summary = conversationHistory.reduce((acc, data) => {
       acc[data.event] = (acc[data.event] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-    log(`Conversation History Summary: ${JSON.stringify(summary)}`);
     return summary;
-  };
+  }, [conversationHistory]);
 
-  const sanitizeHTML = (str: string): string => {
+  // Sanitize HTML with a library (e.g., DOMPurify) or custom logic
+  const sanitizeHTML = useCallback((str: string): string => {
     const allowedTags = ["a", "b", "i", "strong", "em"];
     const allowedAttributes: { [key: string]: string[] } = {
       a: ["href", "target"],
@@ -474,48 +467,51 @@ const Chatbot: React.FC = () => {
     };
     sanitizeNode(div);
     return div.innerHTML;
-  };
+  }, []);
 
-  const trackInteraction = (
-    event: string,
-    data: { [key: string]: any } = {}
-  ) => {
-    log(`Analytics event: ${event}, data: ${JSON.stringify(data)}`);
-    const analyticsData: AnalyticsData = {
-      event,
-      timestamp: new Date().toISOString(),
-      conversationLength: conversationContext.filter((m) => m.sender === "user")
-        .length,
-      ...data,
-    };
-    setConversationHistory((prev) => [...prev, analyticsData]);
-  };
+  // Track interactions for analytics
+  const trackInteraction = useCallback(
+    (event: string, data: { [key: string]: any } = {}) => {
+      const analyticsData: AnalyticsData = {
+        event,
+        timestamp: new Date().toISOString(),
+        conversationLength: conversationContext.filter(
+          (m) => m.sender === "user"
+        ).length,
+        ...data,
+      };
+      setConversationHistory((prev) => [...prev, analyticsData]);
+    },
+    [conversationContext]
+  );
 
+  // Memoize inactivity timer to prevent unnecessary re-renders
   const startInactivityTimer = useCallback(() => {
     if (inactivityTimerRef.current) {
       clearTimeout(inactivityTimerRef.current);
     }
     inactivityTimerRef.current = setTimeout(() => {
+      const message = sanitizeHTML(
+        data.inactivityMessages[messageIndexRef.current]
+      );
       setMessages((prev) => [
         ...prev,
         {
           sender: "bot",
-          message: sanitizeHTML(
-            data.inactivityMessages[messageIndexRef.current]
-          ),
+          message,
           category: "inactivity",
           intent: "casual",
+          timestamp: new Date().toISOString(),
         },
       ]);
       setConversationContext((prev) => [
         ...prev,
         {
           sender: "bot",
-          message: sanitizeHTML(
-            data.inactivityMessages[messageIndexRef.current]
-          ),
+          message,
           category: "inactivity",
           intent: "casual",
+          timestamp: new Date().toISOString(),
         },
       ]);
       messageIndexRef.current =
@@ -525,115 +521,127 @@ const Chatbot: React.FC = () => {
       });
       startInactivityTimer();
     }, 15000);
-  }, []);
+  }, [sanitizeHTML, trackInteraction]);
 
-  const debounce = <T extends (...args: any[]) => void>(
-    func: T,
-    wait: number
-  ) => {
-    let timeout: NodeJS.Timeout;
-    return (...args: Parameters<T>) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
+  // Debounce function for performance
+  const debounce = useCallback(
+    <T extends (...args: any[]) => void>(func: T, wait: number) => {
+      let timeout: NodeJS.Timeout;
+      return (...args: Parameters<T>) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+      };
+    },
+    []
+  );
 
-  const getAIResponse = (
-    message: string,
-    context: Message[]
-  ): { response: string; category: string } => {
-    const lowerMessage = message.toLowerCase().trim();
-    let bestMatch = { category: "default", priority: -1 };
-    let responseData: AIResponse;
+  // Memoize AI response logic for performance
+  const getAIResponse = useCallback(
+    (
+      message: string,
+      context: Message[]
+    ): { response: string; category: string } => {
+      const lowerMessage = message.toLowerCase().trim();
+      let bestMatch = { category: "default", priority: -1 };
+      let responseData: AIResponse;
 
-    for (const key in data.aiResponses) {
-      if (key === "default") continue;
-      if (
-        data.aiResponses[key].keywords?.some(
-          (keyword) => keyword.toLowerCase() === lowerMessage
-        )
-      ) {
-        bestMatch = { category: key, priority: data.aiResponses[key].priority };
-        break;
-      }
-    }
-
-    if (bestMatch.priority === -1) {
+      // Exact keyword match
       for (const key in data.aiResponses) {
-        if (key === "default" || !data.aiResponses[key].keywords) continue;
+        if (key === "default") continue;
         if (
-          data.aiResponses[key].keywords?.some((keyword) =>
-            lowerMessage.includes(keyword.toLowerCase())
+          data.aiResponses[key].keywords?.some(
+            (keyword) => keyword.toLowerCase() === lowerMessage
           )
         ) {
-          if (data.aiResponses[key].priority > bestMatch.priority) {
-            bestMatch = {
-              category: key,
-              priority: data.aiResponses[key].priority,
-            };
+          bestMatch = {
+            category: key,
+            priority: data.aiResponses[key].priority,
+          };
+          break;
+        }
+      }
+
+      // Fallback to partial match
+      if (bestMatch.priority === -1) {
+        for (const key in data.aiResponses) {
+          if (key === "default" || !data.aiResponses[key].keywords) continue;
+          if (
+            data.aiResponses[key].keywords?.some((keyword) =>
+              lowerMessage.includes(keyword.toLowerCase())
+            )
+          ) {
+            if (data.aiResponses[key].priority > bestMatch.priority) {
+              bestMatch = {
+                category: key,
+                priority: data.aiResponses[key].priority,
+              };
+            }
           }
         }
       }
-    }
 
-    responseData = data.aiResponses[bestMatch.category];
-    let response =
-      responseData.responses[
-        Math.floor(Math.random() * responseData.responses.length)
-      ];
+      responseData = data.aiResponses[bestMatch.category];
+      let response =
+        responseData.responses[
+          Math.floor(Math.random() * responseData.responses.length)
+        ];
 
-    if (bestMatch.category === "services") {
-      response = response.replace("[SERVICE]", message);
-    }
-
-    if (context.length > 0) {
-      const lastUserMessage = context.filter((m) => m.sender === "user").pop();
-      const lastBotMessage = context.filter((m) => m.sender === "bot").pop();
-      const conversationLength = context.filter(
-        (item) => item.sender === "user"
-      ).length;
-      const recentIntents = context
-        .slice(-3)
-        .map((item) => data.aiResponses[item.category]?.intent || "unknown");
-
-      const isCasual =
-        recentIntents.includes("casual") &&
-        !recentIntents.includes("support") &&
-        !recentIntents.includes("contact");
-      const isCommercial = recentIntents.includes("commercial");
-      const isInformational = recentIntents.includes("informational");
-
-      if (
-        lastBotMessage?.category === bestMatch.category &&
-        Math.random() < responseData.followUpThreshold
-      ) {
-        response = responseData.followUp.replace("[SERVICE]", message);
-      } else if (isCasual && conversationLength > 2 && Math.random() < 0.2) {
-        response = `Loving our chat! Ready to dive into our software, apps, or marketing solutions?`;
-      } else if (conversationLength > 4 && Math.random() < 0.2) {
-        response = `Thanks for chatting! ${responseData.followUp.replace(
-          "[SERVICE]",
-          message
-        )}`;
-      } else if (isCommercial && bestMatch.category === "services") {
-        response = `For pricing on ${message}, we'll need to understand your specific requirements. Would you like to discuss this with our sales team?`;
-      } else if (
-        isInformational &&
-        lastUserMessage?.intent === "informational"
-      ) {
-        response = `To expand on ${
-          lastUserMessage.message
-        }, ${response.toLowerCase()}`;
+      if (bestMatch.category === "services") {
+        response = response.replace("[SERVICE]", message);
       }
-    }
 
-    return { response, category: bestMatch.category };
-  };
+      if (context.length > 0) {
+        const lastUserMessage = context
+          .filter((m) => m.sender === "user")
+          .pop();
+        const lastBotMessage = context.filter((m) => m.sender === "bot").pop();
+        const conversationLength = context.filter(
+          (item) => item.sender === "user"
+        ).length;
+        const recentIntents = context
+          .slice(-3)
+          .map((item) => data.aiResponses[item.category]?.intent || "unknown");
 
-  const getReachMessage = (service: string): string | null => {
+        const isCasual =
+          recentIntents.includes("casual") &&
+          !recentIntents.includes("support") &&
+          !recentIntents.includes("contact");
+        const isCommercial = recentIntents.includes("commercial");
+        const isInformational = recentIntents.includes("informational");
+
+        if (
+          lastBotMessage?.category === bestMatch.category &&
+          Math.random() < responseData.followUpThreshold
+        ) {
+          response = responseData.followUp.replace("[SERVICE]", message);
+        } else if (isCasual && conversationLength > 2 && Math.random() < 0.2) {
+          response = `Loving our chat! Ready to dive into our software, apps, or marketing solutions?`;
+        } else if (conversationLength > 4 && Math.random() < 0.2) {
+          response = `Thanks for chatting! ${responseData.followUp.replace(
+            "[SERVICE]",
+            message
+          )}`;
+        } else if (isCommercial && bestMatch.category === "services") {
+          response = `For pricing on ${message}, we'll need to understand your specific requirements. Would you like to discuss this with our sales team?`;
+        } else if (
+          isInformational &&
+          lastUserMessage?.intent === "informational"
+        ) {
+          response = `To expand on ${
+            lastUserMessage.message
+          }, ${response.toLowerCase()}`;
+        }
+      }
+
+      return { response, category: bestMatch.category };
+    },
+    []
+  );
+
+  const getReachMessage = useCallback((service: string): string | null => {
     const lowerService = service.toLowerCase();
     return data.aiResponses.services.reachMessages?.[lowerService] || null;
-  };
+  }, []);
 
   const checkConversationPatterns = useCallback(() => {
     if (conversationContext.length < 2) return;
@@ -655,65 +663,48 @@ const Chatbot: React.FC = () => {
 
       if (match) {
         setTimeout(() => {
-          setMessages((prev) => [
-            ...prev,
-            {
-              sender: "bot",
-              message: pattern.response,
-              category: "followup",
-              intent: "followup",
-            },
-          ]);
-          setConversationContext((prev) => [
-            ...prev,
-            {
-              sender: "bot",
-              message: pattern.response,
-              category: "followup",
-              intent: "followup",
-            },
-          ]);
+          const patternResponse = {
+            sender: "bot" as const,
+            message: pattern.response,
+            category: "followup",
+            intent: "followup",
+            timestamp: new Date().toISOString(),
+          };
+          setMessages((prev) => [...prev, patternResponse]);
+          setConversationContext((prev) => [...prev, patternResponse]);
           trackInteraction("pattern_response", { pattern: pattern.name });
         }, 1500);
         break;
       }
     }
-  }, [conversationContext]);
+  }, [conversationContext, trackInteraction]);
 
-  const showTypingIndicator = () => {
+  const showTypingIndicator = useCallback(() => {
     if (isTyping) return;
     setIsTyping(true);
     typingTimeoutRef.current = setTimeout(() => {
       setIsTyping(false);
-      log("Typing indicator removed");
+      trackInteraction("typing_indicator_removed");
     }, 1000 + Math.random() * 2000);
-  };
+  }, [isTyping, trackInteraction]);
 
-  const handleServiceSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value;
-    if (selectedValue) {
-      log(`Selected service: ${selectedValue}`);
+  const handleServiceSelect = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedValue = e.target.value;
+      if (!selectedValue) return;
+
       setInputMessage(selectedValue);
       inputRef.current?.focus();
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "user",
-          message: selectedValue,
-          category: "services",
-          intent: "informational",
-        },
-      ]);
-      setConversationContext((prev) => [
-        ...prev,
-        {
-          sender: "user",
-          message: selectedValue,
-          category: "services",
-          intent: "informational",
-        },
-      ]);
+      const userMessage = {
+        sender: "user" as const,
+        message: selectedValue,
+        category: "services",
+        intent: "informational",
+        timestamp: new Date().toISOString(),
+      };
+      setMessages((prev) => [...prev, userMessage]);
+      setConversationContext((prev) => [...prev, userMessage]);
 
       showTypingIndicator();
       setTimeout(() => {
@@ -722,45 +713,27 @@ const Chatbot: React.FC = () => {
           selectedValue,
           conversationContext
         );
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            message: response,
-            category,
-            intent: data.aiResponses[category]?.intent || "unknown",
-          },
-        ]);
-        setConversationContext((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            message: response,
-            category,
-            intent: data.aiResponses[category]?.intent || "unknown",
-          },
-        ]);
+        const botMessage = {
+          sender: "bot" as const,
+          message: response,
+          category,
+          intent: data.aiResponses[category]?.intent || "unknown",
+          timestamp: new Date().toISOString(),
+        };
+        setMessages((prev) => [...prev, botMessage]);
+        setConversationContext((prev) => [...prev, botMessage]);
 
         const reachMessage = getReachMessage(selectedValue);
         if (reachMessage) {
-          setMessages((prev) => [
-            ...prev,
-            {
-              sender: "bot",
-              message: reachMessage,
-              category: "services",
-              intent: "informational",
-            },
-          ]);
-          setConversationContext((prev) => [
-            ...prev,
-            {
-              sender: "bot",
-              message: reachMessage,
-              category: "services",
-              intent: "informational",
-            },
-          ]);
+          const reachBotMessage = {
+            sender: "bot" as const,
+            message: reachMessage,
+            category: "services",
+            intent: "informational",
+            timestamp: new Date().toISOString(),
+          };
+          setMessages((prev) => [...prev, reachBotMessage]);
+          setConversationContext((prev) => [...prev, reachBotMessage]);
           trackInteraction("reach_message_displayed", {
             service: selectedValue,
           });
@@ -770,12 +743,19 @@ const Chatbot: React.FC = () => {
         trackInteraction("service_selected", { service: selectedValue });
         e.target.value = "";
       }, 1000 + Math.random() * 500);
-    }
-  };
+    },
+    [
+      conversationContext,
+      getAIResponse,
+      getReachMessage,
+      showTypingIndicator,
+      checkConversationPatterns,
+      trackInteraction,
+    ]
+  );
 
-  const sendMessage = async () => {
+  const sendMessage = useCallback(async () => {
     if (!inputMessage.trim()) {
-      log("Empty input detected");
       inputRef.current?.setAttribute("aria-invalid", "true");
       inputRef.current?.setAttribute("placeholder", "Please enter a message");
       inputRef.current?.focus();
@@ -786,25 +766,15 @@ const Chatbot: React.FC = () => {
       return;
     }
 
-    log(`Sending message: ${inputMessage}`);
-    setMessages((prev) => [
-      ...prev,
-      {
-        sender: "user",
-        message: inputMessage,
-        category: analyzeMessage(inputMessage).category,
-        intent: analyzeMessage(inputMessage).intent,
-      },
-    ]);
-    setConversationContext((prev) => [
-      ...prev,
-      {
-        sender: "user",
-        message: inputMessage,
-        category: analyzeMessage(inputMessage).category,
-        intent: analyzeMessage(inputMessage).intent,
-      },
-    ]);
+    const userMessage = {
+      sender: "user" as const,
+      message: inputMessage,
+      category: analyzeMessage(inputMessage).category,
+      intent: analyzeMessage(inputMessage).intent,
+      timestamp: new Date().toISOString(),
+    };
+    setMessages((prev) => [...prev, userMessage]);
+    setConversationContext((prev) => [...prev, userMessage]);
 
     showTypingIndicator();
     const processingTime = Math.min(
@@ -818,47 +788,29 @@ const Chatbot: React.FC = () => {
       inputMessage,
       conversationContext
     );
-    setMessages((prev) => [
-      ...prev,
-      {
-        sender: "bot",
-        message: response,
-        category,
-        intent: data.aiResponses[category]?.intent || "unknown",
-      },
-    ]);
-    setConversationContext((prev) => [
-      ...prev,
-      {
-        sender: "bot",
-        message: response,
-        category,
-        intent: data.aiResponses[category]?.intent || "unknown",
-      },
-    ]);
+    const botMessage = {
+      sender: "bot" as const,
+      message: response,
+      category,
+      intent: data.aiResponses[category]?.intent || "unknown",
+      timestamp: new Date().toISOString(),
+    };
+    setMessages((prev) => [...prev, botMessage]);
+    setConversationContext((prev) => [...prev, botMessage]);
 
     if (category === "services") {
       const reachMessage = getReachMessage(inputMessage);
       if (reachMessage) {
         await new Promise((resolve) => setTimeout(resolve, 500));
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            message: reachMessage,
-            category: "services",
-            intent: "informational",
-          },
-        ]);
-        setConversationContext((prev) => [
-          ...prev,
-          {
-            sender: "bot",
-            message: reachMessage,
-            category: "services",
-            intent: "informational",
-          },
-        ]);
+        const reachBotMessage = {
+          sender: "bot" as const,
+          message: reachMessage,
+          category: "services",
+          intent: "informational",
+          timestamp: new Date().toISOString(),
+        };
+        setMessages((prev) => [...prev, reachBotMessage]);
+        setConversationContext((prev) => [...prev, reachBotMessage]);
         trackInteraction("reach_message_displayed", { service: inputMessage });
       }
     }
@@ -872,56 +824,69 @@ const Chatbot: React.FC = () => {
     inputRef.current?.focus();
     startInactivityTimer();
     checkConversationPatterns();
-  };
+  }, [
+    inputMessage,
+    conversationContext,
+    getAIResponse,
+    getReachMessage,
+    showTypingIndicator,
+    startInactivityTimer,
+    checkConversationPatterns,
+    trackInteraction,
+  ]);
 
-  const analyzeMessage = (
-    message: string
-  ): { category: string; intent: string } => {
-    const lowerMessage = message.toLowerCase();
-    let category = "default";
-    let intent = "unknown";
+  const analyzeMessage = useCallback(
+    (message: string): { category: string; intent: string } => {
+      const lowerMessage = message.toLowerCase();
+      let category = "default";
+      let intent = "unknown";
 
-    for (const [key, responseData] of Object.entries(data.aiResponses)) {
-      if (
-        responseData.keywords?.some(
-          (keyword) => keyword.toLowerCase() === lowerMessage
-        )
-      ) {
-        category = key;
-        intent = responseData.intent;
-        break;
-      }
-    }
-
-    if (category === "default") {
       for (const [key, responseData] of Object.entries(data.aiResponses)) {
         if (
-          responseData.keywords?.some((keyword) =>
-            lowerMessage.includes(keyword.toLowerCase())
+          responseData.keywords?.some(
+            (keyword) => keyword.toLowerCase() === lowerMessage
           )
         ) {
-          if (responseData.priority > data.aiResponses[category].priority) {
-            category = key;
-            intent = responseData.intent;
+          category = key;
+          intent = responseData.intent;
+          break;
+        }
+      }
+
+      if (category === "default") {
+        for (const [key, responseData] of Object.entries(data.aiResponses)) {
+          if (
+            responseData.keywords?.some((keyword) =>
+              lowerMessage.includes(keyword.toLowerCase())
+            )
+          ) {
+            if (
+              data.aiResponses[key].priority >
+              data.aiResponses[category].priority
+            ) {
+              category = key;
+              intent = responseData.intent;
+            }
           }
         }
       }
-    }
 
-    if (lowerMessage.includes("how much") || lowerMessage.includes("price")) {
-      intent = "commercial";
-    }
-    if (lowerMessage.includes("thank")) {
-      intent = "gratitude";
-    }
-    if (lowerMessage.includes("bye") || lowerMessage.includes("goodbye")) {
-      intent = "farewell";
-    }
+      if (lowerMessage.includes("how much") || lowerMessage.includes("price")) {
+        intent = "commercial";
+      }
+      if (lowerMessage.includes("thank")) {
+        intent = "gratitude";
+      }
+      if (lowerMessage.includes("bye") || lowerMessage.includes("goodbye")) {
+        intent = "farewell";
+      }
 
-    return { category, intent };
-  };
+      return { category, intent };
+    },
+    []
+  );
 
-  const resetConversation = () => {
+  const resetConversation = useCallback(() => {
     setMessages([
       {
         sender: "bot",
@@ -929,144 +894,140 @@ const Chatbot: React.FC = () => {
           "Welcome to Jaikvik Technology! How can I assist you today? Select a service or type a message below.",
         category: "greeting",
         intent: "casual",
+        timestamp: new Date().toISOString(),
       },
     ]);
     setConversationContext([]);
     setInputMessage("");
     setIsTyping(false);
-    log("Conversation reset");
     trackInteraction("conversation_reset");
-    summarizeConversationHistory(); // Log analytics summary on reset
+    summarizeConversationHistory();
     startInactivityTimer();
-  };
+  }, [summarizeConversationHistory, startInactivityTimer, trackInteraction]);
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const fname = (form.fname as HTMLInputElement).value.trim();
-    const phone = (form.phone as HTMLInputElement).value.trim();
-    const email = (form.email as HTMLInputElement).value.trim();
-    const subject = (form.subject as HTMLInputElement).value.trim();
-    const msg = (form.msg as HTMLTextAreaElement).value.trim();
+  const handleFormSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      const fname = (form.fname as HTMLInputElement).value.trim();
+      const phone = (form.phone as HTMLInputElement).value.trim();
+      const email = (form.email as HTMLInputElement).value.trim();
+      const subject = (form.subject as HTMLInputElement).value.trim();
+      const msg = (form.msg as HTMLTextAreaElement).value.trim();
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\+?\d{10,15}$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\+?\d{10,15}$/;
 
-    form.querySelectorAll("input, textarea").forEach((input) => {
-      input.setAttribute("aria-invalid", "false");
-    });
-
-    if (
-      !fname ||
-      !phone ||
-      !phoneRegex.test(phone) ||
-      !email ||
-      !emailRegex.test(email) ||
-      !subject ||
-      !msg
-    ) {
-      const error = !fname
-        ? "Full Name is required."
-        : !phone || !phoneRegex.test(phone)
-        ? "Valid phone number is required."
-        : !email || !emailRegex.test(email)
-        ? "Valid email address is required."
-        : !subject
-        ? "Subject is required."
-        : "Message is required.";
-      setFormFeedback({ message: error, type: "error" });
-      form
-        .querySelector(
-          `#${
-            !fname
-              ? "fname"
-              : !phone
-              ? "phone"
-              : !email
-              ? "email"
-              : !subject
-              ? "subject"
-              : "msg"
-          }`
-        )
-        ?.setAttribute("aria-invalid", "true");
-      log(`Form validation failed: ${error}`, "error");
-      trackInteraction("contact_form_error", { error });
-      return;
-    }
-
-    setIsSubmitting(true);
-    setFormFeedback({ message: "", type: "" });
-
-    try {
-      // In a real app, you would actually send this to your backend
-      // This is just a simulation for demonstration purposes
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      setFormFeedback({
-        message: "Message sent successfully!",
-        type: "success",
+      form.querySelectorAll("input, textarea").forEach((input) => {
+        input.setAttribute("aria-invalid", "false");
       });
-      form.reset();
-      log("Form submitted successfully");
-      trackInteraction("contact_form_submitted");
-      setTimeout(() => setIsContactOpen(false), 2000);
-    } catch (error: any) {
-      setFormFeedback({
-        message: "Failed to send message. Please try again.",
-        type: "error",
-      });
-      log(`Form submission failed: ${error.message}`, "error");
-      trackInteraction("contact_form_error", { error: error.message });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
-  const handleKeyPress = debounce(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        log("Enter key pressed");
-        sendMessage();
+      if (
+        !fname ||
+        !phone ||
+        !phoneRegex.test(phone) ||
+        !email ||
+        !emailRegex.test(email) ||
+        !subject ||
+        !msg
+      ) {
+        const error = !fname
+          ? "Full Name is required."
+          : !phone || !phoneRegex.test(phone)
+          ? "Valid phone number is required."
+          : !email || !emailRegex.test(email)
+          ? "Valid email address is required."
+          : !subject
+          ? "Subject is required."
+          : "Message is required.";
+        setFormFeedback({ message: error, type: "error" });
+        form
+          .querySelector(
+            `#${
+              !fname
+                ? "fname"
+                : !phone
+                ? "phone"
+                : !email
+                ? "email"
+                : !subject
+                ? "subject"
+                : "msg"
+            }`
+          )
+          ?.setAttribute("aria-invalid", "true");
+        trackInteraction("contact_form_error", { error });
+        return;
+      }
+
+      setIsSubmitting(true);
+      setFormFeedback({ message: "", type: "" });
+
+      try {
+        // Simulate form submission
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        setFormFeedback({
+          message: "Message sent successfully!",
+          type: "success",
+        });
+        form.reset();
+        trackInteraction("contact_form_submitted");
+        setTimeout(() => setIsContactOpen(false), 2000);
+      } catch (error: any) {
+        setFormFeedback({
+          message: "Failed to send message. Please try again.",
+          type: "error",
+        });
+        trackInteraction("contact_form_error", {
+          error: error?.message || String(error),
+        });
+      } finally {
+        setIsSubmitting(false);
       }
     },
-    100
+    [trackInteraction]
   );
 
-  const handlePopupEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === "Escape") {
-      setIsContactOpen(false);
-      setFormFeedback({ message: "", type: "" });
-      log("Contact popup closed via Escape");
-    }
-  }, []);
+  const handleKeyPress = useMemo(
+    () =>
+      debounce((e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage();
+        }
+      }, 100),
+    [sendMessage]
+  );
 
-  const toggleChat = () => {
-    setIsChatOpen(!isChatOpen);
-    setIsToggleVisible(!isToggleVisible);
-    log(`Chatbot ${isChatOpen ? "hidden" : "shown"}`);
+  const handlePopupEscape = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsContactOpen(false);
+        setFormFeedback({ message: "", type: "" });
+        trackInteraction("contact_popup_closed_escape");
+      }
+    },
+    [trackInteraction]
+  );
+
+  const toggleChat = useCallback(() => {
+    setIsChatOpen((prev) => !prev);
+    setIsToggleVisible((prev) => !prev);
     trackInteraction(`chatbot_${isChatOpen ? "closed" : "opened"}`);
     if (!isChatOpen) {
       startInactivityTimer();
     }
-  };
+  }, [isChatOpen, startInactivityTimer, trackInteraction]);
 
+  // Start inactivity timer on initial load
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsChatOpen(true);
-      setIsToggleVisible(false);
-      log("Chatbot displayed");
-      trackInteraction("chatbot_opened");
-      startInactivityTimer();
-    }, 10000);
-
+    startInactivityTimer();
+    trackInteraction("chatbot_opened");
     return () => {
-      clearTimeout(timer);
       if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
       if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
     };
-  }, [startInactivityTimer]);
+  }, [startInactivityTimer, trackInteraction]);
 
   useEffect(() => {
     if (isContactOpen) {
@@ -1090,9 +1051,12 @@ const Chatbot: React.FC = () => {
         <button
           onClick={toggleChat}
           aria-label="Open chatbot"
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-blue-700 hover:shadow-xl transition-all duration-300 z-[999] animate-bounce"
+          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-blue-700 hover:shadow-xl transition-all duration-300 z-[999] animate-bounce focus:ring-2 focus:ring-blue-300 focus:outline-none"
         >
-          <i className="fa-solid fa-comment-dots text-xl"></i>
+          <i
+            className="fa-solid fa-comment-dots text-xl"
+            aria-hidden="true"
+          ></i>
         </button>
       )}
 
@@ -1117,7 +1081,7 @@ const Chatbot: React.FC = () => {
           </h3>
           <button
             aria-label="Close chatbot"
-            className="text-2xl cursor-pointer text-gray-800 hover:text-blue-500 transition-all duration-300 hover:rotate-90 focus:outline-none"
+            className="text-2xl cursor-pointer text-gray-800 hover:text-blue-500 transition-all duration-300 hover:rotate-90 focus:outline-none focus:ring-2 focus:ring-blue-300"
             onClick={toggleChat}
           >
             ×
@@ -1144,13 +1108,20 @@ const Chatbot: React.FC = () => {
                   msg.sender === "user" ? "You" : "Bot"
                 }: ${sanitizeHTML(
                   msg.message
-                )}<span class="block text-xs text-gray-500 mt-1 text-right">${getTimestamp()}</span>`,
+                )}<span class="block text-xs text-gray-500 mt-1 text-right">${msg.timestamp.slice(
+                  11,
+                  16
+                )}</span>`,
               }}
             />
           ))}
           {isTyping && (
-            <div className="typing-indicator flex items-center gap-2 my-2 p-3 rounded-lg text-sm text-gray-600 bg-indigo-100 italic animate-typing">
-              Bot is thinking
+            <div
+              className="typing-indicator flex items-center gap-2 my-2 p-3 rounded-lg text-sm text-gray-600 bg-indigo-100 italic animate-typing"
+              role="status"
+              aria-label="Bot is typing"
+            >
+              <span className="animate-pulse">Bot is thinking</span>
             </div>
           )}
         </div>
@@ -1194,25 +1165,24 @@ const Chatbot: React.FC = () => {
               onClick={sendMessage}
               aria-label="Send message"
               disabled={isTyping}
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium hover:from-blue-600 hover:to-blue-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 disabled:bg-gray-200 disabled:cursor-not-allowed"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium hover:from-blue-600 hover:to-blue-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 disabled:bg-gray-200 disabled:cursor-not-allowed focus:ring-2 focus:ring-blue-300"
             >
               Send
             </button>
             <button
               onClick={resetConversation}
               aria-label="Clear conversation"
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-medium hover:from-red-600 hover:to-red-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-medium hover:from-red-600 hover:to-red-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 focus:ring-2 focus:ring-red-300"
             >
               Clear
             </button>
             <button
               onClick={() => {
                 setIsContactOpen(true);
-                log("Contact popup opened");
                 trackInteraction("contact_popup_opened");
               }}
               aria-label="Open contact form"
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-medium hover:from-green-600 hover:to-green-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white font-medium hover:from-green-600 hover:to-green-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 focus:ring-2 focus:ring-green-300"
             >
               Contact
             </button>
@@ -1225,13 +1195,13 @@ const Chatbot: React.FC = () => {
         <div
           id="jkvContactPopup"
           aria-hidden={!isContactOpen}
-          role="button"
-          aria-label="Close contact popup"
+          role="dialog"
+          aria-label="Contact form popup"
           className="fixed inset-0 bg-black/50 flex justify-center items-center z-[1100] animate-fadeIn"
           onClick={() => {
             setIsContactOpen(false);
             setFormFeedback({ message: "", type: "" });
-            log("Contact popup closed");
+            trackInteraction("contact_popup_closed");
           }}
         >
           <div
@@ -1245,18 +1215,17 @@ const Chatbot: React.FC = () => {
               <h4 className="text-[clamp(18px,5vw,22px)] font-semibold text-gray-800">
                 Get In Touch
               </h4>
-              <span
-                role="button"
+              <button
                 aria-label="Close contact popup"
-                className="text-2xl cursor-pointer text-gray-800 hover:text-blue-500 transition-all duration-300 hover:rotate-90"
+                className="text-2xl cursor-pointer text-gray-800 hover:text-blue-500 transition-all duration-300 hover:rotate-90 focus:outline-none focus:ring-2 focus:ring-blue-300"
                 onClick={() => {
                   setIsContactOpen(false);
                   setFormFeedback({ message: "", type: "" });
-                  log("Contact popup closed");
+                  trackInteraction("contact_popup_closed");
                 }}
               >
                 ×
-              </span>
+              </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <form id="jkvContactForm" onSubmit={handleFormSubmit}>
@@ -1304,9 +1273,9 @@ const Chatbot: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full p-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium hover:from-blue-600 hover:to-blue-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 disabled:bg-gray-200 disabled:cursor-not-allowed"
+                  className="w-full p-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium hover:from-blue-600 hover:to-blue-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 disabled:bg-gray-200 disabled:cursor-not-allowed focus:ring-2 focus:ring-blue-300"
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
                 {formFeedback.message && (
                   <div
@@ -1315,6 +1284,7 @@ const Chatbot: React.FC = () => {
                         ? "bg-green-100 text-green-800"
                         : "bg-red-100 text-red-800"
                     }`}
+                    role="alert"
                   >
                     {formFeedback.message}
                   </div>
@@ -1347,14 +1317,14 @@ const Chatbot: React.FC = () => {
                   },
                   {
                     icon: "fa-brands fa-whatsapp",
-                    text: '<a href="https://wa.me/+918307802850" target="_blank">+91-8307802850</a>',
+                    text: '<a href="https://wa.me/+919220826934" target="_blank">+91-9220826934</a>',
                   },
                 ].map((info, index) => (
                   <p
                     key={index}
                     className="text-sm text-gray-600 mb-2 flex items-center gap-2"
                     dangerouslySetInnerHTML={{
-                      __html: `<i class="${info.icon} text-blue-500 text-base"></i> ${info.text}`,
+                      __html: `<i class="${info.icon} text-blue-500 text-base" aria-hidden="true"></i> ${info.text}`,
                     }}
                   />
                 ))}

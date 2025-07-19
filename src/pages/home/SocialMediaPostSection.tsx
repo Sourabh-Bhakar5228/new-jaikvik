@@ -30,7 +30,7 @@ const SocialMediaPostSection = () => {
     <div className="relative">
       <div className="mb-2">
         <h2 className="text-gray-200 text-xl font-bold uppercase">
-          <a href="#" className="flex items-center gap-1.5">
+          <a href="/" className="flex items-center gap-1.5">
             Social Media Posts
           </a>
         </h2>
@@ -102,7 +102,7 @@ const SocialMediaPostSection = () => {
                   src={item}
                   alt="Social media post"
                   className="w-full h-full object-cover hover:brightness-110 transition-all duration-300"
-                  loading="lazy"
+                  // loading="lazy"
                 />
               </div>
             </SwiperSlide>

@@ -1,228 +1,259 @@
 import React, { useState, useRef, useEffect } from "react";
-import { FaPlay, FaTimes } from "react-icons/fa";
+import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 
 interface VideoItemProps {
   label: string;
-  teaserSrc: string;
-  fullSrc: string;
+  videoSrc: string;
+  posterSrc: string;
   title: string;
   description: string;
 }
 
 const VideoItem: React.FC<VideoItemProps> = ({
   label,
-  teaserSrc,
-  fullSrc,
+  videoSrc,
+  posterSrc,
   title,
   description,
 }) => {
-  const teaserVideoRef = useRef<HTMLVideoElement>(null);
-  const expandedVideoRef = useRef<HTMLVideoElement>(null);
-  const expandedContainerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showControls, setShowControls] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showPoster, setShowPoster] = useState(true);
 
-  // Check if mobile on mount
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
     checkIfMobile();
     window.addEventListener("resize", checkIfMobile);
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
-  // Mobile-specific play/pause toggle
-  const toggleMobilePlayPause = () => {
-    if (!isMobile) return;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+        if (!entry.isIntersecting && videoRef.current) {
+          // When scrolled out of view
+          videoRef.current.pause();
+          videoRef.current.currentTime = 0;
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          setIsPlaying(false);
+          setShowPoster(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
 
-    const video = teaserVideoRef.current;
-    if (video) {
-      if (isPlaying) {
-        video.pause();
-      } else {
-        video.play().catch(() => {
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => {
+      if (containerRef.current) observer.unobserve(containerRef.current);
+    };
+  }, []);
+
+  const togglePlayPause = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isPlaying) {
+      video.pause();
+      setShowPoster(true);
+    } else {
+      setShowPoster(false);
+      setIsLoading(true);
+      video
+        .play()
+        .then(() => setIsLoading(false))
+        .catch(() => {
           video.muted = true;
-          video.play();
+          setIsMuted(true);
+          video.play().finally(() => setIsLoading(false));
         });
-      }
-      setIsPlaying(!isPlaying);
-      setShowControls(true);
     }
+    setIsPlaying(!isPlaying);
   };
 
-  // Original desktop hover behavior
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    videoRef.current.muted = !videoRef.current.muted;
+    setIsMuted(videoRef.current.muted);
+  };
+
   const handleMouseEnter = () => {
-    if (isMobile) return;
-    if (teaserVideoRef.current) {
-      teaserVideoRef.current.muted = false;
-      teaserVideoRef.current.play();
+    if (isMobile || isPlaying) return;
+    setShowPoster(false);
+    const video = videoRef.current;
+    if (video) {
+      setIsLoading(true);
+      video.currentTime = 0;
+      video.muted = false;
+      setIsMuted(false);
+      video
+        .play()
+        .then(() => setIsLoading(false))
+        .catch(() => {
+          video.muted = true;
+          setIsMuted(true);
+          video.play().finally(() => setIsLoading(false));
+        });
     }
   };
 
   const handleMouseLeave = () => {
-    if (isMobile) return;
-    if (teaserVideoRef.current) {
-      teaserVideoRef.current.muted = true;
-      teaserVideoRef.current.loop = true;
+    if (isMobile || isPlaying) return;
+    setShowPoster(true);
+    const video = videoRef.current;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+      video.muted = true;
+      setIsMuted(true);
     }
   };
 
-  // Original fullscreen functionality
-  const openFullscreen = () => {
-    if (expandedContainerRef.current && expandedVideoRef.current) {
-      expandedContainerRef.current.style.display = "flex";
-      expandedVideoRef.current.src = fullSrc;
-      expandedVideoRef.current.muted = false;
-      expandedVideoRef.current.controls = true;
-      expandedVideoRef.current.play().catch(() => {
-        expandedVideoRef.current!.muted = true;
-        expandedVideoRef.current!.play();
-      });
-    }
-  };
-
-  const closeFullscreen = () => {
-    if (expandedContainerRef.current && expandedVideoRef.current) {
-      expandedVideoRef.current.pause();
-      expandedVideoRef.current.src = "";
-      expandedContainerRef.current.style.display = "none";
-    }
-  };
-
-  // Initialize teaser video
   useEffect(() => {
-    const teaserVideo = teaserVideoRef.current;
-    if (teaserVideo) {
-      teaserVideo.muted = true;
-      teaserVideo.loop = true;
-      if (!isMobile) {
-        teaserVideo.play();
+    const handleScroll = () => {
+      if (videoRef.current && !isInView) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+        videoRef.current.muted = true;
+        setIsMuted(true);
+        setIsPlaying(false);
+        setShowPoster(true);
       }
-    }
-  }, [isMobile]);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isInView]);
 
   return (
-    <>
-      {/* Original desktop video item with mobile enhancements */}
+    <div ref={containerRef} className="w-full flex justify-center px-4">
       <div
-        className="relative w-full h-[50vh]  flex text-center items-center rounded-lg overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)] shadow-[0_8px_25px_rgba(0,0,0,0.2)] bg-black group"
+        className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl bg-black group cursor-pointer transition-all duration-300"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={isMobile ? toggleMobilePlayPause : undefined}
+        onClick={togglePlayPause}
       >
-        <span className="absolute top-4 right-4 bg-[#ff4d4d] text-white px-2.5 py-1 rounded-full text-[clamp(10px,1.2vw,12px)] font-semibold uppercase z-10 transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)] group-hover:opacity-0">
+        <span className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase z-10">
           {label}
         </span>
 
-        <video
-          ref={teaserVideoRef}
-          className="absolute inset-0 w-full h-full object-cover z-[2]"
-          loop
-          playsInline
-          muted
-          controls={isMobile && showControls}
-        >
-          <source src={teaserSrc} type="video/mp4" />
-        </video>
+        {isInView && (
+          <>
+            <video
+              ref={videoRef}
+              className={`absolute inset-0 w-full h-full object-cover z-[2] ${
+                showPoster ? "opacity-0" : "opacity-100"
+              }`}
+              loop
+              playsInline
+              muted={isMuted}
+              preload="auto"
+              controls={false}
+              poster={posterSrc}
+            >
+              <source src={videoSrc} type="video/mp4" />
+            </video>
 
-        {/* Mobile play button overlay */}
-        {isMobile && !showControls && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 z-[3]">
-            <div className="w-16 h-16 rounded-full bg-black bg-opacity-50 flex items-center justify-center">
-              <FaPlay className="text-white text-2xl ml-1" />
+            {showPoster && (
+              <img
+                src={posterSrc}
+                alt={title}
+                className="absolute inset-0 w-full h-full object-cover z-[1]"
+              />
+            )}
+          </>
+        )}
+
+        {isLoading && !showPoster && (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-[4]">
+            <div className="animate-pulse text-white"></div>
+          </div>
+        )}
+
+        {(!isPlaying || isMobile || showPoster) && !isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center z-[3]">
+            <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center transition-transform hover:scale-110">
+              {isPlaying ? (
+                <FaPause className="text-white text-2xl" />
+              ) : (
+                <FaPlay className="text-white text-2xl ml-1" />
+              )}
             </div>
           </div>
         )}
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.8)] text-white z-[3] transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)] group-hover:opacity-0">
-          <h3 className="text-[clamp(14px,2vw,18px)] font-semibold mb-1 text-shadow-[0_2px_5px_rgba(0,0,0,0.5)]">
-            {title}
-          </h3>
-          <p className="text-[clamp(12px,1.5vw,14px)]">{description}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white z-[3]">
+          <h3 className="text-xl font-bold mb-2">{title}</h3>
+          <p className="text-sm opacity-90">{description}</p>
         </div>
 
-        <div
-          className="start-button absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60px] h-[60px] bg-[rgba(255,77,77,0.8)] rounded-full flex items-center justify-center z-[5] opacity-100 transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)] cursor-pointer group-hover:opacity-0"
-          onClick={(e) => {
-            e.stopPropagation();
-            openFullscreen();
-          }}
-        >
-          <FaPlay className="text-white text-2xl ml-0.5" />
-        </div>
+        {!isMobile && !showPoster && (
+          <button
+            className="absolute bottom-4 right-4 bg-black/50 rounded-full p-2 z-[4] hover:bg-black/70 transition-all"
+            onClick={toggleMute}
+            aria-label={isMuted ? "Unmute" : "Mute"}
+          >
+            {isMuted ? (
+              <FaVolumeMute className="text-white text-xl" />
+            ) : (
+              <FaVolumeUp className="text-white text-xl" />
+            )}
+          </button>
+        )}
       </div>
-
-      {/* Fullscreen container (unchanged) */}
-      <div
-        ref={expandedContainerRef}
-        className="fixed inset-0 bg-black z-[1000] hidden justify-center items-center"
-      >
-        <span
-          className="absolute top-4 right-4 text-white text-2xl cursor-pointer z-[1001] bg-[rgba(0,0,0,0.5)] w-[35px] h-[35px] rounded-full flex items-center justify-center"
-          onClick={closeFullscreen}
-        >
-          <FaTimes />
-        </span>
-        <video
-          ref={expandedVideoRef}
-          controls
-          className="max-w-full max-h-full object-contain"
-          playsInline
-        >
-          <source src={fullSrc} type="video/mp4" />
-        </video>
-      </div>
-    </>
+    </div>
   );
 };
 
 const CorporateVideosSection: React.FC = () => {
+  const videos = [
+    {
+      key: "company-overview",
+      label: "Featured",
+      videoSrc:
+        "https://jaikvik.in/lab/new-post-video/video/corporate-video/addwatt.mp4",
+      posterSrc: "/images/coropratevideo/addwatt.png",
+      title: "Company Overview",
+      description: "Learn about our mission, values, and what makes us unique",
+    },
+    {
+      key: "featured-project",
+      label: "Highlight",
+      videoSrc:
+        "https://jaikvik.in/lab/new-post-video/video/corporate-video/regent-hitech.mp4",
+      posterSrc: "/images/coropratevideo/reagent.png",
+      title: "Featured Project",
+      description: "See our latest corporate project in action",
+    },
+  ];
+
   return (
-    <section className="w-full max-w-[1450px] p-5 mx-auto flex flex-wrap gap-5 font-['Mulish',sans-serif] overflow-x-hidden">
-      <div className="flex-1 min-w-[280px] flex flex-col">
-        <div className="text-left mb-5">
-          <h2 className="text-[clamp(18px,2.5vw,22px)] font-semibold text-[#e5e5e5] pb-2 inline-block relative group">
-            <a
-              href="#"
-              className="text-[#e5e5e5] no-underline flex items-center gap-1.5 transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)]"
-            >
-              Our Corporate Videos
-            </a>
+    <section className="w-full py-12 px-2 sm:px-4 lg:px-6 bg-black-900 pb-5">
+      <div className="max-w-8xl mx-auto">
+        <div className="text-left mb-12">
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Our Corporate Videos
           </h2>
         </div>
-        <div className="flex flex-col gap-5 w-full">
-          <VideoItem
-            key="featured-video"
-            label="Featured"
-            teaserSrc="https://jaikvik.in/lab/new-post-video/video/corporate-video/addwatt-sd-version.mp4"
-            fullSrc="https://jaikvik.in/lab/new-post-video/video/corporate-video/addwatt-sd-version.mp4"
-            title="Company Overview"
-            description="Learn about our mission and values"
-          />
-        </div>
-      </div>
-      <div className="flex-1 min-w-[280px] flex flex-col">
-        <div className="text-left mb-5">
-          <h2 className="text-[clamp(18px,2.5vw,22px)] font-semibold text-[#e5e5e5] pb-2 inline-block relative group">
-            <a
-              href="#"
-              className="text-[#e5e5e5] no-underline flex items-center gap-1.5 transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)]"
-            >
-              Corporate Video
-            </a>
-          </h2>
-        </div>
-        <div className="flex flex-col gap-5 w-full">
-          <VideoItem
-            key="highlighted-video"
-            label="Highlight"
-            teaserSrc="https://jaikvik.in/lab/new-post-video/video/corporate-video/regent-hitech-2.mp4"
-            fullSrc="https://jaikvik.in/lab/new-post-video/video/corporate-video/regent-hitech-2.mp4"
-            title="Featured Content"
-            description="Our latest corporate presentation"
-          />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {videos.map((video) => (
+            <VideoItem
+              key={video.key}
+              label={video.label}
+              videoSrc={video.videoSrc}
+              posterSrc={video.posterSrc}
+              title={video.title}
+              description={video.description}
+            />
+          ))}
         </div>
       </div>
     </section>

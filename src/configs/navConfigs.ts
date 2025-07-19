@@ -72,7 +72,7 @@ export const digitalMarketingItems = [
     text: "Brand Identity",
   },
   {
-    href: "digital-marketing.php",
+    href: "/digital-marketing",
     img: "https://jaikvik.in/lab/new-post-video/img/Jaikvik banner/new/packages.jpg",
     text: "Packages",
   },

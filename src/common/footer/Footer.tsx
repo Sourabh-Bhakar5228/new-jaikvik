@@ -456,7 +456,7 @@ const Footer = () => {
                   </a>
                 </li>
                 <li className="flex items-center gap-2 mt-2 text-[16px]">
-                  <FaPhone className="text-main-red" />
+                  <FaPhone className="text-main-red rotate-120" />
                   <ul className="flex flex-wrap gap-2 p-0 m-0 leading-4">
                     <li>
                       <a

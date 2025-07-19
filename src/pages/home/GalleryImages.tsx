@@ -103,7 +103,7 @@ const GalleryImages = () => {
           loop
           loopPreventsSliding={false}
           autoplay={{
-            delay: 3000,
+            delay: 2000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
             waitForTransition: true,
@@ -130,7 +130,7 @@ const GalleryImages = () => {
                   src={image}
                   alt={`Banner Image ${index + 1}`}
                   className="w-full h-auto object-cover rounded-lg hover:brightness-105 transition-all duration-300"
-                  loading="lazy"
+                  // loading="lazy"
                 />
               </div>
             </SwiperSlide>
