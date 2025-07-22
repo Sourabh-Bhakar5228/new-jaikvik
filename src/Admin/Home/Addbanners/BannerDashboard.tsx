@@ -32,7 +32,7 @@ const AdminGalleryManager = () => {
   const [banners, setBanners] = useState<Banner[]>([
     {
       id: generateId(),
-      url: "https://jaikvik.in/lab/new-post-video/banners/accessories-1.jpg",
+      url: "https://jaikvik.com/lab/new-post-video/banners/accessories-1.jpg",
       status: "active",
       title: "Accessories Banner",
       altText: "Industrial accessories on display",
@@ -40,7 +40,7 @@ const AdminGalleryManager = () => {
     },
     {
       id: generateId(),
-      url: "https://jaikvik.in/lab/new-post-video/banners/arc-315.jpg",
+      url: "https://jaikvik.com/lab/new-post-video/banners/arc-315.jpg",
       status: "active",
       title: "ARC Welder",
       altText: "ARC 315 welding machine",
@@ -48,7 +48,7 @@ const AdminGalleryManager = () => {
     },
     {
       id: generateId(),
-      url: "https://jaikvik.in/lab/new-post-video/banners/mig-welding-torch-1.jpg",
+      url: "https://jaikvik.com/lab/new-post-video/banners/mig-welding-torch-1.jpg",
       status: "active",
       title: "MIG Torch",
       altText: "MIG welding torch closeup",
@@ -56,7 +56,7 @@ const AdminGalleryManager = () => {
     },
     {
       id: generateId(),
-      url: "https://jaikvik.in/lab/new-post-video/banners/acoustic-nest-banners-5.jpg",
+      url: "https://jaikvik.com/lab/new-post-video/banners/acoustic-nest-banners-5.jpg",
       status: "locked",
       title: "Acoustic Panel",
       altText: "Acoustic sound panels",

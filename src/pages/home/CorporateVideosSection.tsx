@@ -218,7 +218,7 @@ const CorporateVideosSection: React.FC = () => {
       key: "company-overview",
       label: "Featured",
       videoSrc:
-        "https://jaikvik.in/lab/new-post-video/video/corporate-video/addwatt.mp4",
+        "https://jaikvik.com/lab/new-post-video/video/corporate-video/addwatt.mp4",
       posterSrc: "/images/coropratevideo/addwatt.png",
       title: "Company Overview",
       description: "Learn about our mission, values, and what makes us unique",
@@ -227,7 +227,7 @@ const CorporateVideosSection: React.FC = () => {
       key: "featured-project",
       label: "Highlight",
       videoSrc:
-        "https://jaikvik.in/lab/new-post-video/video/corporate-video/regent-hitech.mp4",
+        "https://jaikvik.com/lab/new-post-video/video/corporate-video/regent-hitech.mp4",
       posterSrc: "/images/coropratevideo/reagent.png",
       title: "Featured Project",
       description: "See our latest corporate project in action",

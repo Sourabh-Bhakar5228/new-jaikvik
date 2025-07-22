@@ -77,7 +77,7 @@ const NavLayerBottom: React.FC<{
             <div className="w-1/12 pt-1">
               <Link to="/">
                 <img
-                  src="https://jaikvik.in/lab/new-post-video/img/logo/logo-1.png"
+                  src="https://jaikvik.com/lab/new-post-video/img/logo/logo-1.png"
                   alt="Logo"
                   className="w-full"
                 />

@@ -395,7 +395,7 @@ const AdminLayout: React.FC = () => {
           {sidebarOpen ? (
             <div className="flex items-center space-x-2">
               <img
-                src="https://jaikvik.in/lab/new-post-video/img/rotate-3.png"
+                src="https://jaikvik.com/lab/new-post-video/img/rotate-3.png"
                 alt="Company Logo"
                 className="h-8 w-8 rounded-full border border-red-600"
               />
@@ -405,7 +405,7 @@ const AdminLayout: React.FC = () => {
             </div>
           ) : (
             <img
-              src="https://jaikvik.in/lab/new-post-video/img/rotate-3.png"
+              src="https://jaikvik.com/lab/new-post-video/img/rotate-3.png"
               alt="Company Logo"
               className="h-8 w-8 rounded-full border border-red-600"
             />

@@ -73,7 +73,7 @@ const ReviewsSection = () => {
                 <div className="w-full">
                   <div className="bg-main-secondary/80 h-[280px] p-5 rounded-md">
                     <img
-                      src="https://jaikvik.in/lab/new-post-video/img/quote.png"
+                      src="https://jaikvik.com/lab/new-post-video/img/quote.png"
                       alt="Quote"
                       className="w-[30px] mb-2"
                     />

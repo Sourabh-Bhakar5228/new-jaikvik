@@ -38,7 +38,7 @@ const AdminCorporateVideos: React.FC = () => {
     {
       id: "1",
       title: "Addwatt Corporate Video",
-      url: "https://jaikvik.in/lab/new-post-video/video/corporate-video/addwatt-sd-version.mp4",
+      url: "https://jaikvik.com/lab/new-post-video/video/corporate-video/addwatt-sd-version.mp4",
       privacy: "public",
       status: "published",
       metadata: {
@@ -54,7 +54,7 @@ const AdminCorporateVideos: React.FC = () => {
     {
       id: "2",
       title: "Regent Hitech Presentation",
-      url: "https://jaikvik.in/lab/new-post-video/video/corporate-video/regent-hitech-2.mp4",
+      url: "https://jaikvik.com/lab/new-post-video/video/corporate-video/regent-hitech-2.mp4",
       privacy: "private",
       status: "published",
       metadata: {

@@ -61,7 +61,7 @@ const MobileAppSection: React.FC = () => {
     },
     {
       id: 2,
-      url: "https://plus.unsplash.com/premium_photo-1683288706157-915c48d7d3d7?w=740&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+      url: "https://images.unsplash.com/photo-1595675024853-0f3ec9098ac7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bW9iaWxlJTIwYXBwJTIwZGV2ZWxvcG1lbnR8ZW58MHx8MHx8fDA%3D",
     },
     {
       id: 3,

@@ -66,13 +66,13 @@ const HeroSection: React.FC = () => {
         <div className="hidden lg:block w-full lg:w-1/4 px-4">
           <div className="flex justify-center items-center relative h-full">
             <img
-              src="https://jaikvik.in/lab/new-post-video/img/new-cricle-image.png"
+              src="https://jaikvik.com/lab/new-post-video/img/new-cricle-image.png"
               alt="Decorative spinning element"
               className="w-full animate-[spin_15s_linear_infinite]"
               // loading="lazy"
             />
             <img
-              src="https://jaikvik.in/lab/new-post-video/img/rotate-3.png"
+              src="https://jaikvik.com/lab/new-post-video/img/rotate-3.png"
               alt="Decorative center element"
               className="absolute w-[900px] mr-7 max-w-none"
               // loading="lazy"
@@ -98,7 +98,7 @@ const HeroSection: React.FC = () => {
               poster="images/herosection.png"
             >
               <source
-                src="https://jaikvik.in/lab/new-post-video/img/home-banner/jaikvik-corporate-film.mp4"
+                src="https://jaikvik.com/lab/new-post-video/img/home-banner/jaikvik-corporate-film.mp4"
                 type="video/mp4"
               />
               Your browser does not support HTML5 video.

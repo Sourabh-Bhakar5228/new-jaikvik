@@ -10,7 +10,7 @@ const blogs: blogInterface[] = [
     title: "Unlocking Growth with Instagram Reels in 2025",
     description:
       "Instagram Reels are dominating social media. Learn how to leverage them for brand visibility...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -21,7 +21,7 @@ const blogs: blogInterface[] = [
     title: "Top SEO Trends to Watch in 2025",
     description:
       "Stay ahead with the latest SEO strategies shaping search engine rankings this year...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -32,7 +32,7 @@ const blogs: blogInterface[] = [
     title: "Why Progressive Web Apps Are the Future",
     description:
       "Explore how PWAs enhance user experience and boost business performance...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/web.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/web.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -43,7 +43,7 @@ const blogs: blogInterface[] = [
     title: "Advanced PPC Techniques for Maximum ROI",
     description:
       "Master the art of Pay-Per-Click with cutting-edge strategies for 2025...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/ppc.jpg",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/ppc.jpg",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -54,7 +54,7 @@ const blogs: blogInterface[] = [
     title: "How to Create Content That Converts",
     description:
       "Turn readers into customers with compelling content strategies...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -65,7 +65,7 @@ const blogs: blogInterface[] = [
     title: "Building a Loyal Audience on LinkedIn",
     description:
       "Unlock LinkedIn’s potential to grow your professional network and brand...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -77,7 +77,7 @@ const blogs: blogInterface[] = [
     description:
       "Boost online sales with SEO tactics tailored for e-commerce platforms...",
     image:
-      "https://jaikvik.in/lab/new-post-video/img/blog/The Ultimate guide.png",
+      "https://jaikvik.com/lab/new-post-video/img/blog/The Ultimate guide.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -88,7 +88,7 @@ const blogs: blogInterface[] = [
     title: "How Voice Search is Changing SEO",
     description:
       "Adapt your SEO strategy for the rise of voice-activated devices...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/why.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/why.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -99,7 +99,7 @@ const blogs: blogInterface[] = [
     title: "AI in Digital Marketing: The Next Big Thing",
     description:
       "Discover how AI tools are revolutionizing ad targeting and customer engagement...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -110,7 +110,7 @@ const blogs: blogInterface[] = [
     title: "Personalized Emails: Boosting Open Rates",
     description:
       "Learn how personalization can transform your email marketing campaigns...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -121,7 +121,7 @@ const blogs: blogInterface[] = [
     title: "Using Google Analytics for Smarter Decisions",
     description:
       "Unlock insights from your data to refine your marketing strategy...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -132,7 +132,7 @@ const blogs: blogInterface[] = [
     title: "Building a Strong Brand Identity Online",
     description:
       "Create a lasting impression with a cohesive digital brand presence...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -142,7 +142,7 @@ const blogs: blogInterface[] = [
     date: "10 Mar 2025",
     title: "Why Video Content is King in 2025",
     description: "Engage audiences with powerful video marketing strategies...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -152,7 +152,7 @@ const blogs: blogInterface[] = [
     date: "15 Mar 2025",
     title: "Winning Local Customers with SEO",
     description: "Dominate your local market with targeted SEO techniques...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -163,7 +163,7 @@ const blogs: blogInterface[] = [
     title: "Choosing the Right Influencers for Your Brand",
     description:
       "Maximize ROI by partnering with influencers who align with your goals...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -174,7 +174,7 @@ const blogs: blogInterface[] = [
     title: "Mastering TikTok Ads for Business Growth",
     description:
       "Tap into TikTok’s massive audience with effective ad campaigns...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -185,7 +185,7 @@ const blogs: blogInterface[] = [
     title: "Link Building Strategies That Work in 2025",
     description:
       "Boost your site’s authority with modern link-building tactics...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -196,7 +196,7 @@ const blogs: blogInterface[] = [
     title: "Speed Optimization for Better User Experience",
     description:
       "Learn why site speed matters and how to optimize it effectively...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/web.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/web.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -206,7 +206,7 @@ const blogs: blogInterface[] = [
     date: "10 Apr 2025",
     title: "Retargeting Ads: Winning Back Lost Customers",
     description: "Re-engage visitors with smart PPC retargeting strategies...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/ppc.jpg",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/ppc.jpg",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -217,7 +217,7 @@ const blogs: blogInterface[] = [
     title: "Evergreen Content: A Long-Term Strategy",
     description:
       "Create timeless content that drives traffic year after year...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -227,7 +227,7 @@ const blogs: blogInterface[] = [
     date: "20 Apr 2025",
     title: "The Power of User-Generated Content",
     description: "Leverage customer content to build trust and authenticity...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -237,7 +237,7 @@ const blogs: blogInterface[] = [
     date: "25 Apr 2025",
     title: "Mobile-First Indexing: What You Need to Know",
     description: "Optimize your site for Google’s mobile-first approach...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -247,7 +247,7 @@ const blogs: blogInterface[] = [
     date: "01 May 2025",
     title: "Creating Viral Campaigns on Twitter",
     description: "Craft tweets that resonate and spread like wildfire...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -257,7 +257,7 @@ const blogs: blogInterface[] = [
     date: "05 May 2025",
     title: "Segmentation Secrets for Email Success",
     description: "Target the right audience with tailored email lists...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
   {
@@ -268,7 +268,7 @@ const blogs: blogInterface[] = [
     title: "Tracking ROI with Advanced Analytics Tools",
     description:
       "Measure your marketing success with the latest analytics platforms...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "how-can-i-become-an-expert-in-ppc-advertising.php",
   },
 ];

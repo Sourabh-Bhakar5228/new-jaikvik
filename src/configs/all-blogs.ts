@@ -8,7 +8,7 @@ const allBlogs: blogInterface[] = [
     title: "Unlocking Growth with Instagram Reels in 2025",
     summary:
       "Instagram Reels are dominating social media. Learn how to leverage them for brand visibility...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "/blogs",
   },
   {
@@ -18,7 +18,7 @@ const allBlogs: blogInterface[] = [
     title: "Top SEO Trends to Watch in 2025",
     summary:
       "Stay ahead with the latest SEO strategies shaping search engine rankings this year...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "/blogs",
   },
   {
@@ -28,7 +28,7 @@ const allBlogs: blogInterface[] = [
     title: "Why Progressive Web Apps Are the Future",
     summary:
       "Explore how PWAs enhance user experience and boost business performance...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/web.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/web.png",
     link: "/blogs",
   },
   {
@@ -38,7 +38,7 @@ const allBlogs: blogInterface[] = [
     title: "Advanced PPC Techniques for Maximum ROI",
     summary:
       "Master the art of Pay-Per-Click with cutting-edge strategies for 2025...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/ppc.jpg",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/ppc.jpg",
     link: "/blogs",
   },
   {
@@ -48,7 +48,7 @@ const allBlogs: blogInterface[] = [
     title: "How to Create Content That Converts",
     summary:
       "Turn readers into customers with compelling content strategies...",
-    image: "https://jaikvik.in/lab/new-post-video/img/blog/blog.png",
+    image: "https://jaikvik.com/lab/new-post-video/img/blog/blog.png",
     link: "/blogs",
   },
 ];

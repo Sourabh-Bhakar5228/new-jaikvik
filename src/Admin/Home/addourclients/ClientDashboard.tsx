@@ -32,13 +32,13 @@ const AdminPanel: React.FC = () => {
         {
           id: "1",
           href: "https://bweld.in/",
-          imgSrc: "https://jaikvik.in/lab/new-post-video/img/client/1.png",
+          imgSrc: "https://jaikvik.com/lab/new-post-video/img/client/1.png",
           alt: "Bweld",
         },
         {
           id: "2",
           href: "https://www.glowgreen.in/",
-          imgSrc: "https://jaikvik.in/lab/new-post-video/img/client/2.png",
+          imgSrc: "https://jaikvik.com/lab/new-post-video/img/client/2.png",
           alt: "Glowgreen",
         },
       ];
