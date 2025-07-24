@@ -7,7 +7,7 @@ const Career: React.FC = () => {
   return (
     <>
       {/* Breadcrumb Section */}
-      <div className="relative w-full  h-[60vh] overflow-hidden">
+      <div className="relative w-full h-[20vh] sm:h-[50vh] md:h-[60vh] overflow-hidden">
         <img
           src="https://img.freepik.com/premium-photo/human-resources-people-networking-concept_31965-1706.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740"
           alt="breadcrumb"

@@ -6,11 +6,11 @@ const ContactUs: React.FC = () => {
   return (
     <>
       {/* Breadcrumb Section */}
-      <div className="relative w-full h-[60vh] overflow-hidden">
+      <div className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] overflow-hidden">
         <img
           src="https://img.freepik.com/free-photo/contact-us-communication-support-service-assistance-concept_53876-128103.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740"
           alt="breadcrumb"
-          className="w-full object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
 

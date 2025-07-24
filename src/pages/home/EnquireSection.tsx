@@ -31,7 +31,7 @@ const EnquireSection = () => {
 
     try {
       const response = await fetch(
-        "https://formsubmit.co/ajax/bhakarsoursbh@gmail.com",
+        "https://formsubmit.co/ajax/info@jaikviktechnology.com",
         {
           method: "POST",
           headers: {
@@ -104,7 +104,7 @@ const EnquireSection = () => {
                 </div>
               )}
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 md:gap-3 lg:gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 md:gap-3 lg:gap-4">
                 {/* Heading */}
                 <div className="col-span-2 flex items-center">
                   <h2 className="uppercase text-white text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4">

@@ -76,7 +76,7 @@ const NavLayerTop = () => {
         setButtonText("Sending...");
 
         const response = await fetch(
-          "https://formsubmit.co/ajax/bhakarsoursbh@gmail.com",
+          "https://formsubmit.co/ajax/info@jaikviktechnology.com",
           {
             method: "POST",
             headers: {

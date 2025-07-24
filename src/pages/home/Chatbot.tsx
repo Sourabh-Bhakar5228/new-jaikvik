@@ -965,7 +965,7 @@ const Chatbot: React.FC = () => {
       try {
         // Submit to FormSubmit
         const response = await fetch(
-          "https://formsubmit.co/ajax/bhakarsoursbh@gmail.com",
+          "https://formsubmit.co/ajax/info@jaikviktechnology.com",
           {
             method: "POST",
             headers: {
@@ -1098,7 +1098,7 @@ const Chatbot: React.FC = () => {
 
         // Submit to FormSubmit
         const response = await fetch(
-          "https://formsubmit.co/ajax/bhakarsoursbh@gmail.com",
+          "https://formsubmit.co/ajax/info@jaikviktechnology.com",
           {
             method: "POST",
             body: careerFormData,

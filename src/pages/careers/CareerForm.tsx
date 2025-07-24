@@ -65,7 +65,7 @@ const CareerForm = () => {
       formDataToSend.append("_captcha", "false");
 
       const response = await fetch(
-        "https://formsubmit.co/ajax/bhakarsoursbh@gmail.com",
+        "https://formsubmit.co/ajax/info@jaikviktechnology.com",
         {
           method: "POST",
           body: formDataToSend,
