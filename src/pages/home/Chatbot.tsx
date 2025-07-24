@@ -407,6 +407,7 @@ const Chatbot: React.FC = () => {
   const [inputMessage, setInputMessage] = useState<string>("");
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [isContactOpen, setIsContactOpen] = useState<boolean>(false);
+  const [isCareerOpen, setIsCareerOpen] = useState<boolean>(false);
   const [formFeedback, setFormFeedback] = useState<{
     message: string;
     type: "success" | "error" | "";
@@ -905,16 +906,14 @@ const Chatbot: React.FC = () => {
     startInactivityTimer();
   }, [summarizeConversationHistory, startInactivityTimer, trackInteraction]);
 
-  const handleFormSubmit = useCallback(
+  const handleContactFormSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const form = e.target as HTMLFormElement;
-      const fname = (form.fname as HTMLInputElement).value.trim();
-      const phone = (form.phone as HTMLInputElement).value.trim();
-      const email = (form.email as HTMLInputElement).value.trim();
-      const subject = (form.subject as HTMLInputElement).value.trim();
-      const msg = (form.msg as HTMLTextAreaElement).value.trim();
+      const formData = new FormData(form);
+      const formValues = Object.fromEntries(formData.entries());
 
+      // Validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const phoneRegex = /^\+?\d{10,15}$/;
 
@@ -923,34 +922,34 @@ const Chatbot: React.FC = () => {
       });
 
       if (
-        !fname ||
-        !phone ||
-        !phoneRegex.test(phone) ||
-        !email ||
-        !emailRegex.test(email) ||
-        !subject ||
-        !msg
+        !formValues.fname ||
+        !formValues.phone ||
+        !phoneRegex.test(formValues.phone as string) ||
+        !formValues.email ||
+        !emailRegex.test(formValues.email as string) ||
+        !formValues.subject ||
+        !formValues.msg
       ) {
-        const error = !fname
+        const error = !formValues.fname
           ? "Full Name is required."
-          : !phone || !phoneRegex.test(phone)
+          : !formValues.phone || !phoneRegex.test(formValues.phone as string)
           ? "Valid phone number is required."
-          : !email || !emailRegex.test(email)
+          : !formValues.email || !emailRegex.test(formValues.email as string)
           ? "Valid email address is required."
-          : !subject
+          : !formValues.subject
           ? "Subject is required."
           : "Message is required.";
         setFormFeedback({ message: error, type: "error" });
         form
           .querySelector(
             `#${
-              !fname
+              !formValues.fname
                 ? "fname"
-                : !phone
+                : !formValues.phone
                 ? "phone"
-                : !email
+                : !formValues.email
                 ? "email"
-                : !subject
+                : !formValues.subject
                 ? "subject"
                 : "msg"
             }`
@@ -964,21 +963,169 @@ const Chatbot: React.FC = () => {
       setFormFeedback({ message: "", type: "" });
 
       try {
-        // Simulate form submission
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        setFormFeedback({
-          message: "Message sent successfully!",
-          type: "success",
-        });
-        form.reset();
-        trackInteraction("contact_form_submitted");
-        setTimeout(() => setIsContactOpen(false), 2000);
+        // Submit to FormSubmit
+        const response = await fetch(
+          "https://formsubmit.co/ajax/bhakarsoursbh@gmail.com",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              name: formValues.fname,
+              phone: formValues.phone,
+              email: formValues.email,
+              subject: formValues.subject,
+              message: formValues.msg,
+              _subject: "New Contact Form Submission from Chatbot",
+              _template: "table",
+              _captcha: "false",
+              _autoresponse: `Thank you for contacting Jaikvik Technology! We've received your message regarding "${formValues.subject}" and will get back to you soon.`,
+            }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setFormFeedback({
+            message: "Message sent successfully! We'll contact you soon.",
+            type: "success",
+          });
+          form.reset();
+          trackInteraction("contact_form_submitted");
+          setTimeout(() => setIsContactOpen(false), 2000);
+        } else {
+          throw new Error(data.message || "Failed to send message");
+        }
       } catch (error: any) {
         setFormFeedback({
-          message: "Failed to send message. Please try again.",
+          message:
+            "Failed to send message. Please try again or contact us directly.",
           type: "error",
         });
         trackInteraction("contact_form_error", {
+          error: error?.message || String(error),
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [trackInteraction]
+  );
+
+  const handleCareerFormSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      const formData = new FormData(form);
+      const formValues = Object.fromEntries(formData.entries());
+
+      // Validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\+?\d{10,15}$/;
+
+      form.querySelectorAll("input, textarea, select").forEach((input) => {
+        input.setAttribute("aria-invalid", "false");
+      });
+
+      if (
+        !formValues.fname ||
+        !formValues.phone ||
+        !phoneRegex.test(formValues.phone as string) ||
+        !formValues.email ||
+        !emailRegex.test(formValues.email as string) ||
+        !formValues.position ||
+        !formValues.msg ||
+        !formValues.resume
+      ) {
+        const error = !formValues.fname
+          ? "Full Name is required."
+          : !formValues.phone || !phoneRegex.test(formValues.phone as string)
+          ? "Valid phone number is required."
+          : !formValues.email || !emailRegex.test(formValues.email as string)
+          ? "Valid email address is required."
+          : !formValues.position
+          ? "Position is required."
+          : !formValues.msg
+          ? "Message is required."
+          : "Resume is required.";
+        setFormFeedback({ message: error, type: "error" });
+        form
+          .querySelector(
+            `#${
+              !formValues.fname
+                ? "fname"
+                : !formValues.phone
+                ? "phone"
+                : !formValues.email
+                ? "email"
+                : !formValues.position
+                ? "position"
+                : !formValues.msg
+                ? "msg"
+                : "resume"
+            }`
+          )
+          ?.setAttribute("aria-invalid", "true");
+        trackInteraction("career_form_error", { error });
+        return;
+      }
+
+      setIsSubmitting(true);
+      setFormFeedback({ message: "", type: "" });
+
+      try {
+        // Create FormData for file upload
+        const careerFormData = new FormData();
+        careerFormData.append("name", formValues.fname as string);
+        careerFormData.append("phone", formValues.phone as string);
+        careerFormData.append("email", formValues.email as string);
+        careerFormData.append("position", formValues.position as string);
+        careerFormData.append("message", formValues.msg as string);
+        careerFormData.append("resume", formValues.resume as File);
+        careerFormData.append(
+          "_subject",
+          "New Career Application from Chatbot"
+        );
+        careerFormData.append("_template", "table");
+        careerFormData.append("_captcha", "false");
+        careerFormData.append(
+          "_autoresponse",
+          `Thank you for applying to Jaikvik Technology! We've received your application for the ${formValues.position} position and will review it shortly.`
+        );
+
+        // Submit to FormSubmit
+        const response = await fetch(
+          "https://formsubmit.co/ajax/bhakarsoursbh@gmail.com",
+          {
+            method: "POST",
+            body: careerFormData,
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setFormFeedback({
+            message:
+              "Application submitted successfully! We'll contact you soon.",
+            type: "success",
+          });
+          form.reset();
+          trackInteraction("career_form_submitted");
+          setTimeout(() => setIsCareerOpen(false), 2000);
+        } else {
+          throw new Error(data.message || "Failed to submit application");
+        }
+      } catch (error: any) {
+        setFormFeedback({
+          message:
+            "Failed to submit application. Please try again or contact us directly.",
+          type: "error",
+        });
+        trackInteraction("career_form_error", {
           error: error?.message || String(error),
         });
       } finally {
@@ -1003,8 +1150,9 @@ const Chatbot: React.FC = () => {
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsContactOpen(false);
+        setIsCareerOpen(false);
         setFormFeedback({ message: "", type: "" });
-        trackInteraction("contact_popup_closed_escape");
+        trackInteraction("popup_closed_escape");
       }
     },
     [trackInteraction]
@@ -1030,13 +1178,13 @@ const Chatbot: React.FC = () => {
   }, [startInactivityTimer, trackInteraction]);
 
   useEffect(() => {
-    if (isContactOpen) {
+    if (isContactOpen || isCareerOpen) {
       document.addEventListener("keydown", handlePopupEscape);
     } else {
       document.removeEventListener("keydown", handlePopupEscape);
     }
     return () => document.removeEventListener("keydown", handlePopupEscape);
-  }, [isContactOpen, handlePopupEscape]);
+  }, [isContactOpen, isCareerOpen, handlePopupEscape]);
 
   useEffect(() => {
     if (messagesRef.current) {
@@ -1186,6 +1334,16 @@ const Chatbot: React.FC = () => {
             >
               Contact
             </button>
+            {/* <button
+              onClick={() => {
+                setIsCareerOpen(true);
+                trackInteraction("career_popup_opened");
+              }}
+              aria-label="Open career form"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-purple-600 text-white font-medium hover:from-purple-600 hover:to-purple-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 focus:ring-2 focus:ring-purple-300"
+            >
+              Careers
+            </button> */}
           </div>
         </div>
       </div>
@@ -1228,7 +1386,7 @@ const Chatbot: React.FC = () => {
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <form id="jkvContactForm" onSubmit={handleFormSubmit}>
+              <form id="jkvContactForm" onSubmit={handleContactFormSubmit}>
                 {[
                   { id: "fname", label: "Full Name", type: "text" },
                   { id: "phone", label: "Phone Number", type: "tel" },
@@ -1330,6 +1488,135 @@ const Chatbot: React.FC = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Career Popup */}
+      {isCareerOpen && (
+        <div
+          id="jkvCareerPopup"
+          aria-hidden={!isCareerOpen}
+          role="dialog"
+          aria-label="Career form popup"
+          className="fixed inset-0 bg-black/50 flex justify-center items-center z-[1100] animate-fadeIn"
+          onClick={() => {
+            setIsCareerOpen(false);
+            setFormFeedback({ message: "", type: "" });
+            trackInteraction("career_popup_closed");
+          }}
+        >
+          <div
+            id="jkvCareerInner"
+            role="dialog"
+            aria-label="Career Application Form"
+            className="relative w-[clamp(280px,90%,600px)] max-h-[80vh] overflow-y-auto bg-white p-[clamp(16px,4vw,24px)] rounded-xl shadow-2xl animate-popUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h4 className="text-[clamp(18px,5vw,22px)] font-semibold text-gray-800">
+                Career Application
+              </h4>
+              <button
+                aria-label="Close career popup"
+                className="text-2xl cursor-pointer text-gray-800 hover:text-blue-500 transition-all duration-300 hover:rotate-90 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                onClick={() => {
+                  setIsCareerOpen(false);
+                  setFormFeedback({ message: "", type: "" });
+                  trackInteraction("career_popup_closed");
+                }}
+              >
+                ×
+              </button>
+            </div>
+            <form
+              id="jkvCareerForm"
+              onSubmit={handleCareerFormSubmit}
+              encType="multipart/form-data"
+            >
+              <div className="grid grid-cols-1 gap-6">
+                {[
+                  { id: "fname", label: "Full Name", type: "text" },
+                  { id: "phone", label: "Phone Number", type: "tel" },
+                  { id: "email", label: "Email Address", type: "email" },
+                  {
+                    id: "position",
+                    label: "Position Applied For",
+                    type: "text",
+                  },
+                ].map((field) => (
+                  <div key={field.id} className="relative">
+                    <input
+                      id={field.id}
+                      name={field.id}
+                      type={field.type}
+                      required
+                      autoComplete="off"
+                      aria-label={field.label}
+                      className="w-full p-2 rounded-lg border border-gray-300 bg-gray-50 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 aria-[invalid=true]:border-red-500 aria-[invalid=true]:bg-red-50 transition-all duration-200"
+                    />
+                    <label
+                      htmlFor={field.id}
+                      className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500"
+                    >
+                      {field.label}
+                    </label>
+                  </div>
+                ))}
+                <div className="relative">
+                  <label
+                    htmlFor="resume"
+                    className="block text-sm text-gray-700 mb-1"
+                  >
+                    Upload Resume (PDF, DOC, DOCX)
+                  </label>
+                  <input
+                    type="file"
+                    id="resume"
+                    name="resume"
+                    required
+                    accept=".pdf,.doc,.docx"
+                    className="w-full p-2 rounded-lg border border-gray-300 bg-gray-50 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 aria-[invalid=true]:border-red-500 aria-[invalid=true]:bg-red-50 transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:bg-blue-500 file:border-0 file:text-white file:cursor-pointer"
+                  />
+                </div>
+                <div className="relative">
+                  <textarea
+                    id="msg"
+                    name="msg"
+                    rows={5}
+                    required
+                    autoComplete="off"
+                    aria-label="Cover Letter"
+                    className="w-full p-2 rounded-lg border border-gray-300 bg-gray-50 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 aria-[invalid=true]:border-red-500 aria-[invalid=true]:bg-red-50 transition-all duration-200 resize-y min-h-[100px]"
+                  />
+                  <label
+                    htmlFor="msg"
+                    className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500"
+                  >
+                    Cover Letter
+                  </label>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full p-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium hover:from-blue-600 hover:to-blue-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 disabled:bg-gray-200 disabled:cursor-not-allowed focus:ring-2 focus:ring-blue-300"
+                >
+                  {isSubmitting ? "Submitting..." : "Submit Application"}
+                </button>
+                {formFeedback.message && (
+                  <div
+                    className={`mt-2 p-2 rounded-lg text-sm text-center ${
+                      formFeedback.type === "success"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-red-100 text-red-800"
+                    }`}
+                    role="alert"
+                  >
+                    {formFeedback.message}
+                  </div>
+                )}
+              </div>
+            </form>
           </div>
         </div>
       )}
