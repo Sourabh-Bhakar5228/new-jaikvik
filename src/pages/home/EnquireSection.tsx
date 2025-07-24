@@ -3,7 +3,6 @@ import type { EnquireFormInterface } from "../../interfaces/EnquireFormInterface
 import "../../styles/enquire-form.css";
 
 const EnquireSection = () => {
-  // State to manage form input values
   const [formData, setFormData] = useState<EnquireFormInterface>({
     fname: "",
     email: "",
@@ -12,20 +11,77 @@ const EnquireSection = () => {
     message: "",
     city: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
 
-  // Handle input changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev: EnquireFormInterface) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your form submission logic here (e.g., API call)
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch(
+        "https://formsubmit.co/ajax/bhakarsoursbh@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.fname,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company,
+            message: formData.message,
+            city: formData.city,
+            _subject: "New Enquiry Form Submission",
+            _template: "table",
+            _captcha: "false",
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          success: true,
+          message: "Your enquiry has been submitted successfully!",
+        });
+        // Reset form
+        setFormData({
+          fname: "",
+          email: "",
+          phone: "",
+          company: "",
+          message: "",
+          city: "",
+        });
+      } else {
+        throw new Error(data.message || "Failed to submit enquiry");
+      }
+    } catch (error) {
+      setSubmitStatus({
+        success: false,
+        message:
+          error instanceof Error
+            ? error.message
+            : "An error occurred while submitting",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -35,6 +91,19 @@ const EnquireSection = () => {
         <div className="w-full">
           <div className="flex flex-col w-full min-h-[320px] sm:min-h-[340px]">
             <form onSubmit={handleSubmit}>
+              {/* Status Message */}
+              {submitStatus && (
+                <div
+                  className={`mb-4 p-3 rounded ${
+                    submitStatus.success
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {submitStatus.message}
+                </div>
+              )}
+
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 md:gap-3 lg:gap-4">
                 {/* Heading */}
                 <div className="col-span-2 flex items-center">
@@ -173,9 +242,12 @@ const EnquireSection = () => {
                   <div className="flex justify-center mt-4 sm:mt-5">
                     <button
                       type="submit"
-                      className="bg-main-red text-white font-semibold py-2 px-6 w-full sm:w-auto border-none hover:scale-95 transition-transform duration-300 ease-in-out"
+                      disabled={isSubmitting}
+                      className={`bg-main-red text-white font-semibold py-2 px-6 w-full sm:w-auto border-none hover:scale-95 transition-transform duration-300 ease-in-out ${
+                        isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+                      }`}
                     >
-                      SEND NOW
+                      {isSubmitting ? "SENDING..." : "SEND NOW"}
                     </button>
                   </div>
                 </div>
