@@ -239,7 +239,7 @@ const FilmProduction: React.FC = () => {
         className="w-full mx-auto px-4 py-12 md:py-16 relative z-20 bg-black/50"
         id="film-overview"
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-8xl mx-auto">
           {sections.map((section, index) => (
             <motion.div
               key={section.id || `section-${index}`}
@@ -313,50 +313,6 @@ const FilmProduction: React.FC = () => {
           ))}
         </div>
       </div>
-
-      {/* CTA Section */}
-      <motion.div
-        className="bg-black py-16 px-4 text-center relative overflow-hidden"
-        style={{ y }}
-      >
-        <div className="max-w-5xl mx-auto relative z-10">
-          <motion.h2
-            className="text-2xl md:text-3xl font-semibold text-red-500 mb-6 tracking-tight drop-shadow-md"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            {filmDataTyped.cta.title}
-          </motion.h2>
-          <motion.p
-            className="text-base md:text-lg font-normal text-gray-200 mb-8 leading-relaxed max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            {filmDataTyped.cta.description}
-          </motion.p>
-          <motion.button
-            className="bg-red-600 text-white px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 hover:bg-red-700 hover:shadow-lg"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            {filmDataTyped.cta.button}
-          </motion.button>
-        </div>
-        <motion.div
-          className="absolute inset-0 z-0 bg-gradient-radial from-red-600/10 to-transparent"
-          style={{
-            opacity: useTransform(scrollYProgress, [0.8, 1], [0, 0.3]),
-          }}
-        />
-      </motion.div>
     </div>
   );
 };

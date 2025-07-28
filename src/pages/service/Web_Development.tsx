@@ -781,7 +781,7 @@ text-blue-300"
         className="w-full mx-auto px-5 py-12 md:py-16 relative z-20 bg-gray-900"
         id="web-overview"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-8xl mx-auto">
           {sections.map((section, index) => (
             <motion.div
               key={section.id}

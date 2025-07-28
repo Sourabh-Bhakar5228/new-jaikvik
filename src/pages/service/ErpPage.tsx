@@ -617,7 +617,7 @@ const ErpPage: React.FC = () => {
         </motion.section>
 
         {/* Main Content */}
-        <div className="max-w-6xl mx-auto px-6 py-16" id="erp-overview">
+        <div className="max-w-8xl mx-auto px-6 py-16" id="erp-overview">
           {sections.map((section, index) => (
             <motion.div
               key={index}

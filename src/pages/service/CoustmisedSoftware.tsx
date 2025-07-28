@@ -467,7 +467,7 @@ const CoustmisedSoftware = () => {
         className="w-full mx-auto px-4 py-12 md:py-16 relative z-20 bg-black/50"
         id="cs-overview"
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-8xl mx-auto">
           {sections.map((section, index) => (
             <motion.div
               key={index}

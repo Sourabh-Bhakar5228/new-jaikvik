@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaArrowRight, FaChevronDown, FaQuoteLeft } from "react-icons/fa";
+import { FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -51,13 +51,6 @@ interface Section {
 // Define types for expanded sections
 interface ExpandedSections {
   [key: number]: boolean;
-}
-
-// Define types for testimonials
-interface Testimonial {
-  quote: string;
-  author: string;
-  company: string;
 }
 
 const CRMPage: React.FC = () => {
@@ -859,35 +852,9 @@ const CRMPage: React.FC = () => {
     },
   ];
 
-  // Define testimonials array
-  const testimonials: Testimonial[] = [
-    {
-      quote:
-        "Jaikvik's CRM transformed our sales process, boosting our lead conversion by 200%. The AI insights are a game-changer!",
-      author: "Sarah Thompson",
-      company: "TechTrend Innovations",
-    },
-    {
-      quote:
-        "With Jaikvik's CRM, we reduced our operational costs by 25% and improved customer satisfaction across our retail chain.",
-      author: "Michael Patel",
-      company: "UrbanMart Retail",
-    },
-    {
-      quote:
-        "The CRM's seamless integration and mobile access keep our team connected, making client management effortless.",
-      author: "Emily Chen",
-      company: "BrightFuture Consulting",
-    },
-  ];
-
   const sectionRefs = sections.map(() =>
     useInView({ threshold: 0.2, triggerOnce: true })
   );
-  const [testimonialsRef, testimonialsInView] = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-  });
 
   const toggleSection = (sectionId: number) => {
     setExpandedSections((prev) => ({
@@ -978,7 +945,7 @@ const CRMPage: React.FC = () => {
           className="w-full mx-auto px-4 py-12 md:py-16 relative z-20 bg-black/50"
           id="jt-crm-overview"
         >
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-8xl mx-auto">
             {sections.map((section, index) => (
               <motion.div
                 key={index}
@@ -1054,48 +1021,6 @@ const CRMPage: React.FC = () => {
               </motion.div>
             ))}
           </div>
-
-          {/* Testimonials Section */}
-          <motion.div
-            ref={testimonialsRef}
-            className="max-w-7xl mx-auto mb-12 bg-gray-900/20 p-6 md:p-10 rounded-xl shadow-sm hover:shadow-red-500/20 transition-shadow duration-300"
-            initial={{ opacity: 0, y: 50 }}
-            animate={
-              testimonialsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
-            }
-            transition={{ duration: 0.8, type: "spring", stiffness: 80 }}
-            role="region"
-            aria-label="Customer Testimonials"
-          >
-            <h2 className="text-2xl md:text-3xl font-semibold text-red-500 mb-6 tracking-tight drop-shadow-sm">
-              What Our Clients Say
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {testimonials.map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-gray-900/30 p-6 rounded-lg border border-red-500/20 hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={
-                    testimonialsInView
-                      ? { opacity: 1, scale: 1 }
-                      : { opacity: 0, scale: 0.9 }
-                  }
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <FaQuoteLeft className="text-red-500 text-2xl mb-4" />
-                  <p className="text-base md:text-lg text-gray-200 mb-4 italic">
-                    "{testimonial.quote}"
-                  </p>
-                  <p className="text-base font-semibold text-red-500">
-                    {testimonial.author}
-                  </p>
-                  <p className="text-sm text-gray-400">{testimonial.company}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
 
           {/* FAQ Section */}
           <motion.div

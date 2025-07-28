@@ -1943,7 +1943,7 @@ const SocialMediaMarketing = () => {
         className="w-full mx-auto px-4 py-16 md:py-20 relative z-20 bg-black/90"
         id="smm-overview"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-8xl mx-auto">
           {sections.map((section, index) => (
             <motion.div
               key={section.id}
@@ -2007,56 +2007,6 @@ const SocialMediaMarketing = () => {
           ))}
         </div>
       </div>
-
-      <motion.div
-        className="bg-gradient-to-b from-black to-gray-900 py-20 px-4 text-center relative overflow-hidden"
-        style={{ y }}
-      >
-        <div className="max-w-4xl mx-auto relative z-10">
-          <motion.h2
-            className="text-3xl md:text-4xl font-extrabold text-red-500 mb-8 tracking-tight drop-shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Ready to Elevate Your Brand with SMM?
-          </motion.h2>
-          <motion.p
-            className="text-lg md:text-xl font-medium text-gray-200 mb-10 leading-relaxed max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            Discover how our SMM strategies can boost your brand's{" "}
-            <span className="font-bold">
-              visibility, engagement, and growth
-            </span>
-            .
-          </motion.p>
-          <motion.button
-            className="bg-red-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:bg-red-700 hover:shadow-xl"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            viewport={{ once: true }}
-            aria-label="Get Started with SMM"
-          >
-            Get Started Today
-          </motion.button>
-        </div>
-        <motion.div
-          className="absolute inset-0 z-0"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(239, 68, 68, 0.1) 0%, transparent 70%)",
-            opacity: useTransform(scrollYProgress, [0.8, 1], [0, 0.3]),
-          }}
-        />
-      </motion.div>
     </div>
   );
 };

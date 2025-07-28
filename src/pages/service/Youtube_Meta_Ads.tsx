@@ -867,52 +867,6 @@ const Youtube_Meta_Ads: React.FC = () => {
           ))}
         </div>
       </div>
-
-      <motion.div
-        className="bg-gray-900 py-16 px-5 text-center relative overflow-hidden"
-        style={{ y: useTransform(scrollYProgress, [0.8, 1], [0, -100]) }}
-      >
-        <div className="max-w-4xl mx-auto relative z-10">
-          <motion.h2
-            className="text-2xl md:text-3xl font-semibold text-blue-400 mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Ready to Elevate Your Advertising Strategy?
-          </motion.h2>
-          <motion.p
-            className="text-gray-300 mb-8 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            Discover how our PPC, Meta, and YouTube Ads strategies can boost
-            your brand's visibility, engagement, and conversions.
-          </motion.p>
-          <motion.button
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 hover:shadow-md"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            Get Started Today
-          </motion.button>
-        </div>
-        <motion.div
-          className="absolute inset-0 z-0"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(56, 182, 255, 0.1) 0%, transparent 70%)",
-            opacity: useTransform(scrollYProgress, [0.8, 1], [0, 0.3]),
-          }}
-        />
-      </motion.div>
     </div>
   );
 };

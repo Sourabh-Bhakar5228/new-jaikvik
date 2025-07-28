@@ -119,7 +119,7 @@ const OurClients: React.FC = () => {
           delay: 0,
           disableOnInteraction: false, // Changed to false to prevent stopping on interaction
         }}
-        speed={6000}
+        speed={3000}
         loop={true}
         breakpoints={{
           320: { slidesPerView: 2 },

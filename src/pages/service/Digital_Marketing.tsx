@@ -895,7 +895,7 @@ const DigitalMarketing: React.FC = () => {
         </motion.section>
 
         {/* Main Content */}
-        <div className="max-w-6xl mx-auto px-6 py-16" id="smm-overview">
+        <div className="max-w-8xl mx-auto px-6 py-16" id="smm-overview">
           {sections.map((section, index) => (
             <motion.div
               key={index}
@@ -1043,51 +1043,6 @@ const DigitalMarketing: React.FC = () => {
             </div>
           </motion.div>
         </div>
-
-        {/* CTA Section */}
-        <motion.section
-          className="bg-blue-600 py-16 text-center px-4 relative"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          role="complementary"
-          aria-label="Call to Action"
-        >
-          <div className="max-w-4xl mx-auto">
-            <motion.h2
-              className="text-3xl md:text-4xl font-bold text-white mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              Ready to Skyrocket Your Business?
-            </motion.h2>
-            <motion.p
-              className="text-lg mb-8 text-white max-w-xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              Partner with Jaikvik Technology to leverage innovative digital
-              marketing solutions.
-            </motion.p>
-            <motion.button
-              className="bg-purple-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-600 transition-all duration-300"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              viewport={{ once: true }}
-              aria-label="Get Started with Digital Marketing"
-            >
-              Get Started
-            </motion.button>
-          </div>
-        </motion.section>
       </div>
     </ErrorBoundary>
   );

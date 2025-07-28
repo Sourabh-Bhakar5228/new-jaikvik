@@ -144,7 +144,7 @@ const MobileApplication = () => {
         className="w-full mx-auto px-4 py-16 md:py-20 relative z-20 bg-black/90"
         id="mobile-app-overview"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-8xl mx-auto">
           <motion.div
             ref={section1Ref}
             className="flex flex-col lg:flex-row gap-12 items-center bg-gray-900/50 p-8 md:p-12 rounded-2xl shadow-md mb-16 hover:shadow-xl hover:shadow-red-500/20 transition-shadow duration-300"

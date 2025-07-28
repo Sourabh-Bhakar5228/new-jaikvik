@@ -156,7 +156,7 @@ const SeoServices: React.FC = () => {
         className="w-full mx-auto px-4 py-16 md:py-20 relative z-20 bg-black/90"
         id="seo-overview"
       >
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-8xl mx-auto">
           {typedSectionsData.map((section, index) => (
             <motion.div
               key={index}
