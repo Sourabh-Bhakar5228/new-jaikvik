@@ -95,11 +95,11 @@ const websites: WebsiteCard[] = [
       "https://jaikvik.com/lab/new-post-video/img/Website/mybrandplese.png",
     alt: "My Brand Please",
   },
-  {
-    url: "https://jshpackagings.com/",
-    imageSrc: "https://jaikvik.com/lab/new-post-video/img/Website/jsh.png",
-    alt: "JSH Packagings",
-  },
+  // {
+  //   url: "https://jshpackagings.com/",
+  //   imageSrc: "https://jaikvik.com/lab/new-post-video/img/Website/jsh.png",
+  //   alt: "JSH Packagings",
+  // },
   {
     url: "https://hanshcraft.com/",
     imageSrc:

@@ -353,7 +353,7 @@ const AdminLayout: React.FC = () => {
   };
 
   const handleLogout = () => {
-    navigate("/login");
+    navigate("/admin");
   };
 
   useEffect(() => {

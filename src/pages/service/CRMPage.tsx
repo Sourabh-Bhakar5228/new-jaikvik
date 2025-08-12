@@ -39,43 +39,36 @@ class ErrorBoundary extends React.Component<
   }
 }
 
-// Define types for section content
+// Define types for section content with two images
 interface Section {
   title: string;
   content: React.ReactNode;
-  image: string;
-  alt: string;
+  images: [string, string];
+  alts: [string, string];
   reverse?: boolean;
 }
 
-// Define types for expanded sections
 interface ExpandedSections {
   [key: number]: boolean;
 }
 
 const CRMPage: React.FC = () => {
-  // Initialize expanded sections state
-  const initialExpandedSections: ExpandedSections = {
+  const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
     0: false,
     1: false,
     2: false,
     3: false,
-  };
-  const [expandedSections, setExpandedSections] = useState<ExpandedSections>(
-    initialExpandedSections
-  );
+  });
 
-  // Scroll animations
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
-  // InView animations
   const [heroRef, heroInView] = useInView({
     threshold: 0.5,
     triggerOnce: true,
   });
 
-  // Define sections array
+  // Define sections array with two images each
   const sections: Section[] = [
     {
       title: "What Is CRM?",
@@ -142,9 +135,14 @@ const CRMPage: React.FC = () => {
           )}
         </>
       ),
-      image:
-        "https://img.freepik.com/free-vector/flat-design-crm-illustration_23-2149364431.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740",
-      alt: "CRM Solutions",
+      images: [
+        "https://img.freepik.com/free-vector/flat-design-crm-illustration_23-2149364431.jpg",
+        "https://img.freepik.com/free-vector/hand-drawn-crm-concept_23-2149388652.jpg",
+      ],
+      alts: [
+        "CRM illustration showing people and technology",
+        "Hand drawn CRM concept with charts and graphs",
+      ],
     },
     {
       title: "What Does CRM Do?",
@@ -223,9 +221,14 @@ const CRMPage: React.FC = () => {
           )}
         </>
       ),
-      image:
-        "https://img.freepik.com/free-vector/hand-drawn-crm-infographic_23-2149388654.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740",
-      alt: "CRM Features",
+      images: [
+        "https://img.freepik.com/free-vector/hand-drawn-crm-infographic_23-2149388654.jpg",
+        "https://img.freepik.com/free-vector/gradient-crm-illustration_23-2149379652.jpg",
+      ],
+      alts: [
+        "CRM infographic showing workflow",
+        "Gradient CRM illustration with charts",
+      ],
       reverse: true,
     },
     {
@@ -356,9 +359,14 @@ const CRMPage: React.FC = () => {
           )}
         </>
       ),
-      image:
-        "https://img.freepik.com/free-vector/gradient-crm-illustration_23-2149379653.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740",
-      alt: "CRM Benefits",
+      images: [
+        "https://img.freepik.com/free-vector/gradient-crm-illustration_23-2149379653.jpg",
+        "https://img.freepik.com/free-vector/hand-drawn-crm-concept_23-2149388651.jpg",
+      ],
+      alts: [
+        "Gradient CRM illustration showing benefits",
+        "Hand drawn CRM concept with people",
+      ],
     },
     {
       title: "CRM for Different Ventures",
@@ -384,16 +392,6 @@ const CRMPage: React.FC = () => {
               E-commerce platforms utilize CRM information to serve customer
               requirements better with custom offers or deal with loyalty
               programs and cases optimized for convenient shopping.
-            </li>
-          </ul>
-          <h4 className="text-lg md:text-xl font-semibold text-red-500 mb-3 uppercase">
-            2. Healthcare
-          </h4>
-          <ul className="list-disc list-inside text-base md:text-lg font-normal leading-relaxed mb-5 space-y-2 text-gray-200">
-            <li>
-              Where patient details, appointments for checkups, and medication
-              refill notices are concerned, CRMs help keep an updated patient
-              index.
             </li>
           </ul>
           {expandedSections[3] && (
@@ -845,9 +843,14 @@ const CRMPage: React.FC = () => {
           )}
         </>
       ),
-      image:
-        "https://img.freepik.com/free-vector/gradient-crm-infographic_23-2149379654.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740",
-      alt: "CRM Use Cases",
+      images: [
+        "https://img.freepik.com/free-vector/gradient-crm-infographic_23-2149379654.jpg",
+        "https://img.freepik.com/free-vector/flat-design-crm-concept_23-2149364432.jpg",
+      ],
+      alts: [
+        "Gradient CRM infographic showing different industries",
+        "Flat design CRM concept",
+      ],
       reverse: true,
     },
   ];
@@ -882,12 +885,12 @@ const CRMPage: React.FC = () => {
           <div className="absolute bottom-12 right-6 w-36 h-36 bg-red-600 rounded-full opacity-10 blur-2xl" />
         </motion.div>
 
-        {/* Hero Section with Parallax */}
+        {/* Hero Section */}
         <motion.section
           ref={heroRef}
           className="relative bg-cover bg-center h-[60vh] flex items-center justify-center text-center z-10"
           style={{
-            backgroundImage: `url('https://img.freepik.com/free-photo/arrange-white-letters-as-crm_1384-19.jpg?uid=R186472209&ga=GA1.1.455755995.1738954286&semt=ais_hybrid&w=740')`,
+            backgroundImage: `url('https://img.freepik.com/free-photo/arrange-white-letters-as-crm_1384-19.jpg')`,
           }}
           initial={{ opacity: 0, y: 50 }}
           animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -1005,18 +1008,40 @@ const CRMPage: React.FC = () => {
                     />
                   </motion.button>
                 </motion.div>
+
+                {/* Image container with two images */}
                 <motion.div
-                  className="w-full lg:w-1/2"
+                  className="w-full lg:w-1/2 flex flex-col gap-6"
                   initial={{ x: section.reverse ? -100 : 100, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <img
-                    src={section.image}
-                    alt={section.alt}
-                    className="w-full h-72 rounded-md shadow-md transition-transform duration-500 hover:scale-105 object-cover"
-                    loading="lazy"
-                  />
+                  <div className="relative group overflow-hidden rounded-lg shadow-lg">
+                    <img
+                      src={section.images[0]}
+                      alt={section.alts[0]}
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <span className="text-white text-sm font-medium">
+                        {section.alts[0]}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="relative group overflow-hidden rounded-lg shadow-lg">
+                    <img
+                      src={section.images[1]}
+                      alt={section.alts[1]}
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <span className="text-white text-sm font-medium">
+                        {section.alts[1]}
+                      </span>
+                    </div>
+                  </div>
                 </motion.div>
               </motion.div>
             ))}
@@ -1089,53 +1114,6 @@ const CRMPage: React.FC = () => {
             </div>
           </motion.div>
         </div>
-
-        {/* CTA Section with Parallax Effect */}
-        <motion.div
-          className="bg-black py-16 px-4 text-center relative overflow-hidden"
-          style={{ y }}
-        >
-          <div className="max-w-5xl mx-auto relative z-10">
-            <motion.h2
-              className="text-2xl md:text-3xl font-semibold text-red-500 mb-6 tracking-tight drop-shadow-md"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              Ready to Transform Your Customer Relationships?
-            </motion.h2>
-            <motion.p
-              className="text-base md:text-lg font-normal text-gray-200 mb-8 leading-relaxed max-w-xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              Discover how our CRM solutions can streamline your operations,
-              boost <span className="font-semibold">sales</span>, and enhance
-              customer satisfaction.
-            </motion.p>
-            <motion.button
-              className="bg-red-600 text-white px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 hover:bg-red-700 hover:shadow-lg"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              viewport={{ once: true }}
-              aria-label="Get Started with CRM"
-            >
-              Get Started Today
-            </motion.button>
-          </div>
-          <motion.div
-            className="absolute inset-0 z-0 bg-gradient-radial from-red-600/10 to-transparent"
-            style={{
-              opacity: useTransform(scrollYProgress, [0.8, 1], [0, 0.3]),
-            }}
-          />
-        </motion.div>
       </div>
     </ErrorBoundary>
   );

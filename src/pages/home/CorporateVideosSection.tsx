@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 
 interface VideoItemProps {
@@ -25,6 +25,63 @@ const VideoItem: React.FC<VideoItemProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [showPoster, setShowPoster] = useState(true);
 
+  // Memoized handlers
+  const handlePlay = useCallback(async () => {
+    if (!videoRef.current) return;
+
+    try {
+      setShowPoster(false);
+      setIsLoading(true);
+      await videoRef.current.play();
+      setIsLoading(false);
+      setIsPlaying(true);
+    } catch (error) {
+      videoRef.current.muted = true;
+      setIsMuted(true);
+      await videoRef.current.play();
+      setIsLoading(false);
+      setIsPlaying(true);
+    }
+  }, []);
+
+  const handlePause = useCallback(() => {
+    if (!videoRef.current) return;
+    videoRef.current.pause();
+    setIsPlaying(false);
+  }, []);
+
+  const handleResetVideo = useCallback(() => {
+    if (!videoRef.current) return;
+    videoRef.current.pause();
+    videoRef.current.currentTime = 0;
+    videoRef.current.muted = true;
+    setIsMuted(true);
+    setIsPlaying(false);
+    setShowPoster(true);
+  }, []);
+
+  const togglePlayPause = useCallback(() => {
+    isPlaying ? handlePause() : handlePlay();
+  }, [isPlaying, handlePlay, handlePause]);
+
+  const toggleMute = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    videoRef.current.muted = !videoRef.current.muted;
+    setIsMuted(videoRef.current.muted);
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    if (isMobile || isPlaying) return;
+    handlePlay();
+  }, [isMobile, isPlaying, handlePlay]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (isMobile || isPlaying) return;
+    handleResetVideo();
+  }, [isMobile, isPlaying, handleResetVideo]);
+
+  // Effects
   useEffect(() => {
     const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
     checkIfMobile();
@@ -36,101 +93,26 @@ const VideoItem: React.FC<VideoItemProps> = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsInView(entry.isIntersecting);
-        if (!entry.isIntersecting && videoRef.current) {
-          // When scrolled out of view
-          videoRef.current.pause();
-          videoRef.current.currentTime = 0;
-          videoRef.current.muted = true;
-          setIsMuted(true);
-          setIsPlaying(false);
-          setShowPoster(true);
+        if (!entry.isIntersecting) {
+          handleResetVideo();
         }
       },
       { threshold: 0.5 }
     );
 
-    if (containerRef.current) observer.observe(containerRef.current);
+    const currentContainer = containerRef.current;
+    if (currentContainer) observer.observe(currentContainer);
+
     return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current);
+      if (currentContainer) observer.unobserve(currentContainer);
     };
-  }, []);
-
-  const togglePlayPause = () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isPlaying) {
-      video.pause();
-      setShowPoster(true);
-    } else {
-      setShowPoster(false);
-      setIsLoading(true);
-      video
-        .play()
-        .then(() => setIsLoading(false))
-        .catch(() => {
-          video.muted = true;
-          setIsMuted(true);
-          video.play().finally(() => setIsLoading(false));
-        });
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  const toggleMute = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!videoRef.current) return;
-    videoRef.current.muted = !videoRef.current.muted;
-    setIsMuted(videoRef.current.muted);
-  };
-
-  const handleMouseEnter = () => {
-    if (isMobile || isPlaying) return;
-    setShowPoster(false);
-    const video = videoRef.current;
-    if (video) {
-      setIsLoading(true);
-      video.currentTime = 0;
-      video.muted = false;
-      setIsMuted(false);
-      video
-        .play()
-        .then(() => setIsLoading(false))
-        .catch(() => {
-          video.muted = true;
-          setIsMuted(true);
-          video.play().finally(() => setIsLoading(false));
-        });
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (isMobile || isPlaying) return;
-    setShowPoster(true);
-    const video = videoRef.current;
-    if (video) {
-      video.pause();
-      video.currentTime = 0;
-      video.muted = true;
-      setIsMuted(true);
-    }
-  };
+  }, [handleResetVideo]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (videoRef.current && !isInView) {
-        videoRef.current.pause();
-        videoRef.current.currentTime = 0;
-        videoRef.current.muted = true;
-        setIsMuted(true);
-        setIsPlaying(false);
-        setShowPoster(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isInView]);
+    if (!isInView) {
+      handleResetVideo();
+    }
+  }, [isInView, handleResetVideo]);
 
   return (
     <div ref={containerRef} className="w-full flex justify-center px-4">
@@ -148,7 +130,7 @@ const VideoItem: React.FC<VideoItemProps> = ({
           <>
             <video
               ref={videoRef}
-              className={`absolute inset-0 w-full h-full object-cover z-[2] ${
+              className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-300 ${
                 showPoster ? "opacity-0" : "opacity-100"
               }`}
               loop
@@ -166,6 +148,7 @@ const VideoItem: React.FC<VideoItemProps> = ({
                 src={posterSrc}
                 alt={title}
                 className="absolute inset-0 w-full h-full object-cover z-[1]"
+                loading="lazy"
               />
             )}
           </>

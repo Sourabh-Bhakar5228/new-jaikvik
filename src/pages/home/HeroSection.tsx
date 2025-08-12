@@ -1,64 +1,59 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 
 const HeroSection: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isHovering, setIsHovering] = useState<boolean>(false);
-  const isInitialized = useRef<boolean>(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const isInitialized = useRef(false);
 
-  // Initialize video only once
-  useEffect(() => {
+  const initializeVideo = useCallback(async () => {
     const video = videoRef.current;
     if (!video || isInitialized.current) return;
 
-    const initializeVideo = async () => {
-      try {
-        video.muted = true;
-        await video.play().catch(() => {});
-        isInitialized.current = true;
-      } catch (err) {
-        console.error("Video initialization error:", err);
-      }
-    };
-
-    initializeVideo();
-
-    return () => {
-      if (videoRef.current) {
-        videoRef.current.pause();
-      }
-    };
+    try {
+      video.muted = true;
+      await video.play().catch(() => {});
+      isInitialized.current = true;
+    } catch (err) {
+      console.error("Video initialization error:", err);
+    }
   }, []);
 
-  // Handle hover changes
-  useEffect(() => {
+  const handleHoverState = useCallback(async () => {
     const video = videoRef.current;
     if (!video || !isInitialized.current) return;
 
-    const handleHover = async () => {
-      try {
-        if (isHovering) {
-          if (video.muted) {
-            video.muted = false;
-          }
-          await video.play().catch(() => {});
-        } else {
-          video.muted = true;
-        }
-      } catch (err) {
-        console.error("Hover state change error:", err);
+    try {
+      if (isHovering) {
+        video.muted = false;
+        await video.play().catch(() => {});
+      } else {
+        video.muted = true;
       }
-    };
-
-    handleHover();
+    } catch (err) {
+      console.error("Hover state change error:", err);
+    }
   }, [isHovering]);
 
-  const handleMouseEnter = () => {
-    setIsHovering(true);
-  };
+  // Initialize video only once
+  useEffect(() => {
+    initializeVideo();
+    return () => {
+      videoRef.current?.pause();
+    };
+  }, [initializeVideo]);
 
-  const handleMouseLeave = () => {
+  // Handle hover changes
+  useEffect(() => {
+    handleHoverState();
+  }, [handleHoverState]);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsHovering(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
     setIsHovering(false);
-  };
+  }, []);
 
   return (
     <section className="overflow-hidden w-full px-2.5">
@@ -69,13 +64,17 @@ const HeroSection: React.FC = () => {
               src="https://jaikvik.com/lab/new-post-video/img/new-cricle-image.png"
               alt="Decorative spinning element"
               className="w-full animate-[spin_15s_linear_infinite]"
-              // loading="lazy"
+              loading="lazy"
+              width={400}
+              height={400}
             />
             <img
               src="https://jaikvik.com/lab/new-post-video/img/rotate-3.png"
               alt="Decorative center element"
               className="absolute w-[900px] mr-7 max-w-none"
-              // loading="lazy"
+              loading="lazy"
+              width={900}
+              height={900}
             />
           </div>
         </div>
@@ -96,6 +95,8 @@ const HeroSection: React.FC = () => {
               preload="auto"
               aria-label="Promotional video"
               poster="images/herosection.png"
+              disablePictureInPicture
+              disableRemotePlayback
             >
               <source
                 src="https://jaikvik.com/lab/new-post-video/img/home-banner/jaikvik-corporate-film.mp4"

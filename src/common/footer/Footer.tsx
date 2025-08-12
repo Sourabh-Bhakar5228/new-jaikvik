@@ -143,7 +143,7 @@ const Footer = () => {
                 </li>
                 <li className="flex items-center gap-2 mt-2">
                   <Link
-                    to="/coustmised-software"
+                    to="/customized-software"
                     className="text-main-gray hover:underline transition-all duration-300"
                   >
                     Software Development
@@ -379,7 +379,7 @@ const Footer = () => {
                 </li>
                 <li className="flex items-center gap-2 mt-2">
                   <Link
-                    to="/coustmised-software"
+                    to="/customized-software"
                     className="text-main-gray hover:underline transition-all duration-300"
                   >
                     Software Development

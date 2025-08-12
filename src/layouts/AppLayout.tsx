@@ -1,15 +1,16 @@
-import { Outlet, ScrollRestoration } from "react-router-dom";
-
-// commons
+import { Outlet } from "react-router-dom";
 import Navbar from "../common/navbar/Navbar";
 import Footer from "../common/footer/Footer";
+import SEOManager from "../components/SEOManager";
 
 const AppLayout = () => {
   return (
     <>
-      <ScrollRestoration />
+      <SEOManager />
       <Navbar />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

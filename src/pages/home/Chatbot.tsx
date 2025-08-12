@@ -1197,14 +1197,11 @@ const Chatbot: React.FC = () => {
       {/* Toggle Button */}
       {isToggleVisible && (
         <button
-          onClick={toggleChat}
-          aria-label="Open chatbot"
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-blue-700 hover:shadow-xl transition-all duration-300 z-[999] animate-bounce focus:ring-2 focus:ring-blue-300 focus:outline-none"
+          onClick={toggleChat} // Replace with your WhatsApp functionality
+          aria-label="Open WhatsApp"
+          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:bg-[#20b954] hover:shadow-xl transition-all duration-300 z-[999] animate-bounce focus:ring-2 focus:ring-green-300 focus:outline-none"
         >
-          <i
-            className="fa-solid fa-comment-dots text-xl"
-            aria-hidden="true"
-          ></i>
+          <i className="fa-brands fa-whatsapp text-2xl" aria-hidden="true"></i>
         </button>
       )}
 
@@ -1334,16 +1331,6 @@ const Chatbot: React.FC = () => {
             >
               Contact
             </button>
-            {/* <button
-              onClick={() => {
-                setIsCareerOpen(true);
-                trackInteraction("career_popup_opened");
-              }}
-              aria-label="Open career form"
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-purple-600 text-white font-medium hover:from-purple-600 hover:to-purple-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 focus:ring-2 focus:ring-purple-300"
-            >
-              Careers
-            </button> */}
           </div>
         </div>
       </div>

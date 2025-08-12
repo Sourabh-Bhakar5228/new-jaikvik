@@ -4,6 +4,7 @@ import {
   RouterProvider,
   ScrollRestoration,
 } from "react-router-dom";
+import SEOManager from "../components/SEOManager";
 
 // layouts
 import AppLayout from "../layouts/AppLayout";
@@ -149,42 +150,281 @@ const router = createBrowserRouter([
       </>
     ),
     children: [
-      { path: "", element: <Home /> },
-      { path: "about", element: <About /> },
+      {
+        path: "",
+        element: (
+          <>
+            <SEOManager />
+            <Home />
+          </>
+        ),
+      },
+      {
+        path: "about",
+        element: (
+          <>
+            <SEOManager />
+            <About />
+          </>
+        ),
+      },
       {
         path: "blogs",
         children: [
-          { index: true, element: <Blogs /> },
-          { path: ":id", element: <BlogDetail /> },
+          {
+            index: true,
+            element: (
+              <>
+                <SEOManager />
+                <Blogs />
+              </>
+            ),
+          },
+          {
+            path: ":id",
+            element: (
+              <>
+                <SEOManager />
+                <BlogDetail />
+              </>
+            ),
+          },
         ],
       },
-      { path: "contact-us", element: <ContactUs /> },
-      { path: "careers", element: <Careers /> },
-      { path: "crm", element: <CRMPage /> },
-      { path: "mobile-application", element: <Mobile /> },
-      { path: "erp", element: <ERPPage /> },
-      { path: "coustmised-software", element: <CoustmisedSoftware /> },
-      { path: "web-development", element: <WebDevelopment /> },
-      { path: "digital-marketing", element: <DigitalMarketing /> },
-      { path: "social-media-marketing", element: <SocailMediaMarketting /> },
-      { path: "youtube-meta-ads", element: <YoutubeMetaAds /> },
-      { path: "branding", element: <Branding /> },
-      { path: "seo-services", element: <SeoServices /> },
-      { path: "film-production", element: <FilmProduction /> },
-      { path: "packaging", element: <CRMPage /> },
-      { path: "javascript", element: <JavaScript /> },
-      { path: "java", element: <Java /> },
-      { path: "jquery", element: <JQuery /> },
-      { path: "laravel", element: <Laravel /> },
-      { path: "mongodb", element: <MongoDB /> },
-      { path: "node-js", element: <NodeJS /> },
-      { path: "python", element: <Python /> },
-      { path: "react-js", element: <ReactJS /> },
-      { path: "sql", element: <SQL /> },
-      { path: "wordpress", element: <Wordpress /> },
-      { path: "privacy-policy", element: <PrivacyPolicy /> },
-      { path: "portfolio", element: <Portfolio /> },
-      { path: "brochure", element: <Brouchure /> },
+      {
+        path: "contact-us",
+        element: (
+          <>
+            <SEOManager />
+            <ContactUs />
+          </>
+        ),
+      },
+      {
+        path: "careers",
+        element: (
+          <>
+            <SEOManager />
+            <Careers />
+          </>
+        ),
+      },
+      {
+        path: "crm",
+        element: (
+          <>
+            <SEOManager />
+            <CRMPage />
+          </>
+        ),
+      },
+      {
+        path: "mobile-application",
+        element: (
+          <>
+            <SEOManager />
+            <Mobile />
+          </>
+        ),
+      },
+      {
+        path: "erp",
+        element: (
+          <>
+            <SEOManager />
+            <ERPPage />
+          </>
+        ),
+      },
+      {
+        path: "coustmised-software",
+        element: (
+          <>
+            <SEOManager />
+            <CoustmisedSoftware />
+          </>
+        ),
+      },
+      {
+        path: "web-development",
+        element: (
+          <>
+            <SEOManager />
+            <WebDevelopment />
+          </>
+        ),
+      },
+      {
+        path: "digital-marketing",
+        element: (
+          <>
+            <SEOManager />
+            <DigitalMarketing />
+          </>
+        ),
+      },
+      {
+        path: "social-media-marketing",
+        element: (
+          <>
+            <SEOManager />
+            <SocailMediaMarketting />
+          </>
+        ),
+      },
+      {
+        path: "youtube-meta-ads",
+        element: (
+          <>
+            <SEOManager />
+            <YoutubeMetaAds />
+          </>
+        ),
+      },
+      {
+        path: "branding",
+        element: (
+          <>
+            <SEOManager />
+            <Branding />
+          </>
+        ),
+      },
+      {
+        path: "seo-services",
+        element: (
+          <>
+            <SEOManager />
+            <SeoServices />
+          </>
+        ),
+      },
+      {
+        path: "film-production",
+        element: (
+          <>
+            <SEOManager />
+            <FilmProduction />
+          </>
+        ),
+      },
+      {
+        path: "javascript",
+        element: (
+          <>
+            <SEOManager />
+            <JavaScript />
+          </>
+        ),
+      },
+      {
+        path: "java",
+        element: (
+          <>
+            <SEOManager />
+            <Java />
+          </>
+        ),
+      },
+      {
+        path: "jquery",
+        element: (
+          <>
+            <SEOManager />
+            <JQuery />
+          </>
+        ),
+      },
+      {
+        path: "laravel",
+        element: (
+          <>
+            <SEOManager />
+            <Laravel />
+          </>
+        ),
+      },
+      {
+        path: "mongodb",
+        element: (
+          <>
+            <SEOManager />
+            <MongoDB />
+          </>
+        ),
+      },
+      {
+        path: "node-js",
+        element: (
+          <>
+            <SEOManager />
+            <NodeJS />
+          </>
+        ),
+      },
+      {
+        path: "python",
+        element: (
+          <>
+            <SEOManager />
+            <Python />
+          </>
+        ),
+      },
+      {
+        path: "react-js",
+        element: (
+          <>
+            <SEOManager />
+            <ReactJS />
+          </>
+        ),
+      },
+      {
+        path: "sql",
+        element: (
+          <>
+            <SEOManager />
+            <SQL />
+          </>
+        ),
+      },
+      {
+        path: "wordpress",
+        element: (
+          <>
+            <SEOManager />
+            <Wordpress />
+          </>
+        ),
+      },
+      {
+        path: "privacy-policy",
+        element: (
+          <>
+            <SEOManager />
+            <PrivacyPolicy />
+          </>
+        ),
+      },
+      {
+        path: "portfolio",
+        element: (
+          <>
+            <SEOManager />
+            <Portfolio />
+          </>
+        ),
+      },
+      {
+        path: "brochure",
+        element: (
+          <>
+            <SEOManager />
+            <Brouchure />
+          </>
+        ),
+      },
     ],
   },
   {
@@ -196,12 +436,8 @@ const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           { path: "dashboard", element: <Dashboard /> },
-
-          // Website Sections
           { path: "website-sections/navbar", element: <NavbarDashboard /> },
           { path: "website-sections/footer", element: <FooterDashboard /> },
-
-          // Home Page Sections
           { path: "home/hero-section", element: <HeroSectionDashboard /> },
           { path: "home/banners", element: <BannersDashboard /> },
           {
@@ -229,20 +465,10 @@ const router = createBrowserRouter([
           },
           { path: "home/our-team", element: <OurTeamDashboard /> },
           { path: "home/our-clients", element: <OurClientsDashboard /> },
-
-          // About Us
           { path: "about-us", element: <AboutUsDashboard /> },
-
-          // Blogs
           { path: "blogs", element: <BlogsDashboard /> },
-
-          // Careers
           { path: "careers", element: <CareersDashboard /> },
-
-          // Contact Us
           { path: "contact-us", element: <ContactUsDashboard /> },
-
-          // Services
           {
             path: "services/software-development/crm-software",
             element: <CrmSoftwareDashboard />,
@@ -283,19 +509,9 @@ const router = createBrowserRouter([
             path: "services/film-production",
             element: <FilmProductionDashboard />,
           },
-          {
-            path: "profile",
-            element: <AdminProfile />,
-          },
-          {
-            path: "notifications",
-            element: <AdminNotification />,
-          },
-          {
-            path: "settings",
-            element: <AdminSetting />,
-          },
-
+          { path: "profile", element: <AdminProfile /> },
+          { path: "notifications", element: <AdminNotification /> },
+          { path: "settings", element: <AdminSetting /> },
           { path: "*", element: <h2>Admin 404 Page!</h2> },
         ],
       },

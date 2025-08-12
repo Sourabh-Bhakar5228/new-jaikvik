@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { FaArrowRight, FaChevronDown } from "react-icons/fa";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 interface Section {
   id: number;
   title: string;
-  content: React.ReactNode; // Changed from JSX.Element to React.ReactNode
+  content: React.ReactNode;
   image: string;
   alt: string;
   reverse?: boolean;
@@ -19,8 +19,6 @@ interface SectionRef {
 }
 
 const SocialMediaMarketing = () => {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const [heroRef, heroInView] = useInView({
     threshold: 0.5,
     triggerOnce: true,
@@ -29,7 +27,7 @@ const SocialMediaMarketing = () => {
   const [expandedSections, setExpandedSections] = useState<
     Record<number, boolean>
   >(
-    Array.from({ length: 17 }).reduce<Record<number, boolean>>(
+    Array.from({ length: 18 }).reduce<Record<number, boolean>>(
       (acc, _, index) => ({ ...acc, [index]: false }),
       {}
     )
@@ -1881,6 +1879,7 @@ const SocialMediaMarketing = () => {
         <div className="absolute bottom-20 right-16 w-48 h-48 bg-red-800 rounded-lg opacity-10 blur-3xl"></div>
       </motion.div>
 
+      {/* Hero Section */}
       <motion.section
         ref={heroRef}
         className="relative bg-cover bg-center h-[60vh] flex items-center justify-center text-center z-10"
@@ -1919,7 +1918,7 @@ const SocialMediaMarketing = () => {
             <span className="font-bold">Jaikvik Technology</span>.
           </motion.p>
           <motion.button
-            onClick={() => scrollToSection("smm-overview")}
+            onClick={() => scrollToSection("smm-introduction")}
             className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:bg-red-700 hover:shadow-xl"
             aria-label="Explore SMM Strategies"
             whileHover={{ scale: 1.05 }}
@@ -1939,6 +1938,7 @@ const SocialMediaMarketing = () => {
         </motion.div>
       </motion.section>
 
+      {/* Content Sections */}
       <div
         className="w-full mx-auto px-4 py-16 md:py-20 relative z-20 bg-black/90"
         id="smm-overview"

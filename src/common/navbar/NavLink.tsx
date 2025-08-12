@@ -11,7 +11,7 @@ const NavLink: React.FC<{
     <>
       <Link
         to={to as string}
-        className={`uppercase text-sm px-2.5 transition-all duration-300 py-1 ${
+        className={`uppercase text-[12px] px-2.5 transition-all duration-300 py-1 ${
           pathname === to ? "text-red-500" : "text-white hover:text-red-500"
         }`}
       >
