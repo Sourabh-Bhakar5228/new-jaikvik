@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaArrowRight, FaChevronDown } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -53,7 +53,7 @@ interface ExpandedSections {
 }
 
 const CRMPage: React.FC = () => {
-  const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
+  const [expandedSections] = useState<ExpandedSections>({
     0: false,
     1: false,
     2: false,
@@ -859,12 +859,12 @@ const CRMPage: React.FC = () => {
     useInView({ threshold: 0.2, triggerOnce: true })
   );
 
-  const toggleSection = (sectionId: number) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [sectionId]: !prev[sectionId],
-    }));
-  };
+  // const toggleSection = (sectionId: number) => {
+  //   setExpandedSections((prev) => ({
+  //     ...prev,
+  //     [sectionId]: !prev[sectionId],
+  //   }));
+  // };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -872,7 +872,6 @@ const CRMPage: React.FC = () => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-
   return (
     <ErrorBoundary>
       <div className="font-sans text-gray-100 bg-black min-h-screen relative overflow-hidden">
@@ -983,30 +982,19 @@ const CRMPage: React.FC = () => {
                   >
                     {section.title}
                   </motion.h2>
-                  <motion.div
-                    className="text-gray-200 leading-relaxed"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                  >
-                    {section.content}
-                  </motion.div>
-                  <motion.button
-                    onClick={() => toggleSection(index)}
-                    className="flex items-center text-red-500 font-semibold text-base mt-5 transition-colors duration-300 hover:text-red-400"
-                    whileHover={{ x: 5 }}
-                    aria-label={`Toggle ${section.title}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                  >
-                    {expandedSections[index] ? "Show Less" : "Read More"}
-                    <FaArrowRight
-                      className={`ml-2 transition-transform duration-300 ${
-                        expandedSections[index] ? "rotate-90" : ""
-                      }`}
-                    />
-                  </motion.button>
+
+                  {/* Scrollable Text Container */}
+                  <div className="relative group">
+                    <motion.div
+                      className="text-gray-200 leading-relaxed h-[400px] overflow-y-hidden transition-all duration-300 group-hover:overflow-y-auto group-hover:pr-2 scrollbar-thin scrollbar-thumb-red-500/50 scrollbar-track-transparent"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                    >
+                      {section.content}
+                    </motion.div>
+                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-900/80 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
                 </motion.div>
 
                 {/* Image container with two images */}
@@ -1106,9 +1094,12 @@ const CRMPage: React.FC = () => {
                   <summary className="text-base md:text-lg font-semibold text-gray-100 cursor-pointer hover:text-red-400 transition-colors duration-300">
                     {faq.question}
                   </summary>
-                  <p className="text-base md:text-lg text-gray-200 mt-2">
-                    {faq.answer}
-                  </p>
+                  <div className="relative group mt-2">
+                    <p className="text-base md:text-lg text-gray-200 max-h-32 overflow-y-hidden transition-all duration-300 group-hover:overflow-y-auto group-hover:pr-2 scrollbar-thin scrollbar-thumb-red-500/50 scrollbar-track-transparent">
+                      {faq.answer}
+                    </p>
+                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-900/80 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
                 </motion.details>
               ))}
             </div>

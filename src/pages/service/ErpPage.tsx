@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaArrowRight, FaChevronDown } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -50,9 +50,7 @@ interface Section {
 
 const ErpPage: React.FC = () => {
   // State for expanded sections
-  const [expandedSections, setExpandedSections] = useState<
-    Record<number, boolean>
-  >({
+  const [expandedSections] = useState<Record<number, boolean>>({
     0: false,
     1: false,
     2: false,
@@ -535,14 +533,6 @@ const ErpPage: React.FC = () => {
     },
   ];
 
-  // Toggle section expansion
-  const toggleSection = (index: number) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
-
   // Scroll to section
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -550,7 +540,6 @@ const ErpPage: React.FC = () => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-
   return (
     <ErrorBoundary>
       <div className="font-sans text-gray-100 bg-gray-950 min-h-screen relative overflow-hidden">
@@ -633,19 +622,12 @@ const ErpPage: React.FC = () => {
                 <h2 className="text-3xl font-semibold text-purple-400 mb-4">
                   {section.title}
                 </h2>
-                <div className="text-gray-300">{section.content}</div>
-                <button
-                  onClick={() => toggleSection(index)}
-                  className="mt-6 text-purple-400 font-semibold flex items-center hover:text-purple-300 transition-colors duration-300"
-                  aria-label={`Toggle ${section.title} section`}
-                >
-                  {expandedSections[index] ? "Show Less" : "Read More"}
-                  <FaArrowRight
-                    className={`ml-2 transition-transform duration-300 ${
-                      expandedSections[index] ? "rotate-90" : ""
-                    }`}
-                  />
-                </button>
+                <div className="relative group">
+                  <div className="text-gray-300 max-h-96 overflow-y-hidden hover:overflow-y-auto hover:pr-2 scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-transparent transition-all duration-300">
+                    {section.content}
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-gray-900/80 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
               </div>
               <motion.div
                 className="w-full lg:w-1/2"
@@ -720,9 +702,9 @@ const ErpPage: React.FC = () => {
                 },
                 {
                   question:
-                    "What are the benefits of Jaikvik Technology’s ERP?",
+                    "What are the benefits of Jaikvik Technology's ERP?",
                   answer:
-                    "Jaikvik Technology’s ERP offers tailored solutions, enhanced security, scalability, and 24/7 support, reducing costs and boosting efficiency.",
+                    "Jaikvik Technology's ERP offers tailored solutions, enhanced security, scalability, and 24/7 support, reducing costs and boosting efficiency.",
                 },
                 {
                   question: "How does ERP support compliance?",
@@ -741,7 +723,12 @@ const ErpPage: React.FC = () => {
                   <summary className="text-lg font-semibold text-gray-100 cursor-pointer hover:text-purple-400 transition-colors duration-300">
                     {faq.question}
                   </summary>
-                  <p className="text-lg text-gray-300 mt-2">{faq.answer}</p>
+                  <div className="relative group">
+                    <p className="text-lg text-gray-300 mt-2 max-h-32 overflow-y-hidden hover:overflow-y-auto hover:pr-2 scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-transparent transition-all duration-300">
+                      {faq.answer}
+                    </p>
+                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-900/80 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
                 </motion.details>
               ))}
             </div>
