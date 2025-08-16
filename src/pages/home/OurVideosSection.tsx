@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
+import { X, ArrowLeft as BackIcon } from "lucide-react"; // icons
 import ArrowLeft from "../../components/arrows/ArrowLeft";
 import ArrowRight from "../../components/arrows/ArrowRight";
 import ReelVideoCard from "../../components/cards/ReelVideoCard";
@@ -9,13 +10,17 @@ import videos from "../../configs/all-videos";
 
 const OurVideosSection = () => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<{
+    src: string;
+    poster: string;
+  } | null>(null);
 
   const handleVideoHover = (value: boolean) => {
     if (swiperRef.current) {
       if (value) {
-        swiperRef.current.autoplay.stop(); // Pause autoplay on hover
+        swiperRef.current.autoplay.stop();
       } else {
-        swiperRef.current.autoplay.start(); // Resume autoplay when mouse leaves
+        swiperRef.current.autoplay.start();
       }
     }
   };
@@ -29,48 +34,21 @@ const OurVideosSection = () => {
           </a>
         </h2>
       </div>
+
+      {/* Swiper */}
       <div className="w-full group relative">
         <Swiper
           modules={[Navigation, Autoplay]}
           spaceBetween={10}
           slidesPerView={4.5}
           breakpoints={{
-            // Mobile first approach
-            320: {
-              // Small smartphones
-              slidesPerView: 1.2,
-              spaceBetween: 8,
-            },
-            480: {
-              // Larger smartphones
-              slidesPerView: 1.3,
-              spaceBetween: 8,
-            },
-            640: {
-              // Small tablets
-              slidesPerView: 2,
-              spaceBetween: 10,
-            },
-            768: {
-              // Tablets
-              slidesPerView: 2.5,
-              spaceBetween: 10,
-            },
-            1024: {
-              // Small laptops
-              slidesPerView: 3.5,
-              spaceBetween: 10,
-            },
-            1280: {
-              // Desktop
-              slidesPerView: 4.5,
-              spaceBetween: 10,
-            },
-            1536: {
-              // Large screens
-              slidesPerView: 5,
-              spaceBetween: 12,
-            },
+            320: { slidesPerView: 1.2, spaceBetween: 8 },
+            480: { slidesPerView: 1.3, spaceBetween: 8 },
+            640: { slidesPerView: 2, spaceBetween: 10 },
+            768: { slidesPerView: 2.5, spaceBetween: 10 },
+            1024: { slidesPerView: 3.5, spaceBetween: 10 },
+            1280: { slidesPerView: 4.5, spaceBetween: 10 },
+            1536: { slidesPerView: 5, spaceBetween: 12 },
           }}
           navigation={{
             nextEl: ".swiper-button-next",
@@ -80,13 +58,13 @@ const OurVideosSection = () => {
           autoplay={{
             delay: 1000,
             disableOnInteraction: false,
-            pauseOnMouseEnter: true, // Added pause on hover
-            waitForTransition: true, // Smoother autoplay transitions
+            pauseOnMouseEnter: true,
+            waitForTransition: true,
           }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
-          speed={600} // Slightly faster transitions
+          speed={600}
           className="mySwiper !overflow-visible"
         >
           {videos.map((item, index) => (
@@ -94,29 +72,60 @@ const OurVideosSection = () => {
               key={index}
               className="!overflow-visible hover:z-10 transition-transform duration-200"
             >
-              <ReelVideoCard
-                src={item.src}
-                poster={item.poster}
-                onHover={handleVideoHover}
-                aspectRatio="16/9"
-                scale="hover:scale-[1.15]" // Reduced from 125 for better UX
-                classname="transition-all duration-300 ease-in-out" // Changed className to classname
-              />
+              <div
+                className="cursor-pointer"
+                onClick={() => {
+                  // Only open overlay in mobile view
+                  if (window.innerWidth <= 768) {
+                    setSelectedVideo(item);
+                  }
+                }}
+              >
+                <ReelVideoCard
+                  src={item.src}
+                  poster={item.poster}
+                  onHover={handleVideoHover}
+                  aspectRatio="16/9"
+                  scale="hover:scale-[1.15]"
+                  classname="transition-all duration-300 ease-in-out"
+                />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
-        <ArrowLeft
-          onClick={() => {
-            swiperRef.current?.slidePrev();
-          }}
-        />
-        <ArrowRight
-          onClick={() => {
-            swiperRef.current?.slideNext();
-          }}
-        />
+        <ArrowLeft onClick={() => swiperRef.current?.slidePrev()} />
+        <ArrowRight onClick={() => swiperRef.current?.slideNext()} />
       </div>
-      <div className="swiper-pagination top-3 text-right pr-5 -z-10"></div>
+
+      {/* Overlay Fullscreen Video (only for mobile) */}
+      {selectedVideo && (
+        <div className="fixed inset-0 z-[9999] bg-black bg-opacity-95 flex items-center justify-center">
+          {/* Back Icon */}
+          <button
+            className="absolute top-4 left-4 text-white p-2 rounded-full bg-black/40"
+            onClick={() => (window.location.href = "/")} // Back to home
+          >
+            <BackIcon size={24} />
+          </button>
+
+          {/* Close Icon */}
+          <button
+            className="absolute top-4 right-4 text-white p-2 rounded-full bg-black/40"
+            onClick={() => setSelectedVideo(null)}
+          >
+            <X size={26} />
+          </button>
+
+          {/* Video */}
+          <video
+            src={selectedVideo.src}
+            poster={selectedVideo.poster}
+            controls
+            autoPlay
+            className="max-w-full max-h-[90vh] rounded-lg"
+          />
+        </div>
+      )}
     </div>
   );
 };

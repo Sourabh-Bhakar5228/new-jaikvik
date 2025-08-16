@@ -5,10 +5,12 @@ import { Navigation, Autoplay } from "swiper/modules";
 import ArrowLeft from "../../components/arrows/ArrowLeft";
 import ArrowRight from "../../components/arrows/ArrowRight";
 import posts from "../../configs/all-posts";
+import { X, ArrowLeft as BackArrow } from "lucide-react"; // icons
 
 const SocialMediaPostSection = () => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleVideoHover = (value: boolean) => {
     setIsHovered(value);
@@ -16,7 +18,6 @@ const SocialMediaPostSection = () => {
       if (value) {
         swiperRef.current.autoplay.stop();
       } else {
-        // Add a small delay to prevent immediate restart glitch
         setTimeout(() => {
           if (swiperRef.current && !isHovered) {
             swiperRef.current.autoplay.start();
@@ -42,36 +43,12 @@ const SocialMediaPostSection = () => {
           spaceBetween={10}
           slidesPerView={4.5}
           breakpoints={{
-            // when window width is >= 320px
-            320: {
-              slidesPerView: 1.2,
-              spaceBetween: 8,
-            },
-            // when window width is >= 480px
-            480: {
-              slidesPerView: 1.5,
-              spaceBetween: 8,
-            },
-            // when window width is >= 640px
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 8,
-            },
-            // when window width is >= 768px
-            768: {
-              slidesPerView: 2.5,
-              spaceBetween: 10,
-            },
-            // when window width is >= 1024px
-            1024: {
-              slidesPerView: 3.5,
-              spaceBetween: 10,
-            },
-            // when window width is >= 1280px
-            1280: {
-              slidesPerView: 4.5,
-              spaceBetween: 10,
-            },
+            320: { slidesPerView: 1.2, spaceBetween: 8 },
+            480: { slidesPerView: 1.5, spaceBetween: 8 },
+            640: { slidesPerView: 2, spaceBetween: 8 },
+            768: { slidesPerView: 2.5, spaceBetween: 10 },
+            1024: { slidesPerView: 3.5, spaceBetween: 10 },
+            1280: { slidesPerView: 4.5, spaceBetween: 10 },
           }}
           navigation={{
             nextEl: ".swiper-button-next",
@@ -97,26 +74,57 @@ const SocialMediaPostSection = () => {
                 className="hover:scale-[1.15] transition-all duration-300 hover:z-50 hover:shadow-xl rounded-lg overflow-hidden"
                 onMouseEnter={() => handleVideoHover(true)}
                 onMouseLeave={() => handleVideoHover(false)}
+                onClick={() => {
+                  // ✅ open fullscreen only on mobile
+                  if (window.innerWidth < 768) setSelectedImage(item);
+                }}
               >
                 <img
                   src={item}
                   alt="Social media post"
                   className="w-full h-full object-cover hover:brightness-110 transition-all duration-300"
-                  // loading="lazy"
                 />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
         <ArrowLeft
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block"
           onClick={() => swiperRef.current?.slidePrev()}
         />
         <ArrowRight
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block"
           onClick={() => swiperRef.current?.slideNext()}
         />
       </div>
+
+      {/* ✅ Fullscreen overlay for mobile */}
+      {selectedImage && (
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-[9999] md:hidden">
+          {/* Back to Home */}
+          <button
+            className="absolute top-4 left-4 text-white text-2xl"
+            onClick={() => (window.location.href = "/")}
+          >
+            <BackArrow size={28} />
+          </button>
+
+          {/* Close */}
+          <button
+            className="absolute top-4 right-4 text-white text-2xl"
+            onClick={() => setSelectedImage(null)}
+          >
+            <X size={28} />
+          </button>
+
+          {/* Enlarged Image */}
+          <img
+            src={selectedImage}
+            alt="Expanded Post"
+            className="max-h-[90%] max-w-[90%] object-contain rounded-lg"
+          />
+        </div>
+      )}
     </div>
   );
 };
