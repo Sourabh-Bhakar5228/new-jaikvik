@@ -74,7 +74,7 @@ const AdminPanel: React.FC = () => {
             { id: "1", title: "Home", href: "/" },
             { id: "2", title: "About Us", href: "/about" },
             { id: "3", title: "Blogs", href: "/blogs" },
-            { id: "4", title: "Contact", href: "/contact" },
+            { id: "4", title: "Contact", href: "/contact-us" },
             { id: "5", title: "Career", href: "/career" },
           ],
           services: [

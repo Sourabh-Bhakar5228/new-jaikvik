@@ -187,7 +187,7 @@ const defaultContent: AboutContent = {
       description: "Let's discuss how Jaikvik Technology can help...",
       button: {
         text: "Get In Touch",
-        link: "/contact",
+        link: "/contact-us",
       },
     },
   },

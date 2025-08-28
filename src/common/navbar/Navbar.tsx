@@ -594,7 +594,7 @@ const Navbar: React.FC = () => {
               {/* Contact */}
               <li>
                 <Link
-                  to="/contact"
+                  to="/contact-us"
                   className="block px-4 py-3 text-white text-base font-medium rounded-lg border-b border-gray-700/50 hover:bg-gray-800 hover:text-red-400 transition-all duration-200"
                   onClick={toggleOffCanvas}
                 >
