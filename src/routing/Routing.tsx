@@ -9,6 +9,7 @@ import SEOManager from "../components/SEOManager";
 // layouts
 import AppLayout from "../layouts/AppLayout";
 import AdminLayout from "../layouts/AdminLayout";
+import AddTechnologysection from "../Admin/Home/addTechnology/AddTechnologysection";
 
 // pages
 const Home = lazy(() => import("../pages/home/Home"));
@@ -465,6 +466,7 @@ const router = createBrowserRouter([
           },
           { path: "home/our-team", element: <OurTeamDashboard /> },
           { path: "home/our-clients", element: <OurClientsDashboard /> },
+          { path: "home/tech", element: <AddTechnologysection /> },
           { path: "about-us", element: <AboutUsDashboard /> },
           { path: "blogs", element: <BlogsDashboard /> },
           { path: "careers", element: <CareersDashboard /> },

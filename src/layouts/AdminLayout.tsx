@@ -50,6 +50,7 @@ const AdminLayout: React.FC = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -150,6 +151,12 @@ const AdminLayout: React.FC = () => {
           id: "our-team",
           label: "Our Team",
           href: "/admin/home/our-team",
+          icon: <Users size={18} />,
+        },
+        {
+          id: "tech",
+          label: "Tecnology",
+          href: "/admin/home/tech",
           icon: <Users size={18} />,
         },
         {
@@ -352,8 +359,43 @@ const AdminLayout: React.FC = () => {
     return openSubmenus[id] || (item && isSubmenuActive(item)) || false;
   };
 
-  const handleLogout = () => {
-    navigate("/admin");
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Clear client-side storage regardless of API response
+      localStorage.removeItem("authToken");
+      sessionStorage.removeItem("authToken");
+      localStorage.removeItem("userData");
+      sessionStorage.removeItem("userData");
+
+      if (response.ok) {
+        // Redirect to home page
+        navigate("/");
+      } else {
+        console.error("Logout failed");
+        // Still redirect even if API call fails
+        navigate("/admin");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Clear storage and redirect on error too
+      localStorage.removeItem("authToken");
+      sessionStorage.removeItem("authToken");
+      localStorage.removeItem("userData");
+      sessionStorage.removeItem("userData");
+      navigate("/admin");
+    } finally {
+      setIsLoggingOut(false);
+      setProfileOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -367,6 +409,17 @@ const AdminLayout: React.FC = () => {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setNotificationsOpen(false);
+      setProfileOpen(false);
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   return (
@@ -662,9 +715,8 @@ const AdminLayout: React.FC = () => {
                     <div className="p-4 border-t border-red-900">
                       <button
                         onClick={() => {
-                          // Navigate to full notifications page
                           navigate("/admin/notifications");
-                          // setIsOpen(false); // Close dropdown
+                          setNotificationsOpen(false);
                         }}
                         className="w-full py-2 text-red-400 hover:text-red-300 text-sm font-medium flex items-center justify-center transition-colors duration-200"
                       >
@@ -710,22 +762,25 @@ const AdminLayout: React.FC = () => {
                       <NavLink
                         to="/admin/profile"
                         className="block px-4 py-2 text-sm text-gray-300 hover:bg-red-900/20 hover:text-red-400 rounded"
+                        onClick={() => setProfileOpen(false)}
                       >
                         Your Profile
                       </NavLink>
                       <NavLink
                         to="/admin/settings"
                         className="block px-4 py-2 text-sm text-gray-300 hover:bg-red-900/20 hover:text-red-400 rounded"
+                        onClick={() => setProfileOpen(false)}
                       >
                         Settings
                       </NavLink>
                       <hr className="my-1 border-red-900" />
                       <button
                         onClick={handleLogout}
-                        className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-red-900/20 hover:text-red-400 rounded"
+                        disabled={isLoggingOut}
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-red-900/20 hover:text-red-400 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <LogOut size={16} className="mr-2" />
-                        Sign Out
+                        {isLoggingOut ? "Signing Out..." : "Sign Out"}
                       </button>
                     </div>
                   </div>

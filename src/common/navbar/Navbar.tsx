@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   // State for popups and off-canvas menu
-  const [isTranslatePopupOpen, setIsTranslatePopupOpen] = useState(false);
+  // const [isTranslatePopupOpen, setIsTranslatePopupOpen] = useState(false);
   const [isOffCanvasOpen, setIsOffCanvasOpen] = useState(false);
   // const [isSticky, setIsSticky] = useState(false);
   const [isSticky, setIsSticky] = useState<boolean>(false);
@@ -42,24 +42,6 @@ const Navbar: React.FC = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  // Handle click outside for translate popup
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const popup = document.getElementById("translate_popup");
-      const languageLinks = document.querySelectorAll(".language-menu a");
-      const isLanguageLink = Array.from(languageLinks).some((link) =>
-        link.contains(event.target as Node)
-      );
-      const isPopup = popup?.contains(event.target as Node);
-
-      if (!isLanguageLink && !isPopup && isTranslatePopupOpen) {
-        setIsTranslatePopupOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [isTranslatePopupOpen]);
 
   // Close off-canvas when window resizes to desktop
   useEffect(() => {
@@ -306,11 +288,7 @@ const Navbar: React.FC = () => {
 
       {/* Desktop Navigation */}
       <div className="hidden md:block">
-        <NavLayerBottom
-          isSticky={isSticky}
-          isTranslatePopupOpen={isTranslatePopupOpen}
-          setIsTranslatePopupOpen={setIsTranslatePopupOpen}
-        />
+        <NavLayerBottom isSticky={isSticky} />
       </div>
 
       {/* OffCanvas Overlay */}

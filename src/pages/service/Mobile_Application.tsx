@@ -1,20 +1,20 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 // Define TypeScript interface for expandedSections state
-interface ExpandedSections {
-  [key: number]: boolean;
-}
+// interface ExpandedSections {
+//   [key: number]: boolean;
+// }
 
 const MobileApplication = () => {
-  const [setExpandedSections] = useState<ExpandedSections>({
-    0: false,
-    1: false,
-    2: false,
-    3: false,
-  });
+  // const [expandedSections, setExpandedSections] = useState<ExpandedSections>({
+  //   0: false,
+  //   1: false,
+  //   2: false,
+  //   3: false,
+  // });
 
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
@@ -41,12 +41,12 @@ const MobileApplication = () => {
     triggerOnce: true,
   });
 
-  const toggleSection = (sectionId: number) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [sectionId]: !prev[sectionId],
-    }));
-  };
+  // const toggleSection = (sectionId: number) => {
+  //   setExpandedSections((prev: ExpandedSections) => ({
+  //     ...prev,
+  //     [sectionId]: !prev[sectionId],
+  //   }));
+  // };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -438,6 +438,13 @@ const MobileApplication = () => {
                     <li>
                       <span className="font-bold text-red-400">Security</span>:
                       Encryption and authentication to protect user data.
+                    </li>
+                    <li>
+                      <span className="font-bold text-red-400">
+                        Performance Optimization
+                      </span>
+                      : Ensuring fast loading times and smooth operation across
+                      devices.
                     </li>
                   </ul>
                   <p>

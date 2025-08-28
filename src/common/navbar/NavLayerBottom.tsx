@@ -9,20 +9,17 @@ import {
 import type navmenuInterface from "../../interfaces/navmenuInterface";
 import NavMenu from "./NavMenu";
 
+// 🔑 Import your LanguageSelector (flag-based)
+import LanguageSelector from "./LanguageSelector"; // <-- apni file ka path sahi karein
+
 const NavLayerBottom: React.FC<{
   isSticky: boolean;
-  isTranslatePopupOpen: boolean;
-  setIsTranslatePopupOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({
-  isSticky = false,
-  setIsTranslatePopupOpen,
-  isTranslatePopupOpen = false,
-}) => {
+}> = ({ isSticky = false }) => {
   const dropdowns: navmenuInterface[] = [
     {
       title: "Software Development",
       menu: softwareDevelopmentItems,
-      href: "/coustmised-software", // Fixed typo from "coustmised" to "customised"
+      href: "/coustmised-software", // typo fixed
     },
     {
       title: "Website Development",
@@ -46,33 +43,17 @@ const NavLayerBottom: React.FC<{
     },
   ];
 
-  const toggleTranslateDropdown = () => {
-    setIsTranslatePopupOpen((prev) => {
-      const next = !prev;
-      if (!prev) {
-        setTimeout(() => {
-          const select = document.querySelector(
-            "#google_translate_element_popup select"
-          ) as HTMLSelectElement;
-          if (select) {
-            select.focus();
-          }
-        }, 100);
-      }
-      return next;
-    });
-  };
-
   return (
     <>
       <div
-        className={`header-main transition-all shadow-xs  shadow-neutral-950 duration-1000 font-poppins ${
+        className={`header-main transition-all shadow-xs shadow-neutral-950 duration-1000 font-poppins ${
           isSticky
             ? "fixed top-0 left-0 w-full z-[99] shadow-md bg-gray-900 animate-[sticky_1s]"
             : ""
         }`}
       >
         <div className="px-4 py-2 w-full laptop-view flex items-center justify-between">
+          {/* Left - Logo + Menus */}
           <div className="main-menu flex gap-2">
             <div className="w-1/12 pt-1">
               <Link to="/">
@@ -83,34 +64,17 @@ const NavLayerBottom: React.FC<{
                 />
               </Link>
             </div>
-            <ul className="flex items-center  text-[16px] list-none">
+            <ul className="flex items-center text-[16px] list-none">
               {dropdowns.map((item, index) => (
                 <NavMenu key={index} {...item} />
               ))}
             </ul>
           </div>
-          <ul className="flex items-center list-none">
-            <li className="language-menu ml-auto  ">
-              <Link
-                to="/"
-                onClick={toggleTranslateDropdown}
-                className="text-red-500 uppercase px-2.5  text-[15px] py-2.5 hover:text-red-700"
-              >
-                Language
-              </Link>
-              {isTranslatePopupOpen && (
-                <div
-                  id="google_translate_element_popup"
-                  className="translate-popup absolute bg-white shadow-md p-4 mt-2 rounded"
-                >
-                  <select className="border border-gray-300 rounded p-1">
-                    <option value="en">English</option>
-                    <option value="es">Spanish</option>
-                    <option value="fr">French</option>
-                    {/* Add more languages as needed */}
-                  </select>
-                </div>
-              )}
+
+          {/* Right - Language Selector with flags */}
+          <ul className="flex items-center list-none relative">
+            <li className="ml-auto">
+              <LanguageSelector />
             </li>
           </ul>
         </div>
