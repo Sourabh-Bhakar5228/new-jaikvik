@@ -12,20 +12,38 @@ interface Country {
 
 // ✅ Generate all world languages (ISO 639-1)
 const countries: Country[] = ISO6391.getAllCodes().map((code) => {
-  // Try to find a matching flag (based on country code)
   const Flag = (Flags as any)[code.toUpperCase()];
   return {
     code: code.toUpperCase(),
-    name: ISO6391.getNativeName(code), // Native name
-    Flag: Flag || undefined, // Some languages don’t have flags
+    name: ISO6391.getNativeName(code),
+    Flag: Flag || undefined,
     langCode: code,
   };
 });
 
+// ✅ Default = English
+const defaultLang = countries.find((c) => c.langCode === "en") || countries[0];
+
 const LanguageSelector: React.FC = () => {
-  const [selected, setSelected] = useState<Country>(countries[0]);
+  const [selected, setSelected] = useState<Country>(defaultLang);
   const [open, setOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // ✅ Load saved language from localStorage (on mount)
+  useEffect(() => {
+    const savedLang = localStorage.getItem("selectedLang");
+    if (savedLang) {
+      const found = countries.find((c) => c.langCode === savedLang);
+      if (found) setSelected(found);
+    }
+  }, []);
+
+  // ✅ Save language whenever it changes
+  useEffect(() => {
+    if (selected?.langCode) {
+      localStorage.setItem("selectedLang", selected.langCode);
+    }
+  }, [selected]);
 
   // ✅ Load Google Translate script
   useEffect(() => {
@@ -41,6 +59,33 @@ const LanguageSelector: React.FC = () => {
         "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       document.body.appendChild(script);
     }
+  }, []);
+
+  // ✅ Sync with Google Translate dropdown
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const select =
+        document.querySelector<HTMLSelectElement>(".goog-te-combo");
+      if (select) {
+        // Listener for language change
+        select.addEventListener("change", () => {
+          const newLang = select.value;
+          const found = countries.find((c) => c.langCode === newLang);
+          if (found) setSelected(found);
+        });
+
+        // ✅ On first load, apply saved language
+        const savedLang = localStorage.getItem("selectedLang");
+        if (savedLang) {
+          select.value = savedLang;
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        clearInterval(interval);
+      }
+    }, 500);
+
+    return () => clearInterval(interval);
   }, []);
 
   // ✅ Close dropdown when clicking outside
@@ -90,7 +135,7 @@ const LanguageSelector: React.FC = () => {
       {/* Main Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-black rounded-md shadow"
+        className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-black rounded-md shadow text-white"
       >
         {selected.Flag ? (
           <selected.Flag className="w-6 h-4" />
@@ -117,12 +162,12 @@ const LanguageSelector: React.FC = () => {
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute mt-2 max-h-64 overflow-y-auto w-56 bg-black border rounded-md shadow-lg z-50">
+        <div className="absolute mt-2 max-h-64 overflow-y-auto w-56 bg-black text-white border rounded-md shadow-lg z-50">
           {countries.map((country) => (
             <button
               key={country.code}
               onClick={() => changeLanguage(country)}
-              className="flex items-center gap-2 px-4 py-2 hover:bg-gray-500 w-full text-right"
+              className="flex items-center gap-2 px-4 py-2 hover:bg-gray-700 w-full text-left"
             >
               {country.Flag ? (
                 <country.Flag className="w-6 h-4" />
